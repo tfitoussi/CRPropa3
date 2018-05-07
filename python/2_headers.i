@@ -303,6 +303,7 @@
 %feature("notabstract") QuimbyMagneticFieldAdapter;
 %include "crpropa/magneticField/QuimbyMagneticField.h"
 %include "crpropa/magneticField/AMRMagneticField.h"
+%include "crpropa/magneticField/TD13Field.h"
 %include "crpropa/magneticField/JF12Field.h"
 %include "crpropa/magneticField/PT11Field.h"
 %include "crpropa/magneticField/ArchimedeanSpiralField.h"
