@@ -7,7 +7,7 @@
 
 namespace crpropa {
 
-  TD13Field::TD13Field(double Brms, double kmin, double kmax, double gamma, int Nm) {
+  TD13Field::TD13Field(double Brms, double kmin, double kmax, double gamma, int Nm, int seed) {
 
     if (kmin > kmax) {
       throw std::runtime_error("TD13Field: kmin > kmax");
@@ -22,6 +22,9 @@ namespace crpropa {
     } 
 
     Random random;
+    if (seed != 0) { // copied from initTurbulence
+      random.seed(seed);
+    }
 
     // initialize everything
     this->gamma = gamma;
