@@ -15,6 +15,7 @@ JF12Field::JF12Field() {
 	useRegular = true;
 	useStriated = false;
 	useTurbulent = false;
+	useTD13 = false;
 
 	// spiral arm parameters
 	pitch = 11.5 * M_PI / 180;
@@ -101,11 +102,19 @@ void JF12Field::randomStriated(int seed) {
 #ifdef CRPROPA_HAVE_FFTW3F
 void JF12Field::randomTurbulent(int seed) {
 	useTurbulent = true;
+	useTD13 = false;
 	// turbulent field with Kolmogorov spectrum, B_rms = 1 and Lc = 60 parsec
 	turbulentGrid = new VectorGrid(Vector3d(0.), 256, 4 * parsec);
 	initTurbulence(turbulentGrid, 1, 8 * parsec, 272 * parsec, -11./3., seed);
 }
 #endif
+
+void JF12Field::randomTurbulentTD13(int seed) {
+	useTurbulent = true;
+	useTD13 = true;
+	// turbulent field with Kolmogorov spectrum, B_rms = 1 and Lc = 60 parsec
+	td13Field = new TD13Field(1, 2*M_PI/(272*parsec), 2*M_PI/(8*parsec), -11/3., seed);
+}
 
 void JF12Field::setStriatedGrid(ref_ptr<ScalarGrid> grid) {
 	useStriated = true;
@@ -114,7 +123,14 @@ void JF12Field::setStriatedGrid(ref_ptr<ScalarGrid> grid) {
 
 void JF12Field::setTurbulentGrid(ref_ptr<VectorGrid> grid) {
 	useTurbulent = true;
+	useTD13 = false;
 	turbulentGrid = grid;
+}
+
+void JF12Field::setTurbulentTD13(ref_ptr<TD13Field> field) {
+	useTurbulent = true;
+	useTD13 = true;
+	td13Field = field;
 }
 
 ref_ptr<ScalarGrid> JF12Field::getStriatedGrid() {
@@ -277,7 +293,13 @@ double JF12Field::getTurbulentStrength(const Vector3d& pos) const {
 }
 
 Vector3d JF12Field::getTurbulentField(const Vector3d& pos) const {
-	return (turbulentGrid->interpolate(pos) * getTurbulentStrength(pos));
+	Vector3d fieldDirection;
+	if (useTD13) {
+		fieldDirection = td13Field->getField(pos);
+	} else {
+		fieldDirection = turbulentGrid->interpolate(pos);
+	}
+	return (fieldDirection * getTurbulentStrength(pos));
 }
 
 Vector3d JF12Field::getField(const Vector3d& pos) const {

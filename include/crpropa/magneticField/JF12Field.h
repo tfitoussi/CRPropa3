@@ -3,6 +3,7 @@
 
 #include "crpropa/magneticField/MagneticField.h"
 #include "crpropa/Grid.h"
+#include "crpropa/magneticField/TD13Field.h"
 
 namespace crpropa {
 
@@ -29,6 +30,8 @@ private:
 	bool useRegular;
 	bool useStriated;
 	bool useTurbulent;
+	bool useTD13; //in conjunction with useTurbulent:
+	//if this is true, use the TD13Field instead of initTurbulence
 
 	// disk spiral arms
 	double rArms[8];       // radii where each arm crosses the negative x-axis
@@ -57,6 +60,7 @@ private:
 
 	// Turbulent field --------------------------------------------------------
 	ref_ptr<VectorGrid> turbulentGrid;
+	ref_ptr<TD13Field> td13Field;
 	// disk
 	double bDiskTurb[8]; // field strengths in arms at r=5 kpc
 	double bDiskTurb5;   // field strength at r<5kpc
@@ -76,6 +80,7 @@ public:
 	// Create a random realization for the turbulent field
 	void randomTurbulent(int seed = 0);
 #endif
+	void randomTurbulentTD13(int seed = 0);
 
 	/**
 	 * Set a striated grid and activate the striated field component
@@ -88,6 +93,7 @@ public:
 	 * @param grid	vector grid containing a random field of Brms = 1
 	 */
 	void setTurbulentGrid(ref_ptr<VectorGrid> grid);
+	void setTurbulentTD13(ref_ptr<TD13Field> grid);
 
 	ref_ptr<ScalarGrid> getStriatedGrid();
 	ref_ptr<VectorGrid> getTurbulentGrid();
