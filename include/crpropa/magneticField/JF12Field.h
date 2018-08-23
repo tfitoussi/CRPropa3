@@ -80,7 +80,7 @@ public:
 	// Create a random realization for the turbulent field
 	void randomTurbulent(int seed = 0);
 #endif
-	void randomTurbulentTD13(int seed = 0);
+	void randomTurbulentTD13(int Nm = 100, int seed = 0);
 
 	/**
 	 * Set a striated grid and activate the striated field component
