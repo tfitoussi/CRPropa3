@@ -5,8 +5,6 @@
 #include "crpropa/magneticField/MagneticField.h"
 #include "crpropa/Grid.h"
 
-#include <immintrin.h>
-
 namespace crpropa {
 
 std::vector<double> logspace(double start, double stop, size_t N);
