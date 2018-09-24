@@ -47,7 +47,7 @@ private:
   std::vector<double> Ak;
   std::vector<double> k;
 
-  double Nm;
+  int Nm;
 
   int avx_Nm;
   int align_offset;
