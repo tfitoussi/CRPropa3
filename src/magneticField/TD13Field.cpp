@@ -47,14 +47,7 @@ float hsum_float_sse3(__m128 v) {
   //}
 #endif // defined(FAST_TD13)
 
-  TD13Field::TD13Field(double Brms, double kmin, double kmax, double s, int Nm, int seed) {
-
-    // NOTE: the use of the turbulence bend-over scale in the TD13 paper is quite confusing to
-    // me. The paper states that k = l_0 * <k tilde> would be used throughout, yet
-    // surely they do not mean to say that l_0 * <k tilde> should be used for the k in the
-    // scalar product in eq. 2? In this implementation, I've only multiplied in the l_0
-    // in the computation of the Gk, not the actual <k>s used for planar wave evaluation,
-    // since this would yield obviously wrong results...
+  TD13Field::TD13Field(double Brms, double lcorr, double s, double range, int Nm, int seed) {
 
 #ifdef FAST_TD13
     KISS_LOG_INFO << "TD13Field: Using SIMD TD13 implementation" << std::endl;
@@ -69,22 +62,36 @@ float hsum_float_sse3(__m128 v) {
     //}
 #endif
 
-    if (kmin > kmax) {
-      throw std::runtime_error("TD13Field: kmin > kmax");
+    if (range <= 1.) {
+      throw std::runtime_error("TD13Field: range <= 1. Note that range should be equal to kmax/kmin, and kmax logically needs to be larger than kmin.");
     }
 
     if (Nm <= 1) {
       throw std::runtime_error("TD13Field: Nm <= 1. We need at least two wavemodes in order to generate the k distribution properly, and besides -- *what are you doing?!*");
     }
 
-    if (kmin <= 0) {
-      throw std::runtime_error("TD13Field: kmin <= 0");
+    if (lcorr <= 0) {
+      throw std::runtime_error("TD13Field: lcorr <= 0");
     } 
 
     Random random;
     if (seed != 0) { // copied from initTurbulence
       random.seed(seed);
     }
+
+    // compute kmin and kmax
+    // first, we determine lmax using a re-arranged version of the
+    // formula that is also used by turbulentCorrelationLength().
+    // (turbulentCorrelationLength() has a different definition of the
+    // spectral index, which basically includes the volume correction
+    // factor so that it matches up with initTurbulence(). This means
+    // that they need to subtract two from their index, and we don't.
+
+    double lmax = 2*lcorr * s/(s-1) * (1 - pow(range, s-1)) / (1 - pow(range, s));
+    double kmax = 2*M_PI / lmax;
+    double kmin = kmax / range;
+
+    std::cout << turbulentCorrelationLength(2*M_PI/kmax, 2*M_PI/kmin, -s-2) << std::endl;
 
     // initialize everything
     this->Nm = Nm;
