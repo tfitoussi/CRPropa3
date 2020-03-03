@@ -6,9 +6,6 @@
 #include "crpropa/Grid.h"
 
 namespace crpropa {
-
-std::vector<double> logspace(double start, double stop, size_t N);
-
 /**
  * \addtogroup MagneticFields
  * @{
@@ -72,8 +69,7 @@ public:
         @param Nm number of wavemodes that will be used when computing the field. A higher value will give a more accurate representation of the turbulence, but increase the runtime for getField.
         @param seed can be used to seed the random number generator used to generate the field. This works just like in initTurbulence: a seed of 0 will lead to a randomly initialized RNG.
 */  
-    TD13Field(double Brms, double lcorr, double s = 5/3., double range = 100.,
-          int Nm = 100, int seed = 0);
+    TD13Field(double Brms, double Lmin, double Lmax, double s=5/3., double q=0, int Nm=64, int seed=0);
 
     // TODO: bendoverScale: figure out how to improve this, b/c it takes up space in the constructor arguments
     // (Lukas's suggestion was to use a setter for this, but it turns out that's not that easy

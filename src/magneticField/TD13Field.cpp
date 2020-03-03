@@ -13,16 +13,6 @@
 #endif
 
 namespace crpropa {
-
-std::vector<double> logspace(double start, double stop, size_t N) {
-    double delta = stop - start;
-    std::vector<double> values = std::vector<double>(N, 0.);
-    for (int i=0; i<N; i++) {
-        values[i] = pow(10, ((double) i) / ((double) (N-1)) * delta + start);
-    }
-    return values;
-}
-
 #ifdef FAST_TD13
 // code from:
 // https://stackoverflow.com/questions/6996764/fastest-way-to-do-horizontal-float-vector-sum-on-x86
@@ -45,7 +35,7 @@ float hsum_float_sse3(__m128 v) {
   //}
 #endif // defined(FAST_TD13)
 
-  TD13Field::TD13Field(double Brms, double lcorr, double s, double range, int Nm, int seed) {
+TD13Field::TD13Field(double Brms, double Lmin, double Lmax, double s, double q, int Nm, int seed) {
 
 #ifdef FAST_TD13
     KISS_LOG_INFO << "TD13Field: Using SIMD TD13 implementation" << std::endl;
@@ -60,17 +50,9 @@ float hsum_float_sse3(__m128 v) {
     //}
 #endif
 
-    if (range <= 1.) {
-        throw std::runtime_error("TD13Field: range <= 1. Note that range should be equal to kmax/kmin, and kmax logically needs to be larger than kmin.");
-    }
-
     if (Nm <= 1) {
         throw std::runtime_error("TD13Field: Nm <= 1. We need at least two wavemodes in order to generate the k distribution properly, and besides -- *what are you doing?!*");
     }
-
-    if (lcorr <= 0) {
-        throw std::runtime_error("TD13Field: lcorr <= 0");
-    } 
 
     Random random;
     if (seed != 0) { // copied from initTurbulence
@@ -78,18 +60,15 @@ float hsum_float_sse3(__m128 v) {
     }
 
     // compute kmin and kmax
-    // first, we determine lmax using a re-arranged version of the
+    // first, we determine Lmax using a re-arranged version of the
     // formula that is also used by turbulentCorrelationLength().
     // (turbulentCorrelationLength() has a different definition of the
     // spectral index, which basically includes the volume correction
     // factor so that it matches up with initTurbulence(). This means
     // that they need to subtract two from their index, and we don't.
 
-    double lmax = 2*lcorr * s/(s-1) * (1 - pow(range, s-1)) / (1 - pow(range, s));
-    double kmax = 2*M_PI / lmax;
-    double kmin = kmax / range;
-
-    //std::cout << turbulentCorrelationLength(2*M_PI/kmax, 2*M_PI/kmin, -s-2) << std::endl;
+    double kmax = 2*M_PI / Lmin;
+    double kmin = 2*M_PI / Lmax;
 
     // initialize everything
     this->Nm = Nm;
@@ -100,8 +79,12 @@ float hsum_float_sse3(__m128 v) {
     costheta = std::vector<double>(Nm, 0.);
     beta = std::vector<double>(Nm, 0.);
     Ak = std::vector<double>(Nm, 0.);
+    k = std::vector<double>(Nm, 0.);
 
-    k = logspace(log10(kmin), log10(kmax), Nm);
+    double delta = log10(kmax/kmin);
+    for (int i=0; i<Nm; i++) {
+        k[i] = pow(10, log10(kmin) + ((double) i) / ((double) (Nm-1)) * delta);
+    }
 
     // compute Ak
     double delta_k0 = (k[1] - k[0]) / k[1]; // multiply this by k[i] to get delta_k[i]
@@ -161,11 +144,13 @@ float hsum_float_sse3(__m128 v) {
     double theoretical_Ak2_sum = 1/(s-1) * (pow(kmin, -s+1) - pow(kmax, -s+1));
     // integral from kmin to infinity
     double normalization_factor = 1/(s-1) * pow(kmin, -s+1);
+
+    Ak2_sum = Ak2_sum * theoretical_Ak2_sum / normalization_factor;
     
     // only in this loop are the actual Ak computed and stored
     // (this two-step process is necessary in order to normalize the values properly)
     for (int i=0; i<Nm; i++) {
-        Ak[i] = sqrt(2 * Ak[i] / Ak2_sum * theoretical_Ak2_sum / normalization_factor) * Brms;
+        Ak[i] = sqrt(2 * Ak[i] / Ak2_sum ) * Brms;
     }
 
     // generate direction, phase, and polarization for each wavemode
@@ -231,6 +216,7 @@ float hsum_float_sse3(__m128 v) {
     // the extra modes, so they won't influence the result.
     
 
+#ifdef FAST_TD13
     avx_Nm = ( (Nm + 8 - 1)/8 ) * 8; //round up to next larger multiple of 8: align is 256 = 8 * sizeof(float) bit
     avx_data = std::vector<float>(itotal*avx_Nm + 7, 0.);
 
@@ -251,6 +237,7 @@ float hsum_float_sse3(__m128 v) {
 
         avx_data[i + align_offset + avx_Nm*ibeta] = beta[i];
     }
+#endif
 }
 
 Vector3d TD13Field::getField(const Vector3d& pos) const {
