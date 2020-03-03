@@ -35,6 +35,11 @@ if(CMAKE_COMPILER_IS_GNUCXX AND NOT APPLE)
 	message(STATUS "Use --as-needed linker flags!")
 endif(CMAKE_COMPILER_IS_GNUCXX AND NOT APPLE)
 
+SET(USE_SIMD OFF CACHE BOOL "Enable SIMD flags (SSE 1 through 3) in GCC. This is necessary for fast TD13.")
+if (USE_SIMD)
+        SET( CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -msse -msse2 -msse3" )
+endif (USE_SIMD)
+
 # Add build type for profiling
 SET(CMAKE_CXX_FLAGS_PROFILE "${CMAKE_CXX_FLAGS} -ggdb -fno-omit-frame-pointer")
 # Enable extra warnings on debug builds
@@ -75,6 +80,7 @@ list(APPEND CRPROPA_EXTRA_SOURCES "${CMAKE_CURRENT_BINARY_DIR}/src/Version.cpp")
 # ----------------------------------------------------------------------------
 # Dependencies
 # ----------------------------------------------------------------------------
+
 # googletest (provided, see https://code.google.com/p/googletest/wiki/FAQ
 #     Why is it not recommended use a pre-compiled copy of Google Test?)
 option(ENABLE_TESTING "Build tests and enable test target" ON)
@@ -219,6 +225,24 @@ if(FFTW3F_FOUND)
 	add_definitions(-DCRPROPA_HAVE_FFTW3F)
 	list(APPEND CRPROPA_SWIG_DEFINES -DCRPROPA_HAVE_FFTW3F)
 endif(FFTW3F_FOUND)
+
+# SLEEF (optional for fast TD13Field)
+find_library(SLEEF_LIBRARY sleef)
+find_path(SLEEF_INCLUDE_DIR sleef.h include)
+SET(SLEEF_FOUND_STRING "NOT Found!")
+SET(SLEEF_FOUND 0)
+
+if (SLEEF_LIBRARY AND SLEEF_INCLUDE_DIR)
+  list(APPEND CRPROPA_EXTRA_INCLUDES ${SLEEF_INCLUDE_DIR})
+  list(APPEND CRPROPA_EXTRA_LIBRARIES ${SLEEF_LIBRARY})
+  add_definitions(-DCRPROPA_HAVE_SLEEF)
+  SET(SLEEF_FOUND_STRING "Found!")
+  SET(SLEEF_FOUND 1)
+endif(SLEEF_LIBRARY AND SLEEF_INCLUDE_DIR)
+
+message("-- SLEEF: ${SLEEF_FOUND_STRING}")
+message("--   Include:     ${SLEEF_INCLUDE_DIR}")
+message("--   Library:     ${SLEEF_LIBRARY}")
 
 # Quimby (optional for SPH magnetic fields)
 option(ENABLE_QUIMBY "Quimby Support" ON)
@@ -392,6 +416,7 @@ add_library(crpropa SHARED
 	src/module/Tools.cpp
 	src/magneticField/JF12Field.cpp
 	src/magneticField/JF12FieldSolenoidal.cpp
+	src/magneticField/TD13Field.cpp
 	src/magneticField/MagneticField.cpp
 	src/magneticField/MagneticFieldGrid.cpp
 	src/magneticField/PT11Field.cpp
