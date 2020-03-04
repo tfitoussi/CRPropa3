@@ -35,7 +35,7 @@ float hsum_float_sse3(__m128 v) {
   //}
 #endif // defined(FAST_TD13)
 
-TD13Field::TD13Field(double Brms, double Lmin, double Lmax, double s, double q, int Nm, int seed) {
+TD13Field::TD13Field(double Brms, double Lmin, double Lmax, double s, double q, int Nm) {
 
 #ifdef FAST_TD13
     KISS_LOG_INFO << "TD13Field: Using SIMD TD13 implementation" << std::endl;
@@ -54,24 +54,21 @@ TD13Field::TD13Field(double Brms, double Lmin, double Lmax, double s, double q, 
         throw std::runtime_error("TD13Field: Nm <= 1. We need at least two wavemodes in order to generate the k distribution properly, and besides -- *what are you doing?!*");
     }
 
-    Random random;
-    if (seed != 0) { // copied from initTurbulence
-        random.seed(seed);
-    }
+    // initialize everything
+    this->Brms = Brms;
+    this->Nm = Nm;
+    this->Lmax = Lmax;
+    this->Lmin = Lmin;
+    this->q = q;
+    this->s = s;
+}
 
-    // compute kmin and kmax
-    // first, we determine Lmax using a re-arranged version of the
-    // formula that is also used by turbulentCorrelationLength().
-    // (turbulentCorrelationLength() has a different definition of the
-    // spectral index, which basically includes the volume correction
-    // factor so that it matches up with initTurbulence(). This means
-    // that they need to subtract two from their index, and we don't.
+void TD13Field::initTurbulence(const int seed, const bool powerlaw) {
+    Random random;
+    if (seed != 0) random.seed(seed);
 
     double kmax = 2*M_PI / Lmin;
     double kmin = 2*M_PI / Lmax;
-
-    // initialize everything
-    this->Nm = Nm;
 
     xi = std::vector<Vector3d>(Nm, Vector3d(0.));
     kappa = std::vector<Vector3d>(Nm, Vector3d(0.));
@@ -95,7 +92,12 @@ TD13Field::TD13Field(double Brms, double Lmin, double Lmax, double s, double q, 
     //for this loop, the Ak array actually contains Gk*delta_k (ie non-normalized Ak^2)
     for (int i=0; i<Nm; i++) {
         double k = this->k[i];
-        double Gk = pow(k, -s);
+        double Gk;
+        if (powerlaw) {
+            Gk = pow(k, -s);
+        } else {
+            Gk = pow(k,q) / pow( 1+k*k, (s+q)/2. );
+        }
         Ak[i] = Gk * delta_k0 * k;
         Ak2_sum += Ak[i];
     }
@@ -180,6 +182,7 @@ TD13Field::TD13Field(double Brms, double Lmin, double Lmax, double s, double q, 
         this->beta[i] = beta;
     }
 
+#ifdef FAST_TD13
     // copy data into AVX-compatible arrays
     //
     // What is going on here:
@@ -215,8 +218,6 @@ TD13Field::TD13Field(double Brms, double Lmin, double Lmax, double s, double q, 
     // getField() loop is multiplying by (Ak*xi), which is zero for
     // the extra modes, so they won't influence the result.
     
-
-#ifdef FAST_TD13
     avx_Nm = ( (Nm + 8 - 1)/8 ) * 8; //round up to next larger multiple of 8: align is 256 = 8 * sizeof(float) bit
     avx_data = std::vector<float>(itotal*avx_Nm + 7, 0.);
 
@@ -308,6 +309,16 @@ Vector3d TD13Field::getField(const Vector3d& pos) const {
                     hsum_float_sse3(acc2)
                     );
 #endif // FAST_TD13
+}
+
+double TD13Field::getLc() const {
+    // According to Harari et Al JHEP03(2002)045
+    double Lc;
+    Lc = Lmax/2.;
+    Lc*= (s-1.)/s;
+    Lc*= 1 - pow(Lmin/Lmax, s);
+    Lc/= 1 - pow(Lmin/Lmax, s-1);
+    return Lc;
 }
 
 } // namespace crpropa

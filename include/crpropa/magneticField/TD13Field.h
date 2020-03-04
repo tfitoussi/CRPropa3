@@ -33,21 +33,23 @@ namespace crpropa {
  */
 class TD13Field: public MagneticField {
 private:
-    std::vector<Vector3d> xi; //TODO: this is actually psi (as defined in the paper), because I'm stupid. I don't think that's a problem, but I should probably still change it.
+    double Brms;
+    double Lmax, Lmin; 
+    double q, s;
+    int Nm;
+
+    std::vector<Vector3d> xi; 
     std::vector<Vector3d> kappa;
     std::vector<double> phi;
     std::vector<double> costheta;
     std::vector<double> beta;
-
-    std::vector<float> avx_data;
     std::vector<double> Ak;
     std::vector<double> k;
 
-    int Nm;
-
+    // Variable for SLEEF
     int avx_Nm;
     int align_offset;
-
+    std::vector<float> avx_data;
     // iAxi is a combined array containing the product of A * xi
     static const int iAxi0 = 0;
     static const int iAxi1 = 1;
@@ -62,14 +64,15 @@ private:
 public:
     /**
         Create a new instance of TD13Field with the specified parameters. This generates all of the wavemodes according to the given parameters.
-        @param Brms root mean square field strength for generated field
-        @param lcorr the correlation length
-        @param gamma the spectral index, as defined in the TD13 paper. Usually, you'd want to use 5/3 here, which will be comparable to passing -11/3 to `initTurbulence`.
-        @param range How wide a range of wavemodes should be covered. This is the desired ratio between minimal and maximal k (range = kmax/kmin). Internally, this is combined with lcorr to determine kmin and kmax, the minimal and maximal wavenumbers that will be present in the final spectrum.
-        @param Nm number of wavemodes that will be used when computing the field. A higher value will give a more accurate representation of the turbulence, but increase the runtime for getField.
-        @param seed can be used to seed the random number generator used to generate the field. This works just like in initTurbulence: a seed of 0 will lead to a randomly initialized RNG.
-*/  
-    TD13Field(double Brms, double Lmin, double Lmax, double s=5/3., double q=0, int Nm=64, int seed=0);
+        @param Brms         root mean square field strength for generated field
+        @param Lmin, Lmax   minimum and maximum wave length
+        @param q, s         the spectral indexes, as defined in the TD13 paper. Usually, you'd want to use s=5/3 and q=0 here, which will be comparable to passing -11/3 to `initTurbulence`.
+        @param Nm           number of wavemodes that will be used when computing the field. A higher value will give a more accurate representation of the turbulence, but increase the runtime for getField.
+        @param              seed can be used to seed the random number generator used to generate the field. This works just like in initTurbulence: a seed of 0 will lead to a randomly initialized RNG.
+    */  
+    TD13Field(double Brms, double Lmin, double Lmax, double s=5/3., double q=0, int Nm=128);
+
+    void initTurbulence(const int seed=0, const bool powerlaw=false);
 
     // TODO: bendoverScale: figure out how to improve this, b/c it takes up space in the constructor arguments
     // (Lukas's suggestion was to use a setter for this, but it turns out that's not that easy
@@ -80,8 +83,14 @@ public:
        Evaluates the field at the given position.
 
        Theoretical runtime is O(Nm), where Nm is the number of wavemodes.
-*/  
+    */  
     Vector3d getField(const Vector3d& pos) const;
+
+    /**
+        @brief       compute the magnetic field coherence length according to the formula in  Harari et Al JHEP03(2002)045  
+        @return Lc   coherence length of the magnetic field
+    */
+    double getLc() const;
 
     // versions:
     // 4: introduce field versioning;
