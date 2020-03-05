@@ -35,7 +35,7 @@ float hsum_float_sse3(__m128 v) {
   //}
 #endif // defined(FAST_TD13)
 
-TD13Field::TD13Field(double Brms, double Lmin, double Lmax, double s, double q, int Nm) {
+TD13Field::TD13Field(double Brms, double Lmin, double Lmax, double s, double q, int Nm, int seed, const bool powerlaw) {
 
 #ifdef FAST_TD13
     KISS_LOG_INFO << "TD13Field: Using SIMD TD13 implementation" << std::endl;
@@ -61,9 +61,7 @@ TD13Field::TD13Field(double Brms, double Lmin, double Lmax, double s, double q, 
     this->Lmin = Lmin;
     this->q = q;
     this->s = s;
-}
 
-void TD13Field::initTurbulence(const int seed, const bool powerlaw) {
     Random random;
     if (seed != 0) random.seed(seed);
 
@@ -100,6 +98,31 @@ void TD13Field::initTurbulence(const int seed, const bool powerlaw) {
         }
         Ak[i] = Gk * delta_k0 * k;
         Ak2_sum += Ak[i];
+
+        // phi, costheta, and sintheta are for drawing vectors with
+        // uniform distribution on the unit sphere.
+        // This is similar to Random::randVector(): their t is our phi,
+        // z is costheta, and r is sintheta. Our kappa is equivalent to
+        // the return value of randVector(); however, TD13 then reuse
+        // these values to generate a random vector perpendicular to kappa.
+        double phi = random.randUniform(-M_PI, M_PI);
+        double costheta = random.randUniform(-1., 1.);
+        double sintheta = sqrt(1 - costheta*costheta);
+
+        double alpha = random.randUniform(0, 2*M_PI);
+        double beta = random.randUniform(0, 2*M_PI);
+
+        Vector3d kappa = Vector3d ( sintheta * cos(phi), sintheta*sin(phi), costheta );
+        Vector3d xi = Vector3d ( costheta*cos(phi)*cos(alpha) + sin(phi)*sin(alpha),
+	                             costheta*sin(phi)*cos(alpha) - cos(phi)*sin(alpha),
+	                             -sintheta*cos(alpha) );
+
+        this->xi[i] = xi;
+        this->kappa[i] = kappa;
+        this->phi[i] = phi;
+        this->costheta[i] = costheta;
+        this->beta[i] = beta;
+
     }
 
     // To normalize the spectrum to Brms, we basically need to compute
@@ -155,32 +178,6 @@ void TD13Field::initTurbulence(const int seed, const bool powerlaw) {
         Ak[i] = sqrt(2 * Ak[i] / Ak2_sum ) * Brms;
     }
 
-    // generate direction, phase, and polarization for each wavemode
-    for (int i=0; i<Nm; i++) {
-        // phi, costheta, and sintheta are for drawing vectors with
-        // uniform distribution on the unit sphere.
-        // This is similar to Random::randVector(): their t is our phi,
-        // z is costheta, and r is sintheta. Our kappa is equivalent to
-        // the return value of randVector(); however, TD13 then reuse
-        // these values to generate a random vector perpendicular to kappa.
-        double phi = random.randUniform(-M_PI, M_PI);
-        double costheta = random.randUniform(-1., 1.);
-        double sintheta = sqrt(1 - costheta*costheta);
-
-        double alpha = random.randUniform(0, 2*M_PI);
-        double beta = random.randUniform(0, 2*M_PI);
-
-        Vector3d kappa = Vector3d ( sintheta * cos(phi), sintheta*sin(phi), costheta );
-        Vector3d xi = Vector3d ( costheta*cos(phi)*cos(alpha) + sin(phi)*sin(alpha),
-	                             costheta*sin(phi)*cos(alpha) - cos(phi)*sin(alpha),
-	                             -sintheta*cos(alpha) );
-
-        this->xi[i] = xi;
-        this->kappa[i] = kappa;
-        this->phi[i] = phi;
-        this->costheta[i] = costheta;
-        this->beta[i] = beta;
-    }
 
 #ifdef FAST_TD13
     // copy data into AVX-compatible arrays
