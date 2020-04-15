@@ -46,10 +46,10 @@ private:
     std::vector<double> Ak;
     std::vector<double> k;
 
-    // Variable for SLEEF
+    // data for FAST_TD13
     int avx_Nm;
     int align_offset;
-    std::vector<float> avx_data;
+    std::vector<double> avx_data;
     // iAxi is a combined array containing the product of A * xi
     static const int iAxi0 = 0;
     static const int iAxi1 = 1;
@@ -94,8 +94,7 @@ public:
     // 4: introduce field versioning;
     //    add volume correction factor   
     // 5: switch to pure power-law spectrum
-    // 6: switch from kmin&kmax to lcorr&range
-    static int fieldVersion() { return 6; }
+    static int fieldVersion() { return 5; }
 };
 
 /** @} */
