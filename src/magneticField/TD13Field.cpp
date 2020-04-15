@@ -102,16 +102,16 @@ TD13Field::TD13Field(double Brms, double Lmin, double Lmax, double s, double q, 
     //}
 #endif
 
-    if (kmin > kmax) {
-      throw std::runtime_error("TD13Field: kmin > kmax");
+    if (Lmin > Lmax) {
+      throw std::runtime_error("TD13Field: Lmin > Lmax");
     }
 
     if (Nm <= 1) {
         throw std::runtime_error("TD13Field: Nm <= 1. We need at least two wavemodes in order to generate the k distribution properly, and besides -- *what are you doing?!*");
     }
 
-    if (kmin <= 0) {
-      throw std::runtime_error("TD13Field: kmin <= 0");
+    if (Lmin <= 0) {
+      throw std::runtime_error("TD13Field: Lmin <= 0");
     } 
 
     // initialize everything
