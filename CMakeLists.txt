@@ -409,12 +409,16 @@ add_library(crpropa SHARED
   src/magneticField/turbulentField/PlaneWaveTurbulence.cpp
   src/magneticField/turbulentField/SimpleGridTurbulence.cpp
   src/magneticField/TF17Field.cpp
+  src/magneticField/FMO20Field.cpp
   src/advectionField/AdvectionField.cpp
   src/massDistribution/ConstantDensity.cpp
   src/massDistribution/Cordes.cpp
   src/massDistribution/Ferriere.cpp
   src/massDistribution/Massdistribution.cpp
   src/massDistribution/Nakanishi.cpp
+  src/massDistribution/NE2001.cpp
+  src/massDistribution/YMW17.cpp
+  src/FaradayRotation.cpp
 
   ${CRPROPA_EXTRA_SOURCES}
 )

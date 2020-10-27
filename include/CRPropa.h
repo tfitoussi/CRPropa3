@@ -63,6 +63,7 @@
 #include "crpropa/magneticField/PT11Field.h"
 #include "crpropa/magneticField/QuimbyMagneticField.h"
 #include "crpropa/magneticField/TF17Field.h"
+#include "crpropa/magneticField/FMO20Field.h"
 #include "crpropa/magneticField/turbulentField/GridTurbulence.h"
 #include "crpropa/magneticField/turbulentField/HelicalGridTurbulence.h"
 #include "crpropa/magneticField/turbulentField/PlaneWaveTurbulence.h"
@@ -77,6 +78,9 @@
 #include "crpropa/massDistribution/Massdistribution.h"
 #include "crpropa/massDistribution/Ferriere.h"
 #include "crpropa/massDistribution/ConstantDensity.h"
+#include "crpropa/massDistribution/NE2001.h"
+#include "crpropa/massDistribution/YMW17.h"
+#include "crpropa/FaradayRotation.h"
 
 /** \namespace crpropa
  *  @brief CRPropa is a public astrophysical simulation framework for propagating extraterrestrial ultra-high energy particles.

@@ -415,6 +415,7 @@ using namespace crpropa;   // for usage of namespace in header files, necessary
 %include "crpropa/magneticField/JF12FieldSolenoidal.h"
 %include "crpropa/magneticField/PT11Field.h"
 %include "crpropa/magneticField/TF17Field.h"
+%include "crpropa/magneticField/FMO20Field.h"
 %include "crpropa/magneticField/ArchimedeanSpiralField.h"
 %include "crpropa/magneticField/turbulentField/TurbulentField.h"
 %include "crpropa/magneticField/turbulentField/GridTurbulence.h"
@@ -654,4 +655,7 @@ class ParticleCollectorIterator {
 %include "crpropa/massDistribution/Ferriere.h"
 %include "crpropa/massDistribution/Massdistribution.h"
 %include "crpropa/massDistribution/ConstantDensity.h"
+%include "crpropa/massDistribution/FreeElectronDensity.h"
+%include "crpropa/massDistribution/NE2001.h"
+%include "crpropa/massDistribution/YMW17.h"
 
