@@ -243,10 +243,12 @@
 
   PyObject *getRandomParticles_numpyArray(size_t N)
   {
+      PyGILState_STATE gstate = PyGILState_Ensure();
+
       vector<int> particleId;
-			vector<double> energy;
+      vector<double> energy;
       vector<double> galacticLongitudes;
-			vector<double> galacticLatitudes;
+	  vector<double> galacticLatitudes;
       $self->getRandomParticles(N, particleId, energy, galacticLongitudes,
           galacticLatitudes);
 
@@ -270,6 +272,9 @@
       PyList_SET_ITEM(returnList, 1, oEnergy);
       PyList_SET_ITEM(returnList, 2, oLon);
       PyList_SET_ITEM(returnList, 3, oLat);
+
+      PyGILState_Release(gstate);
+
       return returnList;
   }
 
