@@ -61,3 +61,10 @@ class ParticleMapsContainer( ParticleMapsContainer ):
 %include "5_hepid.i"
 #endif // WITH_GALACTIC_LENSES_
 
+/* 6. Faraday Rotation */
+%include "6_faradayrotation.i"
+
+%pythoncode %{
+class FaradayRotation(FaradayRotation):
+    computeFR = FaradayRotation.computeFR_numpyArray
+%}

@@ -435,6 +435,9 @@ add_library(crpropa SHARED
   src/massDistribution/Ferriere.cpp
   src/massDistribution/Massdistribution.cpp
   src/massDistribution/Nakanishi.cpp
+  src/massDistribution/NE2001.cpp
+  src/massDistribution/YMW17.cpp
+  src/FaradayRotation.cpp
 
   ${CRPROPA_EXTRA_SOURCES}
 )

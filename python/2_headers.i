@@ -693,6 +693,9 @@ class ParticleCollectorIterator {
 %include "crpropa/massDistribution/Massdistribution.h"
 %include "crpropa/massDistribution/ConstantDensity.h"
 
+%include "crpropa/massDistribution/FreeElectronDensity.h"
+%include "crpropa/massDistribution/NE2001.h"
+%include "crpropa/massDistribution/YMW17.h"
 
 
 

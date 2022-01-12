@@ -80,6 +80,11 @@
 #include "crpropa/massDistribution/Massdistribution.h"
 #include "crpropa/massDistribution/Ferriere.h"
 #include "crpropa/massDistribution/ConstantDensity.h"
+#include "crpropa/massDistribution/FreeElectronDensity.h"
+#include "crpropa/massDistribution/NE2001.h"
+#include "crpropa/massDistribution/YMW17.h"
+
+#include "crpropa/FaradayRotation.h"
 
 /** \namespace crpropa
  *  @brief CRPropa is a public astrophysical simulation framework for propagating extraterrestrial ultra-high energy particles.

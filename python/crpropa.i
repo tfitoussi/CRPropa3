@@ -63,3 +63,9 @@ ParticleMapsContainer.getRandomParticles = ParticleMapsContainer.getRandomPartic
 
 #endif // WITH_GALACTIC_LENSES_
 
+/* 6. Faraday Rotation */
+%include "6_faradayrotation.i"
+
+%pythoncode %{
+FaradayRotation.computeFR = FaradayRotation.computeFR_numpyArray
+%}
