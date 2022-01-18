@@ -439,6 +439,8 @@ add_library(crpropa SHARED
   src/massDistribution/YMW17.cpp
   src/FaradayRotation.cpp
 
+  src/magneticField/MyGMF.cpp
+
   ${CRPROPA_EXTRA_SOURCES}
 )
 target_link_libraries(crpropa ${CRPROPA_EXTRA_LIBRARIES})

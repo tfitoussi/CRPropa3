@@ -697,6 +697,7 @@ class ParticleCollectorIterator {
 %include "crpropa/massDistribution/NE2001.h"
 %include "crpropa/massDistribution/YMW17.h"
 
+%include "crpropa/magneticField/MyGMF.h"
 
 
 %template(StepLengthModifierRefPtr) crpropa::ref_ptr<crpropa::StepLengthModifier>;
