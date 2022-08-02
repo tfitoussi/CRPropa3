@@ -15,7 +15,7 @@ private:
 	// disk parameters
 	double B_0d;   // magnetic field scale
     bool use_disk;
-	double cos_pitch, sin_pitch, PHI, cos_PHI;  // pitch angle parameters
+	double cos_pitch, sin_pitch, tan_pitch;  // pitch angle parameters
 	double R_sun; // distance between sun and galactic center
     double Phi_0; // disk phase
 

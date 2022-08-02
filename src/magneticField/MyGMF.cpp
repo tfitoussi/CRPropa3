@@ -1,6 +1,5 @@
 #include "crpropa/magneticField/MyGMF.h"
 #include "crpropa/Units.h"
-#include <math.h>
 
 namespace crpropa {
 
@@ -25,6 +24,7 @@ MyGMF::MyGMF(
 	B_0d = B0d;   // magnetic field scale
 	cos_pitch = cos(pitch);
 	sin_pitch = sin(pitch);
+    tan_pitch = sin_pitch / cos_pitch;
 	R_sun = 8.5 * kpc;
     Phi_0 = phi0;
 
@@ -43,13 +43,13 @@ MyGMF::MyGMF(
 }
 
 double MyGMF::logisticalFunction(const double &x, const double &x0, const double &lambda) const {
-    return 1. / (1. + exp(-(abs(x) - x0)/lambda)) ;
+    return 1. / (1. + exp(-(x - x0)/lambda)) ;
 }
 
 double MyGMF::transition(const double r, const double z) const {
     double lf_gc = logisticalFunction(r, R_gc, l_gc); // galactic center
-    double trans_ed =  exp(-(abs(r) - R_sun)/R_b); // edge disk
-    double lf_dh = logisticalFunction(z, z_0, l_dh); // transistion disk - halo
+    double trans_ed =  exp(-(r - R_sun)/R_b); // edge disk
+    double lf_dh = logisticalFunction(fabs(z), z_0, l_dh); // transistion disk - halo
     return lf_gc * trans_ed * (1. - lf_dh);
 }
 
@@ -57,7 +57,8 @@ Vector3d MyGMF::getField(const Vector3d& pos) const {
 	double r = sqrt(pos.x * pos.x + pos.y * pos.y);  // in-plane radius
     double trans = transition(r, pos.z);
 
-	Vector3d B(0.);
+    Vector3d Bdisk(0.);
+    Vector3d Bhalo(0.);
 
     if (use_disk) {
 	    // PT11 paper has B_theta = B * cos(p) but this seems because they define azimuth clockwise, while we have anticlockwise.
@@ -75,13 +76,12 @@ Vector3d MyGMF::getField(const Vector3d& pos) const {
 	    // After some geometry calculations (on whiteboard) one finds:
 	    // Bx = +cos(theta) * B_r - sin(theta) * B_{theta}
 	    // By = -sin(theta) * B_r - cos(theta) * B_{theta}
-	    B.x = sin_pitch * cos_theta - cos_pitch * sin_theta;
-	    B.y = - sin_pitch * sin_theta - cos_pitch * cos_theta;
-	    B *= -1;	// flip magnetic field direction, as B_{theta} and B_{phi} refering to 180 degree rotated field
+	    Bdisk.x = sin_pitch * cos_theta - cos_pitch * sin_theta;
+	    Bdisk.y = - sin_pitch * sin_theta - cos_pitch * cos_theta;
+	    Bdisk *= -1.;	// flip magnetic field direction, as B_{theta} and B_{phi} refering to 180 degree rotated field
 
-		double bMag = cos(theta - cos_pitch / sin_pitch * log(r / R_sun) + Phi_0);
-		bMag *= B_0d * trans;
-		B *= bMag;
+		double angle = theta - log(r / R_sun) / tan_pitch + Phi_0;
+		Bdisk *= B_0d * trans * cos(angle);
     } 
 
     if (use_halo) {
@@ -95,25 +95,25 @@ Vector3d MyGMF::getField(const Vector3d& pos) const {
 
         // Define using a Parker / Archimedean spiral field
 	    // radial direction
-	    B.x += cos_phi * sin_theta;
-	    B.y += sin_phi * sin_theta;
-	    B.z += cos_theta;
+	    Bhalo.x = cos_phi * sin_theta;
+	    Bhalo.y = sin_phi * sin_theta;
+	    Bhalo.z = cos_theta;
 	    
 	    // azimuthal direction	
 	    double C2 = - (rho * sin_theta) / rho_1;
-	    B.x += C2 * (-sin_phi);
-	    B.y += C2 * cos_phi;
+	    Bhalo.x += C2 * (-sin_phi);
+	    Bhalo.y += C2 * cos_phi;
 
 	    // magnetic field switch at z = 0
 	    if (pos.z>0.) {
-	        B *= -1;
+	        Bhalo *= -1;
 	    }
 
         // constant field below rho_0, 1/rho**2 else
         double scale = rho <= R_gc ?  R_gc*R_gc : rho*rho;
-	    B *= B_0h * rho_0 * rho_0 / scale * (1. - trans);
+	    Bhalo *= B_0h * rho_0 * rho_0 / scale * (1. - trans);
     }
-    return B;
+    return Bdisk + Bhalo;
 }
 
 void MyGMF::setUseDisk(bool use) { use_disk = use; }
