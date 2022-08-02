@@ -3,7 +3,8 @@
 ### Bug fixes:
 * Fix of reflective boundary condition for scalar- and vectorgrids
   that showed asymmetry and discontinuities (See issue [#361]).
-  
+* Fix of the data files of the Hackstein EGMF models as well as the corresponding example notebook.
+* Fix of axis normalization of getRotated in Vector3.h.
 
 ### New features:
 * Add modules for first and second order Fermi acceleration
