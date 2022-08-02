@@ -5,50 +5,52 @@
 namespace crpropa {
 
 MyGMF::MyGMF(
-        const double B0, // muG
-        const double Rb, // kpc
-        const double z0, // kpc
-        const double d_, // kpc
+        // disk
+        const double B0d, // muG
         const double pitch, // rad
+        const double phi0, // rad
+        // halo
+        const double B0h, // muG
         const double rho0, // kpc
         const double rho1, // kpc
-        const double lambdar, // kpc
-        const double lambdaz // kpc
+        // transition
+        const double Rgc, // kpc
+        const double lgc, // kpc
+        const double Rb, // kpc
+        const double z0, // kpc
+        const double ldh // kpc
 ){
 	// disk parameters
-	R_b = Rb;
-	d = d_;
-	z_0 = z0;
-	B_0 = B0;
+    setUseDisk(true);
+	B_0d = B0d;   // magnetic field scale
+	cos_pitch = cos(pitch);
+	sin_pitch = sin(pitch);
+	R_sun = 8.5 * kpc;
+    Phi_0 = phi0;
 
+    // halo parameters
+    setUseHalo(true);
+	B_0h = B0h;   // magnetic field scale
     rho_0 = rho0;
     rho_1 = rho1;
 
-	R_sun = 8.5 * kpc;
-
-    lambda_gc = 1. * pc;
-    lambda_r = lambdar;
-    lambda_z = lambdaz;
-
-	cos_pitch = cos(pitch);
-	sin_pitch = sin(pitch);
-	PHI = cos_pitch / sin_pitch * log1p(d / R_sun) - M_PI / 2;
-	cos_PHI = cos(PHI);
-
-    setUseDisk(true);
-    setUseHalo(true);
+    // transition disk - halo
+    R_gc = Rgc; // radius central region
+    l_gc = lgc; // transition central region / disk
+    R_b = Rb; // scale exponential decay disk at Earth
+    z_0 = z0; // altitude transition disk halo
+    l_dh = ldh; // transition disk halo
 }
 
 double MyGMF::logisticalFunction(const double &x, const double &x0, const double &lambda) const {
-    
     return 1. / (1. + exp(-(abs(x) - x0)/lambda)) ;
 }
 
 double MyGMF::transition(const double r, const double z) const {
-    double lf_gc = logisticalFunction(r, rho_0, lambda_gc); // galactic center
-    double lf_ed = logisticalFunction(r, R_b, lambda_r); // edge disk
-    double lf_dh = logisticalFunction(z, z_0, lambda_z); // transistion disk - halo
-    return lf_gc * (1. - lf_ed) * (1. - lf_dh);
+    double lf_gc = logisticalFunction(r, R_gc, l_gc); // galactic center
+    double trans_ed =  exp(-(abs(r) - R_sun)/R_b); // edge disk
+    double lf_dh = logisticalFunction(z, z_0, l_dh); // transistion disk - halo
+    return lf_gc * trans_ed * (1. - lf_dh);
 }
 
 Vector3d MyGMF::getField(const Vector3d& pos) const {
@@ -77,8 +79,8 @@ Vector3d MyGMF::getField(const Vector3d& pos) const {
 	    B.y = - sin_pitch * sin_theta - cos_pitch * cos_theta;
 	    B *= -1;	// flip magnetic field direction, as B_{theta} and B_{phi} refering to 180 degree rotated field
 
-		double bMag = cos(theta - cos_pitch / sin_pitch * log(r / R_sun) + PHI);
-		bMag *= B_0 * trans;
+		double bMag = cos(theta - cos_pitch / sin_pitch * log(r / R_sun) + Phi_0);
+		bMag *= B_0d * trans;
 		B *= bMag;
     } 
 
@@ -108,8 +110,8 @@ Vector3d MyGMF::getField(const Vector3d& pos) const {
 	    }
 
         // constant field below rho_0, 1/rho**2 else
-        double norm = rho <= rho_0 ? 1 : rho_0 * rho_0 / (rho * rho);
-	    B *= B_0 * norm * (1. - trans);
+        double scale = rho <= R_gc ?  R_gc*R_gc : rho*rho;
+	    B *= B_0h * rho_0 * rho_0 / scale * (1. - trans);
     }
     return B;
 }
