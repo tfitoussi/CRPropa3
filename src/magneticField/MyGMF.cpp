@@ -61,26 +61,17 @@ Vector3d MyGMF::getField(const Vector3d& pos) const {
     Vector3d Bhalo(0.);
 
     if (use_disk) {
-	    // PT11 paper has B_theta = B * cos(p) but this seems because they define azimuth clockwise, while we have anticlockwise.
-	    // see Tinyakov 2002 APh 18,165: "local field points to l=90+p" so p=-5 deg gives l=85 and hence clockwise from above.
-	    // so to get local B clockwise in our system, need minus (like Sun etal).
-	    // Ps base their system on Han and Qiao 1994 A&A 288,759 which has a diagram with azimuth clockwise, hence confirmed.
-
-	    // PT11 paper define Earth position at (+8.5, 0, 0) kpc; but usual convention is (-8.5, 0, 0)
-	    // thus we have to rotate our position by 180 degree in azimuth
-	    double theta = M_PI - pos.getPhi();  // azimuth angle theta: PT11 paper uses opposite convention for azimuth
-	    // the following is equivalent to sin(pi - phi) and cos(pi - phi) which is computationally slower
-	    double cos_theta = - pos.x / r;
-	    double sin_theta = pos.y / r;
+	    // the following is equivalent to sin(phi) and cos(phi) which is computationally slower
+	    double cos_phi = pos.x / r;
+	    double sin_phi = pos.y / r;
 
 	    // After some geometry calculations (on whiteboard) one finds:
 	    // Bx = +cos(theta) * B_r - sin(theta) * B_{theta}
 	    // By = -sin(theta) * B_r - cos(theta) * B_{theta}
-	    Bdisk.x = sin_pitch * cos_theta - cos_pitch * sin_theta;
-	    Bdisk.y = - sin_pitch * sin_theta - cos_pitch * cos_theta;
-	    Bdisk *= -1.;	// flip magnetic field direction, as B_{theta} and B_{phi} refering to 180 degree rotated field
+	    Bdisk.x = sin_pitch * cos_phi - cos_pitch * sin_phi;
+	    Bdisk.y = sin_pitch * sin_phi + cos_pitch * cos_phi;
 
-		double angle = theta - log(r / R_sun) / tan_pitch + Phi_0;
+		double angle = pos.getPhi() - log(r / R_sun) / tan_pitch + Phi_0;
 		Bdisk *= B_0d * trans * cos(angle);
     } 
 
