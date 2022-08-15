@@ -13,26 +13,23 @@ namespace crpropa {
 class MyGMF: public MagneticField {
 private:
 	// disk parameters
-	double B_0d;   // magnetic field scale
     bool use_disk;
-	double cos_pitch, sin_pitch, tan_pitch;  // pitch angle parameters
+	double B0_D;   // magnetic field scale
+	double cos_pitch, sin_pitch, inv_tan_pitch, PHI, cos_PHI;  // pitch angle parameters
 	double R_sun; // distance between sun and galactic center
-    double Phi_0; // disk phase
+    double R_c; // constant central region
 
     // halo parameters
     bool use_halo;
-	double B_0h;   // magnetic field scale
+	double B0_H;   // magnetic field scale
     double rho_0;
     double rho_1;
 
     // transition disk - halo
-    double R_gc; // radius central region
-    double l_gc; // transition central region / disk
-    double R_b; // scale exponential decay disk at Earth
     double z_0; // altitude transition disk halo
     double l_dh; // transition disk halo 
 
-    double transition(const double r, const double z) const;
+    double transition(const double z) const;
 
 public:
     double logisticalFunction(const double &x, const double &x0, const double &lambda) const;
@@ -41,15 +38,13 @@ public:
         // disk
         const double B0d, // muG
         const double pitch, // rad
-        const double phi0, // rad
+        const double Rc, // kpc
+        const double d, // kpc
         // halo
         const double B0h, // muG
         const double rho0, // kpc
         const double rho1, // kpc
         // transition
-        const double Rgc, // kpc
-        const double lgc, // kpc
-        const double Rb, // kpc
         const double z0, // kpc
         const double ldh // kpc
     );

@@ -7,37 +7,34 @@ MyGMF::MyGMF(
         // disk
         const double B0d, // muG
         const double pitch, // rad
-        const double phi0, // rad
+        const double Rc, // kpc
+        const double d, // kpc
         // halo
         const double B0h, // muG
         const double rho0, // kpc
         const double rho1, // kpc
         // transition
-        const double Rgc, // kpc
-        const double lgc, // kpc
-        const double Rb, // kpc
         const double z0, // kpc
         const double ldh // kpc
 ){
 	// disk parameters
     setUseDisk(true);
-	B_0d = B0d;   // magnetic field scale
+	B0_D = B0d;   // magnetic field scale
+	R_sun = 8.5 * kpc;
+    R_c = Rc;
 	cos_pitch = cos(pitch);
 	sin_pitch = sin(pitch);
-    tan_pitch = sin_pitch / cos_pitch;
-	R_sun = 8.5 * kpc;
-    Phi_0 = phi0;
+    inv_tan_pitch = cos_pitch / sin_pitch; // 1 / tan(pitch)
+	PHI =  log1p(d / R_sun) * inv_tan_pitch + M_PI / 2;
+	cos_PHI = cos(PHI);
 
     // halo parameters
     setUseHalo(true);
-	B_0h = B0h;   // magnetic field scale
+	B0_H = B0h;   // magnetic field scale
     rho_0 = rho0;
     rho_1 = rho1;
 
     // transition disk - halo
-    R_gc = Rgc; // radius central region
-    l_gc = lgc; // transition central region / disk
-    R_b = Rb; // scale exponential decay disk at Earth
     z_0 = z0; // altitude transition disk halo
     l_dh = ldh; // transition disk halo
 }
@@ -46,64 +43,61 @@ double MyGMF::logisticalFunction(const double &x, const double &x0, const double
     return 1. / (1. + exp(-(x - x0)/lambda)) ;
 }
 
-double MyGMF::transition(const double r, const double z) const {
-    double lf_gc = logisticalFunction(r, R_gc, l_gc); // galactic center
-    double trans_ed =  exp(-(r - R_sun)/R_b); // edge disk
+double MyGMF::transition(const double z) const {
     double lf_dh = logisticalFunction(fabs(z), z_0, l_dh); // transistion disk - halo
-    return lf_gc * trans_ed * (1. - lf_dh);
+    return 1. - lf_dh;
 }
 
 Vector3d MyGMF::getField(const Vector3d& pos) const {
 	double r = sqrt(pos.x * pos.x + pos.y * pos.y);  // in-plane radius
-    double trans = transition(r, pos.z);
+    double rho = pos.getR(); // spherical radius
+    // the following is equivalent to sin(phi) and cos(phi) which is computationally slower
+    double cos_phi = pos.x / r;
+    double sin_phi = pos.y / r;
+    double trans = transition(pos.z);
 
     Vector3d Bdisk(0.);
     Vector3d Bhalo(0.);
-
     if (use_disk) {
-	    // the following is equivalent to sin(phi) and cos(phi) which is computationally slower
-	    double cos_phi = pos.x / r;
-	    double sin_phi = pos.y / r;
+		double cos_phi = pos.x / r;
+		double sin_phi = pos.y / r;
 
 	    // After some geometry calculations (on whiteboard) one finds:
-	    // Bx = +cos(theta) * B_r - sin(theta) * B_{theta}
-	    // By = -sin(theta) * B_r - cos(theta) * B_{theta}
+	    // Bx = +cos(phi) * B_r - sin(phi) * B_{theta}
+	    // By = +sin(phi) * B_r + cos(phi) * B_{theta}
 	    Bdisk.x = sin_pitch * cos_phi - cos_pitch * sin_phi;
 	    Bdisk.y = sin_pitch * sin_phi + cos_pitch * cos_phi;
 
-		double angle = pos.getPhi() - log(r / R_sun) / tan_pitch + Phi_0;
-		Bdisk *= B_0d * trans * cos(angle);
-    } 
+		double angle = pos.getPhi() + log(r / R_sun)  * inv_tan_pitch - PHI;
+        double B_mag = B0_D * R_sun / std::max(r, R_c) / cos_PHI;
+
+		Bdisk *= B_mag * cos(angle) * trans;
+    }
 
     if (use_halo) {
-        double rho = pos.getR(); // spherical radius
-        double theta = pos.getTheta();
-        double phi = pos.getPhi();
-        double cos_phi = cos(phi);
-        double sin_phi = sin(phi);
-        double cos_theta = cos(theta);
-        double sin_theta = sin(theta);
-
-        // Define using a Parker / Archimedean spiral field
-	    // radial direction
-	    Bhalo.x = cos_phi * sin_theta;
-	    Bhalo.y = sin_phi * sin_theta;
-	    Bhalo.z = cos_theta;
-	    
-	    // azimuthal direction	
-	    double C2 = - (rho * sin_theta) / rho_1;
-	    Bhalo.x += C2 * (-sin_phi);
-	    Bhalo.y += C2 * cos_phi;
-
-	    // magnetic field switch at z = 0
-	    if (pos.z>0.) {
-	        Bhalo *= -1;
-	    }
-
-        // constant field below rho_0, 1/rho**2 else
-        double scale = rho <= R_gc ?  R_gc*R_gc : rho*rho;
-	    Bhalo *= B_0h * rho_0 * rho_0 / scale * (1. - trans);
+        if (rho > 1*kpc) {
+            double theta = pos.getTheta();
+            double cos_theta = cos(theta);
+            double sin_theta = sin(theta);
+    
+            // Define using a Parker / Archimedean spiral field
+    	    // radial direction
+    	    Bhalo.x = cos_phi * sin_theta;
+    	    Bhalo.y = sin_phi * sin_theta;
+    	    Bhalo.z = cos_theta;
+    	    
+    	    // azimuthal direction	
+    	    double C2 = - rho / rho_1 * sin_theta;
+    	    Bhalo.x += C2 * (-sin_phi);
+    	    Bhalo.y += C2 * cos_phi;
+    
+    	    // magnetic field switch at z = 0
+    	    if (pos.z<0.) { Bhalo *= -1; }
+    
+    	    Bhalo *= B0_H * rho_0*rho_0 / (rho*rho) * (1. - trans);
+        }
     }
+
     return Bdisk + Bhalo;
 }
 
