@@ -87,7 +87,7 @@ Vector3d MyGMF::getField(const Vector3d& pos) const {
     	    Bhalo.z = cos_theta;
     	    
     	    // azimuthal direction	
-    	    double C2 = - rho / rho_1 * sin_theta;
+    	    double C2 = + rho / rho_1 * sin_theta;
     	    Bhalo.x += C2 * (-sin_phi);
     	    Bhalo.y += C2 * cos_phi;
     
