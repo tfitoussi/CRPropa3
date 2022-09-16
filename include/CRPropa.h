@@ -84,7 +84,6 @@
 #include "crpropa/massDistribution/NE2001.h"
 #include "crpropa/massDistribution/YMW17.h"
 
-#include "crpropa/FaradayRotation.h"
 #include "crpropa/magneticField/MyGMF.h"
 
 /** \namespace crpropa

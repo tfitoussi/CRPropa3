@@ -437,7 +437,6 @@ add_library(crpropa SHARED
   src/massDistribution/Nakanishi.cpp
   src/massDistribution/NE2001.cpp
   src/massDistribution/YMW17.cpp
-  src/FaradayRotation.cpp
 
   src/magneticField/MyGMF.cpp
 
