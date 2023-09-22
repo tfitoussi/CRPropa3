@@ -7,7 +7,7 @@
 
 namespace crpropa {
 
-Vector3d Ferriere::CMZTrafo(const Vector3d &position) const {
+Vector3d Ferriere::CMZTransformation(const Vector3d &position) const {
 	// set galactocentric coordinate system with the Sun at (-8.5,0.,0.) instead of (8.5, 0, 0) to be consistand with JF12 implementation
 	double x = -position.x;
 	double y = -position.y;
@@ -25,7 +25,7 @@ Vector3d Ferriere::CMZTrafo(const Vector3d &position) const {
 	return pos;
 }
 
-Vector3d Ferriere::DISKTrafo(const Vector3d &position) const {
+Vector3d Ferriere::DiskTransformation(const Vector3d &position) const {
 	// set galactocentric coordinate system with the Sun at (-8.5,0.,0.) instead of (8.5, 0, 0) to be consistand with JF12 implementation
 	double x = -position.x;
 	double y = - position.y;
@@ -63,7 +63,7 @@ double Ferriere::getHIDensity(const Vector3d &position) const {
 	if(R<3*kpc)
 	{
 		// density at center
-		Vector3d pos = CMZTrafo(position);  // coordinate trafo
+		Vector3d pos = CMZTransformation(position);  // coordinate trafo
 		double x = pos.x/pc;  // all units in pc
 		double y = pos.y/pc;
 		double z = pos.z/pc;
@@ -72,7 +72,7 @@ double Ferriere::getHIDensity(const Vector3d &position) const {
 		double nCMZ = 8.8/ccm*exp(-pow_integer<4>((A-125.)/137))*exp(-pow_integer<2>(z/54.));
 
 		// density in disk
-		pos = DISKTrafo(position);  // Corrdinate Trafo
+		pos = DiskTransformation(position);  // Corrdinate Trafo
 		x = pos.x/pc;  // all units in pc
 		y = pos.y/pc;
 		z = pos.z/pc;
@@ -156,7 +156,7 @@ double Ferriere::getH2Density(const Vector3d &position) const{
 
 	if(R<3*kpc) {
 		// density at center
-		Vector3d pos =CMZTrafo(position);  // coord trafo for CMZ
+		Vector3d pos =CMZTransformation(position);  // coord trafo for CMZ
 		double x = pos.x/pc;  // all units in pc
 		double y = pos.y/pc;
 		double z = pos.z/pc;
@@ -166,7 +166,7 @@ double Ferriere::getH2Density(const Vector3d &position) const{
 		nCMZ *= 150/ccm;  // rescaling
 
 		// density in disk
-		pos = DISKTrafo(position);  // coord trafo for disk
+		pos = DiskTransformation(position);  // coord trafo for disk
 		x=pos.x/pc;
 		y=pos.y/pc;
 		z=pos.z/pc;
@@ -198,11 +198,11 @@ double Ferriere::getDensity(const Vector3d &position) const{
 	if(isforH2){
 		n+=getH2Density(position);
 	}
-	// check if all densities are active and raise warning if not
-	if((isforHI && isforHII && isforH2) == false){
+	// check if all densities are deactivated and raise warning if so
+	if((isforHI || isforHII || isforH2) == false){
 		KISS_LOG_WARNING
-			<< "\nCalled getDensity on (partly) deactivated Ferriere \n"
-			<< "gas density model. Make sure this was intentional.";
+			<< "\nCalled getDensity on fully deactivated Ferriere \n"
+			<< "gas density model. The total density is set to 0.";
 	}
 
 	return n;
@@ -220,11 +220,11 @@ double Ferriere::getNucleonDensity(const Vector3d &position) const{
 		n+= 2*getH2Density(position);
 	}
 
-	// check if all densities is active and raise warning if not
-	if((isforHI && isforHII && isforH2) == false){
+	// check if all densities are deactivated and raise warning if so
+	if((isforHI || isforHII || isforH2) == false){
 		KISS_LOG_WARNING
-			<< "\nCalled getNucleonDensity on (partly) deactivated Ferriere \n"
-			<< "gas density model. Make sure this was intentional.";
+			<< "\nCalled getNucleonDensity on fully deactivated Ferriere \n"
+			<< "gas density model. The total density is set to 0.";
 	}
 
 	return n;

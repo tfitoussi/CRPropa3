@@ -101,7 +101,8 @@ void JF12Field::randomStriated(int seed) {
 #ifdef CRPROPA_HAVE_FFTW3F
 void JF12Field::randomTurbulent(int seed) {
 	useTurbulentField = true;
-	// turbulent field with Kolmogorov spectrum, B_rms = 1 and Lc = 60 parsec
+	// turbulent field with Kolmogorov spectrum, B_rms = 1 (will be scaled) and Lc = 60 parsec, and 256 grid points.
+	// Note that the inertial range of the turbulence is less than 2 orders of magnitude.
     const double lMin = 8 * parsec;
     const double lMax = 272 * parsec;
     const double Brms = 1;
@@ -151,16 +152,16 @@ void JF12Field::setUseXField(bool use) {
 }
 
 void JF12Field::setUseStriatedField(bool use) {
-	if ((use) and (striatedGrid)) {
-		KISS_LOG_WARNING << "JF12Field: No striated field set: ignored.";
+	if ((use) and !(striatedGrid)) {
+		KISS_LOG_WARNING << "JF12Field: No striated field set: ignored. Run e.g. randomStriated().";
 		return;
 	}
 	useStriatedField = use;
 }
 
 void JF12Field::setUseTurbulentField(bool use) {
-	if ((use) and (turbulentGrid)) {
-		KISS_LOG_WARNING << "JF12Field: No turbulent field set: ignored.";
+	if ((use) and !(turbulentGrid)) {
+		KISS_LOG_WARNING << "JF12Field: No turbulent field set: ignored. Run e.g. randomTurbulent().";
 		return;
 	}
 	useTurbulentField = use;

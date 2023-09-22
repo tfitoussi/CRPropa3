@@ -77,6 +77,7 @@ public:
 	Vector3d spacing; 	// Spacing vector between gridpoints
 	bool reflective;	// using reflective repetition of the grid instead of periodic
 	interpolationType ipol;	// Interpolation type used between grid points
+	bool clipVolume;	// Set grid values to 0 outside the volume if true
 
 	/** Constructor for cubic grid
 	 @param	origin	Position of the lower left front corner of the volume
@@ -84,7 +85,7 @@ public:
 	 @param spacing	Spacing between grid points
 	 */
 	GridProperties(Vector3d origin, size_t N, double spacing) :
-		origin(origin), Nx(N), Ny(N), Nz(N), spacing(Vector3d(spacing)), reflective(false), ipol(TRILINEAR) {
+		origin(origin), Nx(N), Ny(N), Nz(N), spacing(Vector3d(spacing)), reflective(false), ipol(TRILINEAR), clipVolume(false) {
 	}
 
 	/** Constructor for non-cubic grid
@@ -95,7 +96,7 @@ public:
 	 @param spacing	Spacing between grid points
 	 */
 	GridProperties(Vector3d origin, size_t Nx, size_t Ny, size_t Nz, double spacing) :
-		origin(origin), Nx(Nx), Ny(Ny), Nz(Nz), spacing(Vector3d(spacing)), reflective(false), ipol(TRILINEAR) {
+		origin(origin), Nx(Nx), Ny(Ny), Nz(Nz), spacing(Vector3d(spacing)), reflective(false), ipol(TRILINEAR), clipVolume(false) {
 	}
 
 	/** Constructor for non-cubic grid with spacing vector
@@ -106,7 +107,7 @@ public:
 	 @param spacing	Spacing vector between grid points
 	*/
 	GridProperties(Vector3d origin, size_t Nx, size_t Ny, size_t Nz, Vector3d spacing) :
-		origin(origin), Nx(Nx), Ny(Ny), Nz(Nz), spacing(spacing), reflective(false), ipol(TRILINEAR) {
+		origin(origin), Nx(Nx), Ny(Ny), Nz(Nz), spacing(spacing), reflective(false), ipol(TRILINEAR), clipVolume(false) {
 	}
 	
 	virtual ~GridProperties() {
@@ -119,8 +120,13 @@ public:
 
 	/** set the type of interpolation between grid points.
 	 * @param i: interpolationType (TRILINEAR, TRICUBIC, NEAREST_NEIGHBOUR) */
-	void setInterpolationType(interpolationType i){
+	void setInterpolationType(interpolationType i) {
 		ipol = i;
+	}
+
+	/** If True, the grid is set to zero outside of the volume. */
+	void setClipVolume(bool b) {
+		clipVolume = b;
 	}
 };
 
@@ -140,6 +146,7 @@ class Grid: public Referenced {
 	Vector3d origin; /**< Origin of the volume that is represented by the grid. */
 	Vector3d gridOrigin; /**< Grid origin */
 	Vector3d spacing; /**< Distance between grid points, determines the extension of the grid */
+	bool clipVolume; /**< If set to true, all values outside of the grid will be 0*/
 	bool reflective; /**< If set to true, the grid is repeated reflectively instead of periodically */
 	interpolationType ipolType; /**< Type of interpolation between the grid points */
 
@@ -154,6 +161,8 @@ public:
 		setGridSize(N, N, N);
 		setSpacing(Vector3d(spacing));
 		setReflective(false);
+		setClipVolume(false);
+		setInterpolationType(TRILINEAR);
 	}
 
 	/** Constructor for non-cubic grid
@@ -168,6 +177,8 @@ public:
 		setGridSize(Nx, Ny, Nz);
 		setSpacing(Vector3d(spacing));
 		setReflective(false);
+		setClipVolume(false);
+		setInterpolationType(TRILINEAR);
 	}
 
 	/** Constructor for non-cubic grid with spacing vector
@@ -182,6 +193,8 @@ public:
 		setGridSize(Nx, Ny, Nz);
 		setSpacing(spacing);
 		setReflective(false);
+		setClipVolume(false);
+		setInterpolationType(TRILINEAR);
 	}
 
 	/** Constructor for GridProperties
@@ -190,6 +203,7 @@ public:
 	Grid(const GridProperties &p) :
 		origin(p.origin), spacing(p.spacing), reflective(p.reflective), ipolType(p.ipol) {
 		setGridSize(p.Nx, p.Ny, p.Nz);
+		setClipVolume(p.clipVolume);
 	}
 
 	void setOrigin(Vector3d origin) {
@@ -215,12 +229,17 @@ public:
 		reflective = b;
 	}
 
+	// If set to true, all values outside of the grid will be 0.
+	void setClipVolume(bool b) {
+		clipVolume = b;
+	}
+
 	/** Change the interpolation type to the routine specified by the user. Check if this routine is
 		contained in the enum interpolationType and thus supported by CRPropa.*/
 	void setInterpolationType(interpolationType ipolType) {
 		if (ipolType == TRILINEAR || ipolType == TRICUBIC || ipolType == NEAREST_NEIGHBOUR) {
 			this->ipolType = ipolType;
-			if ((ipolType == TRICUBIC) && (std::is_same<T, Vector3d>::value)){
+			if ((ipolType == TRICUBIC) && (std::is_same<T, Vector3d>::value)) {
 				KISS_LOG_WARNING << "Tricubic interpolation on Grid3d works only with float-precision, doubles will be downcasted";
 		}
 		} else {
@@ -228,9 +247,13 @@ public:
 		}
 	}
 
-	/** returns the positon of the lower left front corner of the volume */
+	/** returns the position of the lower left front corner of the volume */
 	Vector3d getOrigin() const {
 		return origin;
+	}
+
+	bool getClipVolume() const {
+		return clipVolume;
 	}
 
 	size_t getNx() const {
@@ -262,12 +285,22 @@ public:
 	  By default this it the trilinear interpolation. The user can change the
 	  routine with the setInterpolationType function.*/
 	T interpolate(const Vector3d &position) {
-	if (ipolType == TRICUBIC)
-		return tricubicInterpolate(T(), position);
-	else if (ipolType == NEAREST_NEIGHBOUR)
-		return closestValue(position);
-	else
-		return trilinearInterpolate(position);
+		// check for volume
+		if (clipVolume) {
+			Vector3d edge = origin + Vector3d(Nx, Ny, Nz) * spacing;
+			bool isInVolume = (position.x >= origin.x) && (position.x <= edge.x);
+			isInVolume &= (position.y >= origin.y) && (position.y <= edge.y);
+			isInVolume &= (position.z >= origin.z) && (position.z <= edge.z);
+			if (!isInVolume) 
+				return T(0.);
+		} 
+
+		if (ipolType == TRICUBIC)
+			return tricubicInterpolate(T(), position);
+		else if (ipolType == NEAREST_NEIGHBOUR)
+			return closestValue(position);
+		else
+			return trilinearInterpolate(position);
 	}
 
 	/** Inspector & Mutator */
@@ -379,7 +412,7 @@ private:
 		__m128 pos2 = _mm_set1_ps (position*position);
 		__m128 pos3 = _mm_set1_ps (position*position*position);
 
-		/** SIMDY optimized routine to calculate 'res = ((-0.5*p0+3/2.*p1-3/2.*p2+0.5*p3)*pos*pos*pos+(p0-5/2.*p1+p2*2-0.5*p3)*pos*pos+(-0.5*p0+0.5*p2)*pos+p1);'
+		/** SIMD optimized routine to calculate 'res = ((-0.5*p0+3/2.*p1-3/2.*p2+0.5*p3)*pos*pos*pos+(p0-5/2.*p1+p2*2-0.5*p3)*pos*pos+(-0.5*p0+0.5*p2)*pos+p1);'
 			 where terms are used as:
 			term = (-0.5*p0+0.5*p2)*pos
 			term2 = (p0-5/2.*p1+p2*2-0.5*p3)*pos*pos;
@@ -427,7 +460,7 @@ private:
 		__m128 result = CubicInterpolate(interpolateVaryX[0], interpolateVaryX[1], interpolateVaryX[2], interpolateVaryX[3], fX);
 		return convertSimdToVector3f(result);
 		#else // HAVE_SIMD
-		throw std::runtime_error( "Tried to use tricubic Interpolation without SIMD_EXTENSION. SIMD Optimization is neccesary for tricubic interpolation of vector grids.\n");
+		throw std::runtime_error( "Tried to use tricubic Interpolation without SIMD_EXTENSION. SIMD Optimization is necessary for tricubic interpolation of vector grids.\n");
 		#endif // HAVE_SIMD	
 	}
 
@@ -519,48 +552,10 @@ private:
 
 }; // class Grid
 
+typedef Grid<double> Grid1d;
+typedef Grid<float> Grid1f;
 typedef Grid<Vector3f> Grid3f;
 typedef Grid<Vector3d> Grid3d;
-typedef Grid<float> Grid1f;
-typedef Grid<double> Grid1d;
-
-// DEPRECATED: Will be removed in CRPropa v3.2
-class VectorGrid: public Grid3f {
-	void printDeprecation() const {
-		KISS_LOG_WARNING << "VectorGrid is deprecated and will be removed in the future. Replace it with Grid3f (float) or Grid3d (double).";
-	}
-public:
-	VectorGrid(Vector3d origin, size_t N, double spacing) : Grid3f(origin, N, spacing) {
-		printDeprecation();
-	}
-
-	VectorGrid(Vector3d origin, size_t Nx, size_t Ny, size_t Nz, double spacing) : Grid3f(origin, Nx, Ny, Nz, spacing) {
-		printDeprecation();
-	}
-
-	VectorGrid(Vector3d origin, size_t Nx, size_t Ny, size_t Nz, Vector3d spacing) : Grid3f(origin, Nx, Ny, Nz, spacing) {
-		printDeprecation();
-	}
-};
-
-// DEPRECATED: Will be removed in CRPropa v3.2
-class ScalarGrid: public Grid1f {
-	void printDeprecation() const {
-		KISS_LOG_WARNING << "ScalarGrid is deprecated and will be removed in the future. Replace with Grid1f (float) or Grid1d (double).";
-	}
-public:
-	ScalarGrid(Vector3d origin, size_t N, double spacing) : Grid1f(origin, N, spacing) {
-		printDeprecation();
-	}
-
-	ScalarGrid(Vector3d origin, size_t Nx, size_t Ny, size_t Nz, double spacing) : Grid1f(origin, Nx, Ny, Nz, spacing) {
-		printDeprecation();
-	}
-
-	ScalarGrid(Vector3d origin, size_t Nx, size_t Ny, size_t Nz, Vector3d spacing) : Grid1f(origin, Nx, Ny, Nz, spacing) {
-		printDeprecation();
-	}
-};
 
 /** @}*/
 
