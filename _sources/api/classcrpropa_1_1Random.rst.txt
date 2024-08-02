@@ -1,0 +1,17 @@
+.. _exhale_class_classcrpropa_1_1Random:
+
+Class Random
+============
+
+- Defined in :ref:`file_include_crpropa_Random.h`
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: crpropa::Random
+   :project: CRPropa3
+   :members:
+   :protected-members:
+   :undoc-members:

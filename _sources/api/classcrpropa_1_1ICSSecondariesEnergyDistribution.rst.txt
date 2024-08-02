@@ -1,0 +1,17 @@
+.. _exhale_class_classcrpropa_1_1ICSSecondariesEnergyDistribution:
+
+Class ICSSecondariesEnergyDistribution
+======================================
+
+- Defined in :ref:`file_src_module_EMInverseComptonScattering.cpp`
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: crpropa::ICSSecondariesEnergyDistribution
+   :project: CRPropa3
+   :members:
+   :protected-members:
+   :undoc-members:

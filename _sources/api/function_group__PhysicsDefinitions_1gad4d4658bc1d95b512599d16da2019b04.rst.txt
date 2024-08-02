@@ -1,0 +1,14 @@
+.. _exhale_function_group__PhysicsDefinitions_1gad4d4658bc1d95b512599d16da2019b04:
+
+Function crpropa::particleMass
+==============================
+
+- Defined in :ref:`file_src_ParticleMass.cpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: crpropa::particleMass(int)
+   :project: CRPropa3

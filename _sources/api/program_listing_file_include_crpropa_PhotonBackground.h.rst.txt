@@ -1,0 +1,172 @@
+
+.. _program_listing_file_include_crpropa_PhotonBackground.h:
+
+Program Listing for File PhotonBackground.h
+===========================================
+
+|exhale_lsh| :ref:`Return to documentation for file <file_include_crpropa_PhotonBackground.h>` (``include/crpropa/PhotonBackground.h``)
+
+.. |exhale_lsh| unicode:: U+021B0 .. UPWARDS ARROW WITH TIP LEFTWARDS
+
+.. code-block:: cpp
+
+   #ifndef CRPROPA_PHOTONBACKGROUND_H
+   #define CRPROPA_PHOTONBACKGROUND_H
+   
+   #include "crpropa/Common.h"
+   #include "crpropa/Referenced.h"
+   
+   #include <vector>
+   #include <string>
+   
+   namespace crpropa {
+   class PhotonField: public Referenced {
+   public:
+           PhotonField() {
+                   this->fieldName = "AbstractPhotonField";
+                   this->isRedshiftDependent = false;
+           }
+   
+           virtual double getPhotonDensity(double ePhoton, double z = 0.) const = 0;
+           virtual double getMinimumPhotonEnergy(double z) const = 0;
+           virtual double getMaximumPhotonEnergy(double z) const = 0;
+           virtual std::string getFieldName() const {
+                   return this->fieldName;
+           }
+   
+           virtual double getRedshiftScaling(double z) const {
+                   return 1.;
+           };
+   
+           bool hasRedshiftDependence() const {
+                   return this->isRedshiftDependent;
+           }
+   
+           void setFieldName(std::string fieldName) {
+                   this->fieldName = fieldName;
+           }
+   
+   protected:
+           std::string fieldName;
+           bool isRedshiftDependent;
+   };
+   
+   class TabularPhotonField: public PhotonField {
+   public:
+           TabularPhotonField(const std::string fieldName, const bool isRedshiftDependent = true);
+   
+           double getPhotonDensity(double ePhoton, double z = 0.) const;
+           double getRedshiftScaling(double z) const;
+           double getMinimumPhotonEnergy(double z) const;
+           double getMaximumPhotonEnergy(double z) const;
+   
+   protected:
+           void readPhotonEnergy(std::string filePath);
+           void readPhotonDensity(std::string filePath);
+           void readRedshift(std::string filePath);
+           void initRedshiftScaling();
+           void checkInputData() const;
+   
+           std::vector<double> photonEnergies;
+           std::vector<double> photonDensity;
+           std::vector<double> redshifts;
+           std::vector<double> redshiftScalings;
+   };
+   
+   class IRB_Kneiske04: public TabularPhotonField {
+   public:
+           IRB_Kneiske04() : TabularPhotonField("IRB_Kneiske04", true) {}
+   };
+   
+   class IRB_Stecker05: public TabularPhotonField {
+   public:
+           IRB_Stecker05() : TabularPhotonField("IRB_Stecker05", true) {}
+   };
+   
+   class IRB_Franceschini08: public TabularPhotonField {
+   public:
+           IRB_Franceschini08() : TabularPhotonField("IRB_Franceschini08", true) {}
+   };
+   
+   class IRB_Finke10: public TabularPhotonField {
+   public:
+           IRB_Finke10() : TabularPhotonField("IRB_Finke10", true) {}
+   };
+   
+   class IRB_Dominguez11: public TabularPhotonField {
+   public:
+           IRB_Dominguez11() : TabularPhotonField("IRB_Dominguez11", true) {}
+   };
+   
+   class IRB_Gilmore12: public TabularPhotonField {
+   public:
+           IRB_Gilmore12() : TabularPhotonField("IRB_Gilmore12", true) {}
+   };
+   
+   class IRB_Stecker16_upper: public TabularPhotonField {
+   public:
+           IRB_Stecker16_upper() : TabularPhotonField("IRB_Stecker16_upper", true) {}
+   };
+   
+   class IRB_Stecker16_lower: public TabularPhotonField {
+   public:
+           IRB_Stecker16_lower() : TabularPhotonField("IRB_Stecker16_lower", true) {}
+   };
+   
+   class IRB_Saldana21: public TabularPhotonField {
+   public:
+           IRB_Saldana21() : TabularPhotonField("IRB_Saldana21", true) {}
+   };
+   
+   class IRB_Saldana21_upper: public TabularPhotonField {
+   public:
+           IRB_Saldana21_upper() : TabularPhotonField("IRB_Saldana21_upper", true) {}
+   };
+   
+   class IRB_Saldana21_lower: public TabularPhotonField {
+   public:
+           IRB_Saldana21_lower() : TabularPhotonField("IRB_Saldana21_lower", true) {}
+   };
+   
+   class IRB_Finke22: public TabularPhotonField {
+   public:
+           IRB_Finke22() : TabularPhotonField("IRB_Finke22", true) {}
+   };
+   
+   class URB_Protheroe96: public TabularPhotonField {
+   public:
+           URB_Protheroe96() : TabularPhotonField("URB_Protheroe96", false) {}
+   };
+   
+   class URB_Fixsen11: public TabularPhotonField {
+   public:
+           URB_Fixsen11() : TabularPhotonField("URB_Fixsen11", false) {}
+   };
+   
+   class URB_Nitu21: public TabularPhotonField {
+   public:
+           URB_Nitu21() : TabularPhotonField("URB_Nitu21", false) {}
+   };
+   
+   class BlackbodyPhotonField: public PhotonField {
+   public:
+           BlackbodyPhotonField(const std::string fieldName, const double blackbodyTemperature);
+           double getPhotonDensity(double ePhoton, double z = 0.) const;
+           double getMinimumPhotonEnergy(double z) const;
+           double getMaximumPhotonEnergy(double z) const;
+           void setQuantile(double q);
+   
+   protected:
+           double blackbodyTemperature;
+           double quantile;
+   };
+   
+   class CMB: public BlackbodyPhotonField {
+   public:
+           CMB() : BlackbodyPhotonField("CMB", 2.73) {}
+   };
+   
+   
+   } // namespace crpropa
+   
+   #endif // CRPROPA_PHOTONBACKGROUND_H

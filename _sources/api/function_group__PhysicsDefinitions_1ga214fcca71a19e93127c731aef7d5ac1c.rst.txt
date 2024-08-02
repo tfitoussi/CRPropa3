@@ -1,0 +1,14 @@
+.. _exhale_function_group__PhysicsDefinitions_1ga214fcca71a19e93127c731aef7d5ac1c:
+
+Function crpropa::isNucleus
+===========================
+
+- Defined in :ref:`file_src_ParticleID.cpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: crpropa::isNucleus(int)
+   :project: CRPropa3

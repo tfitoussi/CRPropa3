@@ -1,0 +1,14 @@
+.. _exhale_function_group__Core_1ga6cb9f94136149267fbf1bf22d2eca017:
+
+Function crpropa::dumpGridToTxt(ref_ptr<Grid1f>, std::string, double, bool)
+===========================================================================
+
+- Defined in :ref:`file_src_GridTools.cpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: crpropa::dumpGridToTxt(ref_ptr<Grid1f>, std::string, double, bool)
+   :project: CRPropa3

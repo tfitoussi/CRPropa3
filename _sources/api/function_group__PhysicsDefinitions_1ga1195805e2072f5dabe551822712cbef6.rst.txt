@@ -1,0 +1,14 @@
+.. _exhale_function_group__PhysicsDefinitions_1ga1195805e2072f5dabe551822712cbef6:
+
+Function crpropa::H0
+====================
+
+- Defined in :ref:`file_src_Cosmology.cpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: crpropa::H0()
+   :project: CRPropa3

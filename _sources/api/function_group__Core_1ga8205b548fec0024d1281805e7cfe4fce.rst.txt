@@ -1,0 +1,14 @@
+.. _exhale_function_group__Core_1ga8205b548fec0024d1281805e7cfe4fce:
+
+Function crpropa::loadGrid3fFromTxt
+===================================
+
+- Defined in :ref:`file_src_GridTools.cpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: crpropa::loadGrid3fFromTxt(std::string, double)
+   :project: CRPropa3

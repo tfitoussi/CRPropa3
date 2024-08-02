@@ -1,0 +1,14 @@
+.. _exhale_function_group__PhysicsDefinitions_1ga95e0c912b0b7569fc63a1f4fe20c301a:
+
+Function crpropa::omegaM
+========================
+
+- Defined in :ref:`file_src_Cosmology.cpp`
+
+
+Function Documentation
+----------------------
+
+
+.. doxygenfunction:: crpropa::omegaM()
+   :project: CRPropa3

@@ -1,0 +1,43 @@
+.. _exhale_class_classcrpropa_1_1ObserverFeature:
+
+Class ObserverFeature
+=====================
+
+- Defined in :ref:`file_include_crpropa_module_Observer.h`
+
+
+Inheritance Relationships
+-------------------------
+
+Base Type
+*********
+
+- ``public Referenced`` (:ref:`exhale_class_classcrpropa_1_1Referenced`)
+
+
+Derived Types
+*************
+
+- ``public Observer1D`` (:ref:`exhale_class_classcrpropa_1_1Observer1D`)
+- ``public ObserverDetectAll`` (:ref:`exhale_class_classcrpropa_1_1ObserverDetectAll`)
+- ``public ObserverElectronVeto`` (:ref:`exhale_class_classcrpropa_1_1ObserverElectronVeto`)
+- ``public ObserverInactiveVeto`` (:ref:`exhale_class_classcrpropa_1_1ObserverInactiveVeto`)
+- ``public ObserverNeutrinoVeto`` (:ref:`exhale_class_classcrpropa_1_1ObserverNeutrinoVeto`)
+- ``public ObserverNucleusVeto`` (:ref:`exhale_class_classcrpropa_1_1ObserverNucleusVeto`)
+- ``public ObserverParticleIdVeto`` (:ref:`exhale_class_classcrpropa_1_1ObserverParticleIdVeto`)
+- ``public ObserverPhotonVeto`` (:ref:`exhale_class_classcrpropa_1_1ObserverPhotonVeto`)
+- ``public ObserverRedshiftWindow`` (:ref:`exhale_class_classcrpropa_1_1ObserverRedshiftWindow`)
+- ``public ObserverSurface`` (:ref:`exhale_class_classcrpropa_1_1ObserverSurface`)
+- ``public ObserverTimeEvolution`` (:ref:`exhale_class_classcrpropa_1_1ObserverTimeEvolution`)
+- ``public ObserverTracking`` (:ref:`exhale_class_classcrpropa_1_1ObserverTracking`)
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: crpropa::ObserverFeature
+   :project: CRPropa3
+   :members:
+   :protected-members:
+   :undoc-members:

@@ -1,0 +1,17 @@
+.. _exhale_class_structcrpropa_1_1Cosmology:
+
+Class Cosmology
+===============
+
+- Defined in :ref:`file_src_Cosmology.cpp`
+
+
+Class Documentation
+-------------------
+
+
+.. doxygenclass:: crpropa::Cosmology
+   :project: CRPropa3
+   :members:
+   :protected-members:
+   :undoc-members:
