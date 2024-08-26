@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2024-08-02 13:50:39</td>
+            <td class="headerValue">2024-08-26 12:58:50</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">5</td>
@@ -127,17 +127,17 @@
 <a name="65"><span class="lineNum">      65 </span><span class="lineNoCov">          0 :   return _path;</span></a>
 <a name="66"><span class="lineNum">      66 </span>            : };</a>
 <a name="67"><span class="lineNum">      67 </span>            : </a>
-<a name="68"><span class="lineNum">      68 </span><span class="lineCov">     113254 : double interpolate(double x, const std::vector&lt;double&gt; &amp;X,</span></a>
+<a name="68"><span class="lineNum">      68 </span><span class="lineCov">     115705 : double interpolate(double x, const std::vector&lt;double&gt; &amp;X,</span></a>
 <a name="69"><span class="lineNum">      69 </span>            :                 const std::vector&lt;double&gt; &amp;Y) {</a>
 <a name="70"><span class="lineNum">      70 </span>            :         std::vector&lt;double&gt;::const_iterator it = std::upper_bound(X.begin(),</a>
 <a name="71"><span class="lineNum">      71 </span>            :                         X.end(), x);</a>
-<a name="72"><span class="lineNum">      72 </span><span class="lineCov">     113254 :         if (it == X.begin())</span></a>
+<a name="72"><span class="lineNum">      72 </span><span class="lineCov">     115705 :         if (it == X.begin())</span></a>
 <a name="73"><span class="lineNum">      73 </span><span class="lineCov">          1 :                 return Y.front();</span></a>
-<a name="74"><span class="lineNum">      74 </span><span class="lineCov">     113253 :         if (it == X.end())</span></a>
+<a name="74"><span class="lineNum">      74 </span><span class="lineCov">     115704 :         if (it == X.end())</span></a>
 <a name="75"><span class="lineNum">      75 </span><span class="lineCov">          1 :                 return Y.back();</span></a>
 <a name="76"><span class="lineNum">      76 </span>            : </a>
 <a name="77"><span class="lineNum">      77 </span>            :         size_t i = it - X.begin() - 1;</a>
-<a name="78"><span class="lineNum">      78 </span><span class="lineCov">     113252 :         return Y[i] + (x - X[i]) * (Y[i + 1] - Y[i]) / (X[i + 1] - X[i]);</span></a>
+<a name="78"><span class="lineNum">      78 </span><span class="lineCov">     115703 :         return Y[i] + (x - X[i]) * (Y[i + 1] - Y[i]) / (X[i + 1] - X[i]);</span></a>
 <a name="79"><span class="lineNum">      79 </span>            : }</a>
 <a name="80"><span class="lineNum">      80 </span>            : </a>
 <a name="81"><span class="lineNum">      81 </span><span class="lineCov">    9536930 : double interpolate2d(double x, double y, const std::vector&lt;double&gt; &amp;X,</span></a>
@@ -170,28 +170,28 @@
 <a name="108"><span class="lineNum">     108 </span><span class="lineCov">    9536857 :         return ((Y[j+1]-y)/(Y[j+1]-Y[j]))*R1+((y-Y[j])/(Y[j+1]-Y[j]))*R2;</span></a>
 <a name="109"><span class="lineNum">     109 </span>            : }</a>
 <a name="110"><span class="lineNum">     110 </span>            : </a>
-<a name="111"><span class="lineNum">     111 </span><span class="lineCov">        596 : double interpolateEquidistant(double x, double lo, double hi,</span></a>
+<a name="111"><span class="lineNum">     111 </span><span class="lineCov">        571 : double interpolateEquidistant(double x, double lo, double hi,</span></a>
 <a name="112"><span class="lineNum">     112 </span>            :                 const std::vector&lt;double&gt; &amp;Y) {</a>
-<a name="113"><span class="lineNum">     113 </span><span class="lineCov">        596 :         if (x &lt;= lo)</span></a>
+<a name="113"><span class="lineNum">     113 </span><span class="lineCov">        571 :         if (x &lt;= lo)</span></a>
 <a name="114"><span class="lineNum">     114 </span><span class="lineCov">          1 :                 return Y.front();</span></a>
-<a name="115"><span class="lineNum">     115 </span><span class="lineCov">        595 :         if (x &gt;= hi)</span></a>
+<a name="115"><span class="lineNum">     115 </span><span class="lineCov">        570 :         if (x &gt;= hi)</span></a>
 <a name="116"><span class="lineNum">     116 </span><span class="lineCov">          1 :                 return Y.back();</span></a>
 <a name="117"><span class="lineNum">     117 </span>            : </a>
-<a name="118"><span class="lineNum">     118 </span><span class="lineCov">        594 :         double dx = (hi - lo) / (Y.size() - 1);</span></a>
-<a name="119"><span class="lineNum">     119 </span><span class="lineCov">        594 :         double p = (x - lo) / dx;</span></a>
-<a name="120"><span class="lineNum">     120 </span><span class="lineCov">        594 :         size_t i = floor(p);</span></a>
-<a name="121"><span class="lineNum">     121 </span><span class="lineCov">        594 :         return Y[i] + (p - i) * (Y[i + 1] - Y[i]);</span></a>
+<a name="118"><span class="lineNum">     118 </span><span class="lineCov">        569 :         double dx = (hi - lo) / (Y.size() - 1);</span></a>
+<a name="119"><span class="lineNum">     119 </span><span class="lineCov">        569 :         double p = (x - lo) / dx;</span></a>
+<a name="120"><span class="lineNum">     120 </span><span class="lineCov">        569 :         size_t i = floor(p);</span></a>
+<a name="121"><span class="lineNum">     121 </span><span class="lineCov">        569 :         return Y[i] + (p - i) * (Y[i + 1] - Y[i]);</span></a>
 <a name="122"><span class="lineNum">     122 </span>            : }</a>
 <a name="123"><span class="lineNum">     123 </span>            : </a>
-<a name="124"><span class="lineNum">     124 </span><span class="lineCov">        562 : size_t closestIndex(double x, const std::vector&lt;double&gt; &amp;X) {</span></a>
-<a name="125"><span class="lineNum">     125 </span><span class="lineCov">        562 :         size_t i1 = std::lower_bound(X.begin(), X.end(), x) - X.begin();</span></a>
-<a name="126"><span class="lineNum">     126 </span><span class="lineCov">        562 :         if (i1 == 0)</span></a>
+<a name="124"><span class="lineNum">     124 </span><span class="lineCov">        563 : size_t closestIndex(double x, const std::vector&lt;double&gt; &amp;X) {</span></a>
+<a name="125"><span class="lineNum">     125 </span><span class="lineCov">        563 :         size_t i1 = std::lower_bound(X.begin(), X.end(), x) - X.begin();</span></a>
+<a name="126"><span class="lineNum">     126 </span><span class="lineCov">        563 :         if (i1 == 0)</span></a>
 <a name="127"><span class="lineNum">     127 </span>            :                 return i1;</a>
-<a name="128"><span class="lineNum">     128 </span><span class="lineCov">        562 :         size_t i0 = i1 - 1;</span></a>
-<a name="129"><span class="lineNum">     129 </span><span class="lineCov">        562 :         if (std::fabs(X[i0] - x) &lt; std::fabs(X[i1] - x))</span></a>
+<a name="128"><span class="lineNum">     128 </span><span class="lineCov">        563 :         size_t i0 = i1 - 1;</span></a>
+<a name="129"><span class="lineNum">     129 </span><span class="lineCov">        563 :         if (std::fabs(X[i0] - x) &lt; std::fabs(X[i1] - x))</span></a>
 <a name="130"><span class="lineNum">     130 </span>            :                 return i0;</a>
 <a name="131"><span class="lineNum">     131 </span>            :         else</a>
-<a name="132"><span class="lineNum">     132 </span><span class="lineCov">        308 :                 return i1;</span></a>
+<a name="132"><span class="lineNum">     132 </span><span class="lineCov">        305 :                 return i1;</span></a>
 <a name="133"><span class="lineNum">     133 </span>            : }</a>
 <a name="134"><span class="lineNum">     134 </span>            : </a>
 <a name="135"><span class="lineNum">     135 </span>            : } // namespace crpropa</a>

@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2024-08-02 13:50:39</td>
+            <td class="headerValue">2024-08-26 12:58:50</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">52</td>
@@ -345,11 +345,11 @@
 <a name="283"><span class="lineNum">     283 </span><span class="lineCov">          1 :         size_t nNeutrinos = 0;</span></a>
 <a name="284"><span class="lineNum">     284 </span><span class="lineCov">          1 :         size_t nPhotons = 0;</span></a>
 <a name="285"><span class="lineNum">     285 </span>            : </a>
-<a name="286"><span class="lineNum">     286 </span><span class="lineCov">         30 :         for(size_t i = 0; i &lt; c.secondaries.size(); ++i) {</span></a>
-<a name="287"><span class="lineNum">     287 </span><span class="lineCov">         29 :                 int id = (*c.secondaries[i]).current.getId();</span></a>
-<a name="288"><span class="lineNum">     288 </span><span class="lineCov">         29 :                 if (id == 22) nPhotons++;</span></a>
-<a name="289"><span class="lineNum">     289 </span><span class="lineCov">         29 :                 if (id == 11) nElectrons++;</span></a>
-<a name="290"><span class="lineNum">     290 </span><span class="lineCov">         29 :                 if (id == -12) nNeutrinos++;</span></a>
+<a name="286"><span class="lineNum">     286 </span><span class="lineCov">         29 :         for(size_t i = 0; i &lt; c.secondaries.size(); ++i) {</span></a>
+<a name="287"><span class="lineNum">     287 </span><span class="lineCov">         28 :                 int id = (*c.secondaries[i]).current.getId();</span></a>
+<a name="288"><span class="lineNum">     288 </span><span class="lineCov">         28 :                 if (id == 22) nPhotons++;</span></a>
+<a name="289"><span class="lineNum">     289 </span><span class="lineCov">         28 :                 if (id == 11) nElectrons++;</span></a>
+<a name="290"><span class="lineNum">     290 </span><span class="lineCov">         28 :                 if (id == -12) nNeutrinos++;</span></a>
 <a name="291"><span class="lineNum">     291 </span>            :         }</a>
 <a name="292"><span class="lineNum">     292 </span>            : </a>
 <a name="293"><span class="lineNum">     293 </span><span class="lineCov">          1 :         EXPECT_EQ(nElectrons, 10);</span></a>
@@ -434,11 +434,11 @@
 <a name="372"><span class="lineNum">     372 </span><span class="lineCov">          1 :         int A = massNumber(id);</span></a>
 <a name="373"><span class="lineNum">     373 </span><span class="lineCov">          1 :         int Z = chargeNumber(id);</span></a>
 <a name="374"><span class="lineNum">     374 </span>            : </a>
-<a name="375"><span class="lineNum">     375 </span><span class="lineCov">          2 :         for (int i = 0; i &lt; c.secondaries.size(); i++) {</span></a>
-<a name="376"><span class="lineNum">     376 </span><span class="lineCov">          1 :                 E += (*c.secondaries[i]).current.getEnergy();</span></a>
-<a name="377"><span class="lineNum">     377 </span><span class="lineCov">          1 :                 id = (*c.secondaries[i]).current.getId();</span></a>
-<a name="378"><span class="lineNum">     378 </span><span class="lineCov">          1 :                 A += massNumber(id);</span></a>
-<a name="379"><span class="lineNum">     379 </span><span class="lineCov">          1 :                 Z += chargeNumber(id);</span></a>
+<a name="375"><span class="lineNum">     375 </span><span class="lineCov">          9 :         for (int i = 0; i &lt; c.secondaries.size(); i++) {</span></a>
+<a name="376"><span class="lineNum">     376 </span><span class="lineCov">          8 :                 E += (*c.secondaries[i]).current.getEnergy();</span></a>
+<a name="377"><span class="lineNum">     377 </span><span class="lineCov">          8 :                 id = (*c.secondaries[i]).current.getId();</span></a>
+<a name="378"><span class="lineNum">     378 </span><span class="lineCov">          8 :                 A += massNumber(id);</span></a>
+<a name="379"><span class="lineNum">     379 </span><span class="lineCov">          8 :                 Z += chargeNumber(id);</span></a>
 <a name="380"><span class="lineNum">     380 </span>            :         }</a>
 <a name="381"><span class="lineNum">     381 </span><span class="lineCov">          1 :         EXPECT_EQ(12, A);</span></a>
 <a name="382"><span class="lineNum">     382 </span>            :         // nucleon number conserved</a>
@@ -471,11 +471,11 @@
 <a name="409"><span class="lineNum">     409 </span><span class="lineCov">          1 :         int A = massNumber(id);</span></a>
 <a name="410"><span class="lineNum">     410 </span><span class="lineCov">          1 :         int Z = chargeNumber(id);</span></a>
 <a name="411"><span class="lineNum">     411 </span>            : </a>
-<a name="412"><span class="lineNum">     412 </span><span class="lineCov">         38 :         for (int i = 0; i &lt; c.secondaries.size(); i++) {</span></a>
-<a name="413"><span class="lineNum">     413 </span><span class="lineCov">         37 :                 E += (*c.secondaries[i]).current.getEnergy();</span></a>
-<a name="414"><span class="lineNum">     414 </span><span class="lineCov">         37 :                 id = (*c.secondaries[i]).current.getId();</span></a>
-<a name="415"><span class="lineNum">     415 </span><span class="lineCov">         37 :                 A += massNumber(id);</span></a>
-<a name="416"><span class="lineNum">     416 </span><span class="lineCov">         37 :                 Z += chargeNumber(id);</span></a>
+<a name="412"><span class="lineNum">     412 </span><span class="lineCov">         11 :         for (int i = 0; i &lt; c.secondaries.size(); i++) {</span></a>
+<a name="413"><span class="lineNum">     413 </span><span class="lineCov">         10 :                 E += (*c.secondaries[i]).current.getEnergy();</span></a>
+<a name="414"><span class="lineNum">     414 </span><span class="lineCov">         10 :                 id = (*c.secondaries[i]).current.getId();</span></a>
+<a name="415"><span class="lineNum">     415 </span><span class="lineCov">         10 :                 A += massNumber(id);</span></a>
+<a name="416"><span class="lineNum">     416 </span><span class="lineCov">         10 :                 Z += chargeNumber(id);</span></a>
 <a name="417"><span class="lineNum">     417 </span>            :         }</a>
 <a name="418"><span class="lineNum">     418 </span>            : </a>
 <a name="419"><span class="lineNum">     419 </span>            :         // nucleon number conserved</a>
@@ -939,20 +939,20 @@
 <a name="877"><span class="lineNum">     877 </span>            :                                 continue;</a>
 <a name="878"><span class="lineNum">     878 </span>            :                         </a>
 <a name="879"><span class="lineNum">     879 </span>            :                         // expect 2 secondaries (only one pair is considered)</a>
-<a name="880"><span class="lineNum">     880 </span><span class="lineCov">        248 :                         EXPECT_EQ(c.secondaries.size(), 2);</span></a>
+<a name="880"><span class="lineNum">     880 </span><span class="lineCov">        249 :                         EXPECT_EQ(c.secondaries.size(), 2);</span></a>
 <a name="881"><span class="lineNum">     881 </span>            : </a>
 <a name="882"><span class="lineNum">     882 </span>            :                         // expect electron / positron with energies 0 &lt; E &lt; Ephoton</a>
 <a name="883"><span class="lineNum">     883 </span>            :                         double Etot = 0;</a>
-<a name="884"><span class="lineNum">     884 </span><span class="lineCov">        744 :                         for (int j = 0; j &lt; c.secondaries.size(); j++) {</span></a>
-<a name="885"><span class="lineNum">     885 </span><span class="lineCov">        496 :                                 Candidate s = *c.secondaries[j];</span></a>
-<a name="886"><span class="lineNum">     886 </span><span class="lineCov">        496 :                                 EXPECT_EQ(abs(s.current.getId()), 11);</span></a>
-<a name="887"><span class="lineNum">     887 </span><span class="lineCov">        496 :                                 EXPECT_GT(s.current.getEnergy(), 0);</span></a>
-<a name="888"><span class="lineNum">     888 </span><span class="lineCov">        496 :                                 EXPECT_LT(s.current.getEnergy(), Ep);</span></a>
-<a name="889"><span class="lineNum">     889 </span><span class="lineCov">        496 :                                 Etot += s.current.getEnergy();</span></a>
-<a name="890"><span class="lineNum">     890 </span><span class="lineCov">        496 :                         }</span></a>
+<a name="884"><span class="lineNum">     884 </span><span class="lineCov">        747 :                         for (int j = 0; j &lt; c.secondaries.size(); j++) {</span></a>
+<a name="885"><span class="lineNum">     885 </span><span class="lineCov">        498 :                                 Candidate s = *c.secondaries[j];</span></a>
+<a name="886"><span class="lineNum">     886 </span><span class="lineCov">        498 :                                 EXPECT_EQ(abs(s.current.getId()), 11);</span></a>
+<a name="887"><span class="lineNum">     887 </span><span class="lineCov">        498 :                                 EXPECT_GT(s.current.getEnergy(), 0);</span></a>
+<a name="888"><span class="lineNum">     888 </span><span class="lineCov">        498 :                                 EXPECT_LT(s.current.getEnergy(), Ep);</span></a>
+<a name="889"><span class="lineNum">     889 </span><span class="lineCov">        498 :                                 Etot += s.current.getEnergy();</span></a>
+<a name="890"><span class="lineNum">     890 </span><span class="lineCov">        498 :                         }</span></a>
 <a name="891"><span class="lineNum">     891 </span>            : </a>
 <a name="892"><span class="lineNum">     892 </span>            :                         // test energy conservation</a>
-<a name="893"><span class="lineNum">     893 </span><span class="lineCov">        248 :                         EXPECT_NEAR(Ep, Etot, 1E-9);</span></a>
+<a name="893"><span class="lineNum">     893 </span><span class="lineCov">        249 :                         EXPECT_NEAR(Ep, Etot, 1E-9);</span></a>
 <a name="894"><span class="lineNum">     894 </span><span class="lineCov">        420 :                 }</span></a>
 <a name="895"><span class="lineNum">     895 </span>            :         }</a>
 <a name="896"><span class="lineNum">     896 </span><span class="lineCov">          2 : }</span></a>

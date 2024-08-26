@@ -504,13 +504,13 @@ Functions
 
 - :ref:`exhale_function_group__MagneticFields_1ga72edae87b1e7c5f473488e4624598f38`
 
-- :ref:`exhale_function_namespacecrpropa_1ad63beadaef5583c2cc4d1d578c8d554d`
-
-- :ref:`exhale_function_namespacecrpropa_1a7db8bb059dffc37dc4ffff142169a090`
-
 - :ref:`exhale_function_namespacecrpropa_1a448086ceaf529624e117a62fa60e10aa`
 
 - :ref:`exhale_function_namespacecrpropa_1a8676e1e10f07270f85a70588b058abc1`
+
+- :ref:`exhale_function_namespacecrpropa_1a7db8bb059dffc37dc4ffff142169a090`
+
+- :ref:`exhale_function_namespacecrpropa_1ad63beadaef5583c2cc4d1d578c8d554d`
 
 - :ref:`exhale_function_group__Core_1ga706c67f657d8220459a8b5155c479c41`
 

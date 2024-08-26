@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2024-08-02 13:50:39</td>
+            <td class="headerValue">2024-08-26 12:58:50</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">24</td>
@@ -185,134 +185,134 @@
 <a name="123"><span class="lineNum">     123 </span><span class="lineCov">         22 :         infile.close();</span></a>
 <a name="124"><span class="lineNum">     124 </span><span class="lineCov">         22 : }</span></a>
 <a name="125"><span class="lineNum">     125 </span>            : </a>
-<a name="126"><span class="lineNum">     126 </span><span class="lineCov">        611 : double PhotoPionProduction::nucleonMFP(double gamma, double z, bool onProton) const {</span></a>
-<a name="127"><span class="lineNum">     127 </span><span class="lineCov">        611 :         const std::vector&lt;double&gt; &amp;tabRate = (onProton)? tabProtonRate : tabNeutronRate;</span></a>
+<a name="126"><span class="lineNum">     126 </span><span class="lineCov">       1441 : double PhotoPionProduction::nucleonMFP(double gamma, double z, bool onProton) const {</span></a>
+<a name="127"><span class="lineNum">     127 </span><span class="lineCov">       1441 :         const std::vector&lt;double&gt; &amp;tabRate = (onProton)? tabProtonRate : tabNeutronRate;</span></a>
 <a name="128"><span class="lineNum">     128 </span>            : </a>
 <a name="129"><span class="lineNum">     129 </span>            :         // scale nucleus energy instead of background photon energy</a>
-<a name="130"><span class="lineNum">     130 </span><span class="lineCov">        611 :         gamma *= (1 + z);</span></a>
-<a name="131"><span class="lineNum">     131 </span><span class="lineCov">        611 :         if (gamma &lt; tabLorentz.front() or (gamma &gt; tabLorentz.back()))</span></a>
+<a name="130"><span class="lineNum">     130 </span><span class="lineCov">       1441 :         gamma *= (1 + z);</span></a>
+<a name="131"><span class="lineNum">     131 </span><span class="lineCov">       1441 :         if (gamma &lt; tabLorentz.front() or (gamma &gt; tabLorentz.back()))</span></a>
 <a name="132"><span class="lineNum">     132 </span>            :                 return std::numeric_limits&lt;double&gt;::max();</a>
 <a name="133"><span class="lineNum">     133 </span>            : </a>
 <a name="134"><span class="lineNum">     134 </span>            :         double rate;</a>
-<a name="135"><span class="lineNum">     135 </span><span class="lineCov">        611 :         if (haveRedshiftDependence)</span></a>
+<a name="135"><span class="lineNum">     135 </span><span class="lineCov">       1441 :         if (haveRedshiftDependence)</span></a>
 <a name="136"><span class="lineNum">     136 </span><span class="lineNoCov">          0 :                 rate = interpolate2d(z, gamma, tabRedshifts, tabLorentz, tabRate);</span></a>
 <a name="137"><span class="lineNum">     137 </span>            :         else</a>
-<a name="138"><span class="lineNum">     138 </span><span class="lineCov">        611 :                 rate = interpolate(gamma, tabLorentz, tabRate) * photonField-&gt;getRedshiftScaling(z);</span></a>
+<a name="138"><span class="lineNum">     138 </span><span class="lineCov">       1441 :                 rate = interpolate(gamma, tabLorentz, tabRate) * photonField-&gt;getRedshiftScaling(z);</span></a>
 <a name="139"><span class="lineNum">     139 </span>            : </a>
 <a name="140"><span class="lineNum">     140 </span>            :         // cosmological scaling</a>
-<a name="141"><span class="lineNum">     141 </span><span class="lineCov">        611 :         rate *= pow_integer&lt;2&gt;(1 + z);</span></a>
+<a name="141"><span class="lineNum">     141 </span><span class="lineCov">       1441 :         rate *= pow_integer&lt;2&gt;(1 + z);</span></a>
 <a name="142"><span class="lineNum">     142 </span>            : </a>
-<a name="143"><span class="lineNum">     143 </span><span class="lineCov">        611 :         return 1. / rate;</span></a>
+<a name="143"><span class="lineNum">     143 </span><span class="lineCov">       1441 :         return 1. / rate;</span></a>
 <a name="144"><span class="lineNum">     144 </span>            : }</a>
 <a name="145"><span class="lineNum">     145 </span>            : </a>
-<a name="146"><span class="lineNum">     146 </span><span class="lineCov">        611 : double PhotoPionProduction::nucleiModification(int A, int X) const {</span></a>
-<a name="147"><span class="lineNum">     147 </span><span class="lineCov">        611 :         if (A == 1)</span></a>
+<a name="146"><span class="lineNum">     146 </span><span class="lineCov">       1441 : double PhotoPionProduction::nucleiModification(int A, int X) const {</span></a>
+<a name="147"><span class="lineNum">     147 </span><span class="lineCov">       1441 :         if (A == 1)</span></a>
 <a name="148"><span class="lineNum">     148 </span>            :                 return 1.;</a>
-<a name="149"><span class="lineNum">     149 </span><span class="lineCov">          5 :         if (A &lt;= 8)</span></a>
-<a name="150"><span class="lineNum">     150 </span><span class="lineCov">          5 :                 return 0.85 * pow(X, 2. / 3.);</span></a>
+<a name="149"><span class="lineNum">     149 </span><span class="lineCov">          6 :         if (A &lt;= 8)</span></a>
+<a name="150"><span class="lineNum">     150 </span><span class="lineCov">          6 :                 return 0.85 * pow(X, 2. / 3.);</span></a>
 <a name="151"><span class="lineNum">     151 </span><span class="lineNoCov">          0 :         return 0.85 * X;</span></a>
 <a name="152"><span class="lineNum">     152 </span>            : }</a>
 <a name="153"><span class="lineNum">     153 </span>            : </a>
-<a name="154"><span class="lineNum">     154 </span><span class="lineCov">        595 : void PhotoPionProduction::process(Candidate *candidate) const {</span></a>
-<a name="155"><span class="lineNum">     155 </span><span class="lineCov">        595 :         double step = candidate-&gt;getCurrentStep();</span></a>
-<a name="156"><span class="lineNum">     156 </span><span class="lineCov">        595 :         double z = candidate-&gt;getRedshift();</span></a>
+<a name="154"><span class="lineNum">     154 </span><span class="lineCov">       1421 : void PhotoPionProduction::process(Candidate *candidate) const {</span></a>
+<a name="155"><span class="lineNum">     155 </span><span class="lineCov">       1421 :         double step = candidate-&gt;getCurrentStep();</span></a>
+<a name="156"><span class="lineNum">     156 </span><span class="lineCov">       1421 :         double z = candidate-&gt;getRedshift();</span></a>
 <a name="157"><span class="lineNum">     157 </span>            :         // the loop is processed at least once for limiting the next step</a>
 <a name="158"><span class="lineNum">     158 </span>            :         do {</a>
 <a name="159"><span class="lineNum">     159 </span>            :                 // check if nucleus</a>
-<a name="160"><span class="lineNum">     160 </span><span class="lineCov">        610 :                 int id = candidate-&gt;current.getId();</span></a>
-<a name="161"><span class="lineNum">     161 </span><span class="lineCov">        610 :                 if (!isNucleus(id))</span></a>
+<a name="160"><span class="lineNum">     160 </span><span class="lineCov">       1439 :                 int id = candidate-&gt;current.getId();</span></a>
+<a name="161"><span class="lineNum">     161 </span><span class="lineCov">       1439 :                 if (!isNucleus(id))</span></a>
 <a name="162"><span class="lineNum">     162 </span>            :                         return;</a>
 <a name="163"><span class="lineNum">     163 </span>            : </a>
 <a name="164"><span class="lineNum">     164 </span>            :                 // find interaction with minimum random distance</a>
-<a name="165"><span class="lineNum">     165 </span><span class="lineCov">        609 :                 Random &amp;random = Random::instance();</span></a>
+<a name="165"><span class="lineNum">     165 </span><span class="lineCov">       1438 :                 Random &amp;random = Random::instance();</span></a>
 <a name="166"><span class="lineNum">     166 </span>            :                 double randDistance = std::numeric_limits&lt;double&gt;::max();</a>
 <a name="167"><span class="lineNum">     167 </span>            :                 double meanFreePath;</a>
 <a name="168"><span class="lineNum">     168 </span>            :                 double totalRate = 0;</a>
 <a name="169"><span class="lineNum">     169 </span>            :                 bool onProton = true; // interacting particle: proton or neutron</a>
 <a name="170"><span class="lineNum">     170 </span>            : </a>
-<a name="171"><span class="lineNum">     171 </span><span class="lineCov">        609 :                 int A = massNumber(id);</span></a>
-<a name="172"><span class="lineNum">     172 </span><span class="lineCov">        609 :                 int Z = chargeNumber(id);</span></a>
-<a name="173"><span class="lineNum">     173 </span><span class="lineCov">        609 :                 int N = A - Z;</span></a>
-<a name="174"><span class="lineNum">     174 </span><span class="lineCov">        609 :                 double gamma = candidate-&gt;current.getLorentzFactor();</span></a>
+<a name="171"><span class="lineNum">     171 </span><span class="lineCov">       1438 :                 int A = massNumber(id);</span></a>
+<a name="172"><span class="lineNum">     172 </span><span class="lineCov">       1438 :                 int Z = chargeNumber(id);</span></a>
+<a name="173"><span class="lineNum">     173 </span><span class="lineCov">       1438 :                 int N = A - Z;</span></a>
+<a name="174"><span class="lineNum">     174 </span><span class="lineCov">       1438 :                 double gamma = candidate-&gt;current.getLorentzFactor();</span></a>
 <a name="175"><span class="lineNum">     175 </span>            : </a>
 <a name="176"><span class="lineNum">     176 </span>            :                 // check for interaction on protons</a>
-<a name="177"><span class="lineNum">     177 </span><span class="lineCov">        609 :                 if (Z &gt; 0) {</span></a>
-<a name="178"><span class="lineNum">     178 </span><span class="lineCov">        604 :                         meanFreePath = nucleonMFP(gamma, z, true) / nucleiModification(A, Z);</span></a>
-<a name="179"><span class="lineNum">     179 </span><span class="lineCov">        604 :                         randDistance = -log(random.rand()) * meanFreePath;</span></a>
-<a name="180"><span class="lineNum">     180 </span><span class="lineCov">        604 :                         totalRate += 1. / meanFreePath;</span></a>
+<a name="177"><span class="lineNum">     177 </span><span class="lineCov">       1438 :                 if (Z &gt; 0) {</span></a>
+<a name="178"><span class="lineNum">     178 </span><span class="lineCov">       1429 :                         meanFreePath = nucleonMFP(gamma, z, true) / nucleiModification(A, Z);</span></a>
+<a name="179"><span class="lineNum">     179 </span><span class="lineCov">       1429 :                         randDistance = -log(random.rand()) * meanFreePath;</span></a>
+<a name="180"><span class="lineNum">     180 </span><span class="lineCov">       1429 :                         totalRate += 1. / meanFreePath;</span></a>
 <a name="181"><span class="lineNum">     181 </span>            :                 }</a>
 <a name="182"><span class="lineNum">     182 </span>            :                 // check for interaction on neutrons</a>
-<a name="183"><span class="lineNum">     183 </span><span class="lineCov">        609 :                 if (N &gt; 0) {</span></a>
-<a name="184"><span class="lineNum">     184 </span><span class="lineCov">          7 :                         meanFreePath = nucleonMFP(gamma, z, false) / nucleiModification(A, N);</span></a>
-<a name="185"><span class="lineNum">     185 </span><span class="lineCov">          7 :                         totalRate += 1. / meanFreePath;</span></a>
-<a name="186"><span class="lineNum">     186 </span><span class="lineCov">          7 :                         double d = -log(random.rand()) * meanFreePath;</span></a>
-<a name="187"><span class="lineNum">     187 </span><span class="lineCov">          7 :                         if (d &lt; randDistance) {</span></a>
+<a name="183"><span class="lineNum">     183 </span><span class="lineCov">       1438 :                 if (N &gt; 0) {</span></a>
+<a name="184"><span class="lineNum">     184 </span><span class="lineCov">         12 :                         meanFreePath = nucleonMFP(gamma, z, false) / nucleiModification(A, N);</span></a>
+<a name="185"><span class="lineNum">     185 </span><span class="lineCov">         12 :                         totalRate += 1. / meanFreePath;</span></a>
+<a name="186"><span class="lineNum">     186 </span><span class="lineCov">         12 :                         double d = -log(random.rand()) * meanFreePath;</span></a>
+<a name="187"><span class="lineNum">     187 </span><span class="lineCov">         12 :                         if (d &lt; randDistance) {</span></a>
 <a name="188"><span class="lineNum">     188 </span>            :                                 randDistance = d;</a>
 <a name="189"><span class="lineNum">     189 </span>            :                                 onProton = false;</a>
 <a name="190"><span class="lineNum">     190 </span>            :                         }</a>
 <a name="191"><span class="lineNum">     191 </span>            :                 }</a>
 <a name="192"><span class="lineNum">     192 </span>            : </a>
 <a name="193"><span class="lineNum">     193 </span>            :                 // check if interaction does not happen</a>
-<a name="194"><span class="lineNum">     194 </span><span class="lineCov">        609 :                 if (step &lt; randDistance) {</span></a>
-<a name="195"><span class="lineNum">     195 </span><span class="lineCov">        594 :                         if (totalRate &gt; 0.)</span></a>
-<a name="196"><span class="lineNum">     196 </span><span class="lineCov">        594 :                                 candidate-&gt;limitNextStep(limit / totalRate);</span></a>
-<a name="197"><span class="lineNum">     197 </span><span class="lineCov">        594 :                         return;</span></a>
+<a name="194"><span class="lineNum">     194 </span><span class="lineCov">       1438 :                 if (step &lt; randDistance) {</span></a>
+<a name="195"><span class="lineNum">     195 </span><span class="lineCov">       1420 :                         if (totalRate &gt; 0.)</span></a>
+<a name="196"><span class="lineNum">     196 </span><span class="lineCov">       1420 :                                 candidate-&gt;limitNextStep(limit / totalRate);</span></a>
+<a name="197"><span class="lineNum">     197 </span><span class="lineCov">       1420 :                         return;</span></a>
 <a name="198"><span class="lineNum">     198 </span>            :                 }</a>
 <a name="199"><span class="lineNum">     199 </span>            : </a>
 <a name="200"><span class="lineNum">     200 </span>            :                 // interact and repeat with remaining step</a>
-<a name="201"><span class="lineNum">     201 </span><span class="lineCov">         15 :                 performInteraction(candidate, onProton);</span></a>
-<a name="202"><span class="lineNum">     202 </span><span class="lineCov">         15 :                 step -= randDistance;</span></a>
-<a name="203"><span class="lineNum">     203 </span><span class="lineCov">         15 :         } while (step &gt; 0);</span></a>
+<a name="201"><span class="lineNum">     201 </span><span class="lineCov">         18 :                 performInteraction(candidate, onProton);</span></a>
+<a name="202"><span class="lineNum">     202 </span><span class="lineCov">         18 :                 step -= randDistance;</span></a>
+<a name="203"><span class="lineNum">     203 </span><span class="lineCov">         18 :         } while (step &gt; 0);</span></a>
 <a name="204"><span class="lineNum">     204 </span>            : }</a>
 <a name="205"><span class="lineNum">     205 </span>            : </a>
-<a name="206"><span class="lineNum">     206 </span><span class="lineCov">         25 : void PhotoPionProduction::performInteraction(Candidate *candidate, bool onProton) const {</span></a>
-<a name="207"><span class="lineNum">     207 </span><span class="lineCov">         25 :         int id = candidate-&gt;current.getId();</span></a>
-<a name="208"><span class="lineNum">     208 </span><span class="lineCov">         25 :         int A = massNumber(id);</span></a>
-<a name="209"><span class="lineNum">     209 </span><span class="lineCov">         25 :         int Z = chargeNumber(id);</span></a>
-<a name="210"><span class="lineNum">     210 </span><span class="lineCov">         25 :         double E = candidate-&gt;current.getEnergy();</span></a>
-<a name="211"><span class="lineNum">     211 </span><span class="lineCov">         25 :         double EpA = E / A;</span></a>
-<a name="212"><span class="lineNum">     212 </span><span class="lineCov">         25 :         double z = candidate-&gt;getRedshift();</span></a>
+<a name="206"><span class="lineNum">     206 </span><span class="lineCov">         28 : void PhotoPionProduction::performInteraction(Candidate *candidate, bool onProton) const {</span></a>
+<a name="207"><span class="lineNum">     207 </span><span class="lineCov">         28 :         int id = candidate-&gt;current.getId();</span></a>
+<a name="208"><span class="lineNum">     208 </span><span class="lineCov">         28 :         int A = massNumber(id);</span></a>
+<a name="209"><span class="lineNum">     209 </span><span class="lineCov">         28 :         int Z = chargeNumber(id);</span></a>
+<a name="210"><span class="lineNum">     210 </span><span class="lineCov">         28 :         double E = candidate-&gt;current.getEnergy();</span></a>
+<a name="211"><span class="lineNum">     211 </span><span class="lineCov">         28 :         double EpA = E / A;</span></a>
+<a name="212"><span class="lineNum">     212 </span><span class="lineCov">         28 :         double z = candidate-&gt;getRedshift();</span></a>
 <a name="213"><span class="lineNum">     213 </span>            : </a>
 <a name="214"><span class="lineNum">     214 </span>            :         // SOPHIA simulates interactions only for protons / neutrons.</a>
 <a name="215"><span class="lineNum">     215 </span>            :         // For anti-protons / neutrons assume charge symmetry and change all</a>
 <a name="216"><span class="lineNum">     216 </span>            :         // interaction products from particle &lt;--&gt; anti-particle (sign)</a>
-<a name="217"><span class="lineNum">     217 </span><span class="lineCov">         25 :         int sign = (id &gt; 0) ? 1 : -1;</span></a>
+<a name="217"><span class="lineNum">     217 </span><span class="lineCov">         28 :         int sign = (id &gt; 0) ? 1 : -1;</span></a>
 <a name="218"><span class="lineNum">     218 </span>            : </a>
 <a name="219"><span class="lineNum">     219 </span>            :         // check if below SOPHIA's energy threshold</a>
-<a name="220"><span class="lineNum">     220 </span><span class="lineCov">         50 :         double E_threshold = (photonField-&gt;getFieldName() == &quot;CMB&quot;) ? 3.72e18 * eV : 5.83e15 * eV;</span></a>
-<a name="221"><span class="lineNum">     221 </span><span class="lineCov">         25 :         if (EpA * (1 + z) &lt; E_threshold)</span></a>
+<a name="220"><span class="lineNum">     220 </span><span class="lineCov">         56 :         double E_threshold = (photonField-&gt;getFieldName() == &quot;CMB&quot;) ? 3.72e18 * eV : 5.83e15 * eV;</span></a>
+<a name="221"><span class="lineNum">     221 </span><span class="lineCov">         28 :         if (EpA * (1 + z) &lt; E_threshold)</span></a>
 <a name="222"><span class="lineNum">     222 </span><span class="lineNoCov">          0 :                 return;</span></a>
 <a name="223"><span class="lineNum">     223 </span>            : </a>
 <a name="224"><span class="lineNum">     224 </span>            :         // SOPHIA - input:</a>
-<a name="225"><span class="lineNum">     225 </span><span class="lineCov">         25 :         int nature = 1 - static_cast&lt;int&gt;(onProton);  // 0=proton, 1=neutron</span></a>
-<a name="226"><span class="lineNum">     226 </span><span class="lineCov">         25 :         double Ein = EpA / GeV;  // GeV is the SOPHIA standard unit</span></a>
-<a name="227"><span class="lineNum">     227 </span><span class="lineCov">         25 :         double eps = sampleEps(onProton, EpA, z) / GeV;  // GeV for SOPHIA</span></a>
+<a name="225"><span class="lineNum">     225 </span><span class="lineCov">         28 :         int nature = 1 - static_cast&lt;int&gt;(onProton);  // 0=proton, 1=neutron</span></a>
+<a name="226"><span class="lineNum">     226 </span><span class="lineCov">         28 :         double Ein = EpA / GeV;  // GeV is the SOPHIA standard unit</span></a>
+<a name="227"><span class="lineNum">     227 </span><span class="lineCov">         28 :         double eps = sampleEps(onProton, EpA, z) / GeV;  // GeV for SOPHIA</span></a>
 <a name="228"><span class="lineNum">     228 </span>            : </a>
 <a name="229"><span class="lineNum">     229 </span>            :         // SOPHIA - output:</a>
 <a name="230"><span class="lineNum">     230 </span>            :         double outputEnergy[5][2000];  // [GeV/c, GeV/c, GeV/c, GeV, GeV/c^2]</a>
 <a name="231"><span class="lineNum">     231 </span>            :         int outPartID[2000];</a>
 <a name="232"><span class="lineNum">     232 </span>            :         int nParticles;</a>
 <a name="233"><span class="lineNum">     233 </span>            : </a>
-<a name="234"><span class="lineNum">     234 </span><span class="lineCov">         50 : #pragma omp critical(SophiaEvent)</span></a>
+<a name="234"><span class="lineNum">     234 </span><span class="lineCov">         56 : #pragma omp critical(SophiaEvent)</span></a>
 <a name="235"><span class="lineNum">     235 </span>            :         {</a>
-<a name="236"><span class="lineNum">     236 </span><span class="lineCov">         25 :                 sophiaevent_(nature, Ein, eps, outputEnergy, outPartID, nParticles);</span></a>
+<a name="236"><span class="lineNum">     236 </span><span class="lineCov">         28 :                 sophiaevent_(nature, Ein, eps, outputEnergy, outPartID, nParticles);</span></a>
 <a name="237"><span class="lineNum">     237 </span>            :         }</a>
 <a name="238"><span class="lineNum">     238 </span>            : </a>
-<a name="239"><span class="lineNum">     239 </span><span class="lineCov">         25 :         Random &amp;random = Random::instance();</span></a>
-<a name="240"><span class="lineNum">     240 </span><span class="lineCov">         25 :         Vector3d pos = random.randomInterpolatedPosition(candidate-&gt;previous.getPosition(), candidate-&gt;current.getPosition());</span></a>
+<a name="239"><span class="lineNum">     239 </span><span class="lineCov">         28 :         Random &amp;random = Random::instance();</span></a>
+<a name="240"><span class="lineNum">     240 </span><span class="lineCov">         28 :         Vector3d pos = random.randomInterpolatedPosition(candidate-&gt;previous.getPosition(), candidate-&gt;current.getPosition());</span></a>
 <a name="241"><span class="lineNum">     241 </span>            :         std::vector&lt;int&gt; pnType;  // filled with either 13 (proton) or 14 (neutron)</a>
 <a name="242"><span class="lineNum">     242 </span>            :         std::vector&lt;double&gt; pnEnergy;  // corresponding energies of proton or neutron</a>
-<a name="243"><span class="lineNum">     243 </span><span class="lineCov">         25 :         if (nParticles == 0)</span></a>
+<a name="243"><span class="lineNum">     243 </span><span class="lineCov">         28 :         if (nParticles == 0)</span></a>
 <a name="244"><span class="lineNum">     244 </span>            :                 return;</a>
-<a name="245"><span class="lineNum">     245 </span><span class="lineCov">        122 :         for (int i = 0; i &lt; nParticles; i++) { // loop over out-going particles</span></a>
-<a name="246"><span class="lineNum">     246 </span><span class="lineCov">         97 :                 double Eout = outputEnergy[3][i] * GeV; // only the energy is used; could be changed for more detail</span></a>
-<a name="247"><span class="lineNum">     247 </span><span class="lineCov">         97 :                 int pType = outPartID[i];</span></a>
-<a name="248"><span class="lineNum">     248 </span><span class="lineCov">         97 :                 switch (pType) {</span></a>
-<a name="249"><span class="lineNum">     249 </span><span class="lineCov">         25 :                 case 13: // proton</span></a>
+<a name="245"><span class="lineNum">     245 </span><span class="lineCov">        136 :         for (int i = 0; i &lt; nParticles; i++) { // loop over out-going particles</span></a>
+<a name="246"><span class="lineNum">     246 </span><span class="lineCov">        108 :                 double Eout = outputEnergy[3][i] * GeV; // only the energy is used; could be changed for more detail</span></a>
+<a name="247"><span class="lineNum">     247 </span><span class="lineCov">        108 :                 int pType = outPartID[i];</span></a>
+<a name="248"><span class="lineNum">     248 </span><span class="lineCov">        108 :                 switch (pType) {</span></a>
+<a name="249"><span class="lineNum">     249 </span><span class="lineCov">         28 :                 case 13: // proton</span></a>
 <a name="250"><span class="lineNum">     250 </span>            :                 case 14: // neutron</a>
 <a name="251"><span class="lineNum">     251 </span>            :                         // proton and neutron data is taken to determine primary particle in a later step</a>
-<a name="252"><span class="lineNum">     252 </span><span class="lineCov">         25 :                         pnType.push_back(pType);</span></a>
-<a name="253"><span class="lineNum">     253 </span><span class="lineCov">         25 :                         pnEnergy.push_back(Eout);</span></a>
+<a name="252"><span class="lineNum">     252 </span><span class="lineCov">         28 :                         pnType.push_back(pType);</span></a>
+<a name="253"><span class="lineNum">     253 </span><span class="lineCov">         28 :                         pnEnergy.push_back(Eout);</span></a>
 <a name="254"><span class="lineNum">     254 </span>            :                         break;</a>
 <a name="255"><span class="lineNum">     255 </span><span class="lineNoCov">          0 :                 case -13: // anti-proton</span></a>
 <a name="256"><span class="lineNum">     256 </span>            :                 case -14: // anti-neutron</a>
@@ -327,47 +327,47 @@
 <a name="265"><span class="lineNum">     265 </span><span class="lineNoCov">          0 :                                         throw;</span></a>
 <a name="266"><span class="lineNum">     266 </span><span class="lineNoCov">          0 :                                 }</span></a>
 <a name="267"><span class="lineNum">     267 </span>            :                         break;</a>
-<a name="268"><span class="lineNum">     268 </span><span class="lineCov">         28 :                 case 1: // photon</span></a>
-<a name="269"><span class="lineNum">     269 </span><span class="lineCov">         28 :                         if (havePhotons)</span></a>
-<a name="270"><span class="lineNum">     270 </span><span class="lineCov">         16 :                                 candidate-&gt;addSecondary(22, Eout, pos, 1., interactionTag);</span></a>
+<a name="268"><span class="lineNum">     268 </span><span class="lineCov">         32 :                 case 1: // photon</span></a>
+<a name="269"><span class="lineNum">     269 </span><span class="lineCov">         32 :                         if (havePhotons)</span></a>
+<a name="270"><span class="lineNum">     270 </span><span class="lineCov">         18 :                                 candidate-&gt;addSecondary(22, Eout, pos, 1., interactionTag);</span></a>
 <a name="271"><span class="lineNum">     271 </span>            :                         break;</a>
-<a name="272"><span class="lineNum">     272 </span><span class="lineCov">          8 :                 case 2: // positron</span></a>
-<a name="273"><span class="lineNum">     273 </span><span class="lineCov">          8 :                         if (haveElectrons)</span></a>
+<a name="272"><span class="lineNum">     272 </span><span class="lineCov">          9 :                 case 2: // positron</span></a>
+<a name="273"><span class="lineNum">     273 </span><span class="lineCov">          9 :                         if (haveElectrons)</span></a>
 <a name="274"><span class="lineNum">     274 </span><span class="lineCov">          1 :                                 candidate-&gt;addSecondary(sign * -11, Eout, pos, 1., interactionTag);</span></a>
 <a name="275"><span class="lineNum">     275 </span>            :                         break;</a>
 <a name="276"><span class="lineNum">     276 </span><span class="lineCov">          3 :                 case 3: // electron</span></a>
 <a name="277"><span class="lineNum">     277 </span><span class="lineCov">          3 :                         if (haveElectrons)</span></a>
 <a name="278"><span class="lineNum">     278 </span><span class="lineCov">          1 :                                 candidate-&gt;addSecondary(sign * 11, Eout, pos, 1., interactionTag);</span></a>
 <a name="279"><span class="lineNum">     279 </span>            :                         break;</a>
-<a name="280"><span class="lineNum">     280 </span><span class="lineCov">          8 :                 case 15: // nu_e</span></a>
-<a name="281"><span class="lineNum">     281 </span><span class="lineCov">          8 :                         if (haveNeutrinos)</span></a>
+<a name="280"><span class="lineNum">     280 </span><span class="lineCov">          9 :                 case 15: // nu_e</span></a>
+<a name="281"><span class="lineNum">     281 </span><span class="lineCov">          9 :                         if (haveNeutrinos)</span></a>
 <a name="282"><span class="lineNum">     282 </span><span class="lineCov">          1 :                                 candidate-&gt;addSecondary(sign * 12, Eout, pos, 1., interactionTag);</span></a>
 <a name="283"><span class="lineNum">     283 </span>            :                         break;</a>
 <a name="284"><span class="lineNum">     284 </span><span class="lineCov">          3 :                 case 16: // anti-nu_e</span></a>
 <a name="285"><span class="lineNum">     285 </span><span class="lineCov">          3 :                         if (haveNeutrinos)</span></a>
 <a name="286"><span class="lineNum">     286 </span><span class="lineCov">          1 :                                 candidate-&gt;addSecondary(sign * -12, Eout, pos, 1., interactionTag);</span></a>
 <a name="287"><span class="lineNum">     287 </span>            :                         break;</a>
-<a name="288"><span class="lineNum">     288 </span><span class="lineCov">         11 :                 case 17: // nu_mu</span></a>
-<a name="289"><span class="lineNum">     289 </span><span class="lineCov">         11 :                         if (haveNeutrinos)</span></a>
+<a name="288"><span class="lineNum">     288 </span><span class="lineCov">         12 :                 case 17: // nu_mu</span></a>
+<a name="289"><span class="lineNum">     289 </span><span class="lineCov">         12 :                         if (haveNeutrinos)</span></a>
 <a name="290"><span class="lineNum">     290 </span><span class="lineCov">          2 :                                 candidate-&gt;addSecondary(sign * 14, Eout, pos, 1., interactionTag);</span></a>
 <a name="291"><span class="lineNum">     291 </span>            :                         break;</a>
-<a name="292"><span class="lineNum">     292 </span><span class="lineCov">         11 :                 case 18: // anti-nu_mu</span></a>
-<a name="293"><span class="lineNum">     293 </span><span class="lineCov">         11 :                         if (haveNeutrinos)</span></a>
+<a name="292"><span class="lineNum">     292 </span><span class="lineCov">         12 :                 case 18: // anti-nu_mu</span></a>
+<a name="293"><span class="lineNum">     293 </span><span class="lineCov">         12 :                         if (haveNeutrinos)</span></a>
 <a name="294"><span class="lineNum">     294 </span><span class="lineCov">          2 :                                 candidate-&gt;addSecondary(sign * -14, Eout, pos, 1., interactionTag);</span></a>
 <a name="295"><span class="lineNum">     295 </span>            :                         break;</a>
 <a name="296"><span class="lineNum">     296 </span><span class="lineNoCov">          0 :                 default:</span></a>
 <a name="297"><span class="lineNum">     297 </span><span class="lineNoCov">          0 :                         throw std::runtime_error(&quot;PhotoPionProduction: unexpected particle &quot; + kiss::str(pType));</span></a>
 <a name="298"><span class="lineNum">     298 </span>            :                 }</a>
 <a name="299"><span class="lineNum">     299 </span>            :         }</a>
-<a name="300"><span class="lineNum">     300 </span><span class="lineCov">         25 :         double maxEnergy = *std::max_element(pnEnergy.begin(), pnEnergy.end());  // criterion for being declared primary</span></a>
-<a name="301"><span class="lineNum">     301 </span><span class="lineCov">         50 :         for (int i = 0; i &lt; pnEnergy.size(); ++i) {</span></a>
-<a name="302"><span class="lineNum">     302 </span><span class="lineCov">         25 :                 if (pnEnergy[i] == maxEnergy) {  // nucleon is primary particle</span></a>
-<a name="303"><span class="lineNum">     303 </span><span class="lineCov">         25 :                         if (A == 1) {</span></a>
+<a name="300"><span class="lineNum">     300 </span><span class="lineCov">         28 :         double maxEnergy = *std::max_element(pnEnergy.begin(), pnEnergy.end());  // criterion for being declared primary</span></a>
+<a name="301"><span class="lineNum">     301 </span><span class="lineCov">         56 :         for (int i = 0; i &lt; pnEnergy.size(); ++i) {</span></a>
+<a name="302"><span class="lineNum">     302 </span><span class="lineCov">         28 :                 if (pnEnergy[i] == maxEnergy) {  // nucleon is primary particle</span></a>
+<a name="303"><span class="lineNum">     303 </span><span class="lineCov">         28 :                         if (A == 1) {</span></a>
 <a name="304"><span class="lineNum">     304 </span>            :                                 // single interacting nucleon</a>
-<a name="305"><span class="lineNum">     305 </span><span class="lineCov">         22 :                                 candidate-&gt;current.setEnergy(pnEnergy[i]);</span></a>
+<a name="305"><span class="lineNum">     305 </span><span class="lineCov">         25 :                                 candidate-&gt;current.setEnergy(pnEnergy[i]);</span></a>
 <a name="306"><span class="lineNum">     306 </span>            :                                 try</a>
 <a name="307"><span class="lineNum">     307 </span>            :                                 {</a>
-<a name="308"><span class="lineNum">     308 </span><span class="lineCov">         22 :                                         candidate-&gt;current.setId(sign * nucleusId(1, 14 - pnType[i]));</span></a>
+<a name="308"><span class="lineNum">     308 </span><span class="lineCov">         25 :                                         candidate-&gt;current.setId(sign * nucleusId(1, 14 - pnType[i]));</span></a>
 <a name="309"><span class="lineNum">     309 </span>            :                                 }</a>
 <a name="310"><span class="lineNum">     310 </span><span class="lineNoCov">          0 :                                 catch (std::runtime_error &amp;e)</span></a>
 <a name="311"><span class="lineNum">     311 </span>            :                                 {</a>
@@ -475,61 +475,61 @@
 <a name="413"><span class="lineNum">     413 </span><span class="lineNoCov">          0 :         return output;</span></a>
 <a name="414"><span class="lineNum">     414 </span><span class="lineNoCov">          0 : }</span></a>
 <a name="415"><span class="lineNum">     415 </span>            : </a>
-<a name="416"><span class="lineNum">     416 </span><span class="lineCov">         25 : double PhotoPionProduction::sampleEps(bool onProton, double E, double z) const {</span></a>
+<a name="416"><span class="lineNum">     416 </span><span class="lineCov">         28 : double PhotoPionProduction::sampleEps(bool onProton, double E, double z) const {</span></a>
 <a name="417"><span class="lineNum">     417 </span>            :         // sample eps between epsMin ... epsMax</a>
-<a name="418"><span class="lineNum">     418 </span><span class="lineCov">         25 :         double Ein = E / GeV;</span></a>
-<a name="419"><span class="lineNum">     419 </span><span class="lineCov">         50 :         double epsMin = std::max(photonField -&gt; getMinimumPhotonEnergy(z) / eV, epsMinInteraction(onProton, Ein));</span></a>
-<a name="420"><span class="lineNum">     420 </span><span class="lineCov">         25 :         double epsMax = photonField -&gt; getMaximumPhotonEnergy(z) / eV;</span></a>
-<a name="421"><span class="lineNum">     421 </span><span class="lineCov">         25 :         double pEpsMax = probEpsMax(onProton, Ein, z, epsMin, epsMax);</span></a>
+<a name="418"><span class="lineNum">     418 </span><span class="lineCov">         28 :         double Ein = E / GeV;</span></a>
+<a name="419"><span class="lineNum">     419 </span><span class="lineCov">         56 :         double epsMin = std::max(photonField -&gt; getMinimumPhotonEnergy(z) / eV, epsMinInteraction(onProton, Ein));</span></a>
+<a name="420"><span class="lineNum">     420 </span><span class="lineCov">         28 :         double epsMax = photonField -&gt; getMaximumPhotonEnergy(z) / eV;</span></a>
+<a name="421"><span class="lineNum">     421 </span><span class="lineCov">         28 :         double pEpsMax = probEpsMax(onProton, Ein, z, epsMin, epsMax);</span></a>
 <a name="422"><span class="lineNum">     422 </span>            : </a>
-<a name="423"><span class="lineNum">     423 </span><span class="lineCov">         25 :         Random &amp;random = Random::instance();</span></a>
-<a name="424"><span class="lineNum">     424 </span><span class="lineCov">       4093 :         for (int i = 0; i &lt; 1000000; i++) {</span></a>
-<a name="425"><span class="lineNum">     425 </span><span class="lineCov">       4093 :                 double eps = epsMin + random.rand() * (epsMax - epsMin);</span></a>
-<a name="426"><span class="lineNum">     426 </span><span class="lineCov">       4093 :                 double pEps = probEps(eps, onProton, Ein, z);</span></a>
-<a name="427"><span class="lineNum">     427 </span><span class="lineCov">       4093 :                 if (random.rand() * pEpsMax &lt; pEps)</span></a>
-<a name="428"><span class="lineNum">     428 </span><span class="lineCov">         25 :                         return eps * eV;</span></a>
+<a name="423"><span class="lineNum">     423 </span><span class="lineCov">         28 :         Random &amp;random = Random::instance();</span></a>
+<a name="424"><span class="lineNum">     424 </span><span class="lineCov">       4195 :         for (int i = 0; i &lt; 1000000; i++) {</span></a>
+<a name="425"><span class="lineNum">     425 </span><span class="lineCov">       4195 :                 double eps = epsMin + random.rand() * (epsMax - epsMin);</span></a>
+<a name="426"><span class="lineNum">     426 </span><span class="lineCov">       4195 :                 double pEps = probEps(eps, onProton, Ein, z);</span></a>
+<a name="427"><span class="lineNum">     427 </span><span class="lineCov">       4195 :                 if (random.rand() * pEpsMax &lt; pEps)</span></a>
+<a name="428"><span class="lineNum">     428 </span><span class="lineCov">         28 :                         return eps * eV;</span></a>
 <a name="429"><span class="lineNum">     429 </span>            :         }</a>
 <a name="430"><span class="lineNum">     430 </span><span class="lineNoCov">          0 :         throw std::runtime_error(&quot;error: no photon found in sampleEps, please make sure that photon field provides photons for the interaction by adapting the energy range of the tabulated photon field.&quot;);</span></a>
 <a name="431"><span class="lineNum">     431 </span>            : }</a>
 <a name="432"><span class="lineNum">     432 </span>            : </a>
-<a name="433"><span class="lineNum">     433 </span><span class="lineCov">         25 : double PhotoPionProduction::epsMinInteraction(bool onProton, double Ein) const {</span></a>
+<a name="433"><span class="lineNum">     433 </span><span class="lineCov">         28 : double PhotoPionProduction::epsMinInteraction(bool onProton, double Ein) const {</span></a>
 <a name="434"><span class="lineNum">     434 </span>            :         // labframe energy of least energetic photon where PPP can occur</a>
 <a name="435"><span class="lineNum">     435 </span>            :         // this kind-of ties samplingEps to the PPP and SOPHIA</a>
-<a name="436"><span class="lineNum">     436 </span><span class="lineCov">         25 :         const double m = mass(onProton);</span></a>
-<a name="437"><span class="lineNum">     437 </span><span class="lineCov">         25 :         const double p = momentum(onProton, Ein);</span></a>
-<a name="438"><span class="lineNum">     438 </span><span class="lineCov">         25 :         double epsMin = 1.e9 * (1.1646 - m * m) / 2. / (Ein + p); // eV</span></a>
-<a name="439"><span class="lineNum">     439 </span><span class="lineCov">         25 :         return epsMin;</span></a>
+<a name="436"><span class="lineNum">     436 </span><span class="lineCov">         28 :         const double m = mass(onProton);</span></a>
+<a name="437"><span class="lineNum">     437 </span><span class="lineCov">         28 :         const double p = momentum(onProton, Ein);</span></a>
+<a name="438"><span class="lineNum">     438 </span><span class="lineCov">         28 :         double epsMin = 1.e9 * (1.1646 - m * m) / 2. / (Ein + p); // eV</span></a>
+<a name="439"><span class="lineNum">     439 </span><span class="lineCov">         28 :         return epsMin;</span></a>
 <a name="440"><span class="lineNum">     440 </span>            : }</a>
 <a name="441"><span class="lineNum">     441 </span>            : </a>
-<a name="442"><span class="lineNum">     442 </span><span class="lineCov">         26 : double PhotoPionProduction::probEpsMax(bool onProton, double Ein, double z, double epsMin, double epsMax) const {</span></a>
+<a name="442"><span class="lineNum">     442 </span><span class="lineCov">         29 : double PhotoPionProduction::probEpsMax(bool onProton, double Ein, double z, double epsMin, double epsMax) const {</span></a>
 <a name="443"><span class="lineNum">     443 </span>            :         // find pEpsMax by testing photon energies (eps) for their interaction</a>
 <a name="444"><span class="lineNum">     444 </span>            :         // probabilities (p) in order to find the maximum (max) probability</a>
 <a name="445"><span class="lineNum">     445 </span>            :         const int nrSteps = 100;</a>
 <a name="446"><span class="lineNum">     446 </span>            :         double pEpsMaxTested = 0.;</a>
 <a name="447"><span class="lineNum">     447 </span>            :         double step = 0.;</a>
-<a name="448"><span class="lineNum">     448 </span><span class="lineCov">         26 :         if (sampleLog){</span></a>
+<a name="448"><span class="lineNum">     448 </span><span class="lineCov">         29 :         if (sampleLog){</span></a>
 <a name="449"><span class="lineNum">     449 </span>            :                 // sample in logspace with stepsize that is at max Δlog(E/eV) = 0.01 or otherwise dep. on size of energy range with nrSteps+1 steps log. equidis. spaced</a>
-<a name="450"><span class="lineNum">     450 </span><span class="lineCov">         26 :                 step = std::min(0.01, std::log10(epsMax / epsMin) / nrSteps);</span></a>
+<a name="450"><span class="lineNum">     450 </span><span class="lineCov">         29 :                 step = std::min(0.01, std::log10(epsMax / epsMin) / nrSteps);</span></a>
 <a name="451"><span class="lineNum">     451 </span>            :         } else</a>
 <a name="452"><span class="lineNum">     452 </span><span class="lineNoCov">          0 :                 step = (epsMax - epsMin) / nrSteps;</span></a>
 <a name="453"><span class="lineNum">     453 </span>            : </a>
 <a name="454"><span class="lineNum">     454 </span>            :         double epsDummy = 0.;</a>
 <a name="455"><span class="lineNum">     455 </span>            :         int i = 0;</a>
-<a name="456"><span class="lineNum">     456 </span><span class="lineCov">       5111 :         while (epsDummy &lt; epsMax) {</span></a>
-<a name="457"><span class="lineNum">     457 </span><span class="lineCov">       5085 :                 if (sampleLog)</span></a>
-<a name="458"><span class="lineNum">     458 </span><span class="lineCov">       5085 :                         epsDummy = epsMin * pow(10, step * i);</span></a>
+<a name="456"><span class="lineNum">     456 </span><span class="lineCov">       5580 :         while (epsDummy &lt; epsMax) {</span></a>
+<a name="457"><span class="lineNum">     457 </span><span class="lineCov">       5551 :                 if (sampleLog)</span></a>
+<a name="458"><span class="lineNum">     458 </span><span class="lineCov">       5551 :                         epsDummy = epsMin * pow(10, step * i);</span></a>
 <a name="459"><span class="lineNum">     459 </span>            :                 else</a>
 <a name="460"><span class="lineNum">     460 </span><span class="lineNoCov">          0 :                         epsDummy = epsMin + step * i;</span></a>
-<a name="461"><span class="lineNum">     461 </span><span class="lineCov">       5085 :                 double p = probEps(epsDummy, onProton, Ein, z);</span></a>
-<a name="462"><span class="lineNum">     462 </span><span class="lineCov">       5085 :                 if(p &gt; pEpsMaxTested)</span></a>
+<a name="461"><span class="lineNum">     461 </span><span class="lineCov">       5551 :                 double p = probEps(epsDummy, onProton, Ein, z);</span></a>
+<a name="462"><span class="lineNum">     462 </span><span class="lineCov">       5551 :                 if(p &gt; pEpsMaxTested)</span></a>
 <a name="463"><span class="lineNum">     463 </span>            :                         pEpsMaxTested = p;</a>
-<a name="464"><span class="lineNum">     464 </span><span class="lineCov">       5085 :                 i++;</span></a>
+<a name="464"><span class="lineNum">     464 </span><span class="lineCov">       5551 :                 i++;</span></a>
 <a name="465"><span class="lineNum">     465 </span>            :         }</a>
 <a name="466"><span class="lineNum">     466 </span>            :         // the following factor corrects for only trying to find the maximum on nrIteration photon energies</a>
 <a name="467"><span class="lineNum">     467 </span>            :         // the factor should be determined in convergence tests</a>
-<a name="468"><span class="lineNum">     468 </span><span class="lineCov">         26 :         double pEpsMax = pEpsMaxTested * correctionFactor;</span></a>
+<a name="468"><span class="lineNum">     468 </span><span class="lineCov">         29 :         double pEpsMax = pEpsMaxTested * correctionFactor;</span></a>
 <a name="469"><span class="lineNum">     469 </span>            : </a>
-<a name="470"><span class="lineNum">     470 </span><span class="lineCov">         26 :         if(pEpsMax == 0) {</span></a>
+<a name="470"><span class="lineNum">     470 </span><span class="lineCov">         29 :         if(pEpsMax == 0) {</span></a>
 <a name="471"><span class="lineNum">     471 </span><span class="lineNoCov">          0 :                 KISS_LOG_WARNING &lt;&lt; &quot;pEpsMax is 0 in the following configuration: \n&quot;</span></a>
 <a name="472"><span class="lineNum">     472 </span><span class="lineNoCov">          0 :                         &lt;&lt; &quot;\t&quot; &lt;&lt; &quot;onProton: &quot; &lt;&lt; onProton &lt;&lt; &quot;\n&quot;</span></a>
 <a name="473"><span class="lineNum">     473 </span><span class="lineNoCov">          0 :                         &lt;&lt; &quot;\t&quot; &lt;&lt; &quot;Ein: &quot; &lt;&lt; Ein &lt;&lt; &quot; [GeV] \n&quot;</span></a>
@@ -538,34 +538,34 @@
 <a name="476"><span class="lineNum">     476 </span><span class="lineNoCov">          0 :                         &lt;&lt; &quot;\t&quot; &lt;&lt; &quot;sample Log &quot; &lt;&lt; sampleLog &lt;&lt; &quot; with step &quot; &lt;&lt; step &lt;&lt; &quot; [eV] \n&quot;;</span></a>
 <a name="477"><span class="lineNum">     477 </span>            :         }</a>
 <a name="478"><span class="lineNum">     478 </span>            : </a>
-<a name="479"><span class="lineNum">     479 </span><span class="lineCov">         26 :         return pEpsMax;</span></a>
+<a name="479"><span class="lineNum">     479 </span><span class="lineCov">         29 :         return pEpsMax;</span></a>
 <a name="480"><span class="lineNum">     480 </span>            : }</a>
 <a name="481"><span class="lineNum">     481 </span>            : </a>
-<a name="482"><span class="lineNum">     482 </span><span class="lineCov">       9178 : double PhotoPionProduction::probEps(double eps, bool onProton, double Ein, double z) const {</span></a>
+<a name="482"><span class="lineNum">     482 </span><span class="lineCov">       9746 : double PhotoPionProduction::probEps(double eps, bool onProton, double Ein, double z) const {</span></a>
 <a name="483"><span class="lineNum">     483 </span>            :         // probEps returns &quot;probability to encounter a photon of energy eps&quot;, given a primary nucleon</a>
 <a name="484"><span class="lineNum">     484 </span>            :         // note, probEps does not return a normalized probability [0,...,1]</a>
-<a name="485"><span class="lineNum">     485 </span><span class="lineCov">       9178 :         double photonDensity = photonField-&gt;getPhotonDensity(eps * eV, z) * ccm / eps;</span></a>
-<a name="486"><span class="lineNum">     486 </span><span class="lineCov">       9178 :         if (photonDensity != 0.) {</span></a>
-<a name="487"><span class="lineNum">     487 </span><span class="lineCov">       9178 :                 const double p = momentum(onProton, Ein);</span></a>
-<a name="488"><span class="lineNum">     488 </span><span class="lineCov">       9178 :                 const double sMax = mass(onProton) * mass(onProton) + 2. * eps * (Ein + p) / 1.e9;</span></a>
-<a name="489"><span class="lineNum">     489 </span><span class="lineCov">       9178 :                 if (sMax &lt;= sMin())</span></a>
+<a name="485"><span class="lineNum">     485 </span><span class="lineCov">       9746 :         double photonDensity = photonField-&gt;getPhotonDensity(eps * eV, z) * ccm / eps;</span></a>
+<a name="486"><span class="lineNum">     486 </span><span class="lineCov">       9746 :         if (photonDensity != 0.) {</span></a>
+<a name="487"><span class="lineNum">     487 </span><span class="lineCov">       9746 :                 const double p = momentum(onProton, Ein);</span></a>
+<a name="488"><span class="lineNum">     488 </span><span class="lineCov">       9746 :                 const double sMax = mass(onProton) * mass(onProton) + 2. * eps * (Ein + p) / 1.e9;</span></a>
+<a name="489"><span class="lineNum">     489 </span><span class="lineCov">       9746 :                 if (sMax &lt;= sMin())</span></a>
 <a name="490"><span class="lineNum">     490 </span>            :                         return 0;</a>
-<a name="491"><span class="lineNum">     491 </span><span class="lineCov">      82368 :                 double sIntegr = gaussInt([this, onProton](double s) { return this-&gt;functs(s, onProton); }, sMin(), sMax);</span></a>
-<a name="492"><span class="lineNum">     492 </span><span class="lineCov">       9152 :                 return photonDensity * sIntegr / eps / eps / p / 8. * 1.e18 * 1.e6;</span></a>
+<a name="491"><span class="lineNum">     491 </span><span class="lineCov">      87453 :                 double sIntegr = gaussInt([this, onProton](double s) { return this-&gt;functs(s, onProton); }, sMin(), sMax);</span></a>
+<a name="492"><span class="lineNum">     492 </span><span class="lineCov">       9717 :                 return photonDensity * sIntegr / eps / eps / p / 8. * 1.e18 * 1.e6;</span></a>
 <a name="493"><span class="lineNum">     493 </span>            :         }</a>
 <a name="494"><span class="lineNum">     494 </span>            :         return 0;</a>
 <a name="495"><span class="lineNum">     495 </span>            : }</a>
 <a name="496"><span class="lineNum">     496 </span>            : </a>
-<a name="497"><span class="lineNum">     497 </span><span class="lineCov">       9203 : double PhotoPionProduction::momentum(bool onProton, double Ein) const {</span></a>
-<a name="498"><span class="lineNum">     498 </span><span class="lineCov">       9203 :         const double m = mass(onProton);</span></a>
-<a name="499"><span class="lineNum">     499 </span><span class="lineCov">       9203 :         const double momentumHadron = sqrt(Ein * Ein - m * m);  // GeV/c</span></a>
-<a name="500"><span class="lineNum">     500 </span><span class="lineCov">       9203 :         return momentumHadron;</span></a>
+<a name="497"><span class="lineNum">     497 </span><span class="lineCov">       9774 : double PhotoPionProduction::momentum(bool onProton, double Ein) const {</span></a>
+<a name="498"><span class="lineNum">     498 </span><span class="lineCov">       9774 :         const double m = mass(onProton);</span></a>
+<a name="499"><span class="lineNum">     499 </span><span class="lineCov">       9774 :         const double momentumHadron = sqrt(Ein * Ein - m * m);  // GeV/c</span></a>
+<a name="500"><span class="lineNum">     500 </span><span class="lineCov">       9774 :         return momentumHadron;</span></a>
 <a name="501"><span class="lineNum">     501 </span>            : }</a>
 <a name="502"><span class="lineNum">     502 </span>            : </a>
-<a name="503"><span class="lineNum">     503 </span><span class="lineCov">     146432 : double PhotoPionProduction::crossection(double eps, bool onProton) const {</span></a>
-<a name="504"><span class="lineNum">     504 </span><span class="lineCov">     146432 :         const double m = mass(onProton);</span></a>
-<a name="505"><span class="lineNum">     505 </span><span class="lineCov">     146432 :         const double s = m * m + 2. * m * eps;</span></a>
-<a name="506"><span class="lineNum">     506 </span><span class="lineCov">     146432 :         if (s &lt; sMin())</span></a>
+<a name="503"><span class="lineNum">     503 </span><span class="lineCov">     155472 : double PhotoPionProduction::crossection(double eps, bool onProton) const {</span></a>
+<a name="504"><span class="lineNum">     504 </span><span class="lineCov">     155472 :         const double m = mass(onProton);</span></a>
+<a name="505"><span class="lineNum">     505 </span><span class="lineCov">     155472 :         const double s = m * m + 2. * m * eps;</span></a>
+<a name="506"><span class="lineNum">     506 </span><span class="lineCov">     155472 :         if (s &lt; sMin())</span></a>
 <a name="507"><span class="lineNum">     507 </span>            :                 return 0.;</a>
 <a name="508"><span class="lineNum">     508 </span>            :         double cross_res = 0.;</a>
 <a name="509"><span class="lineNum">     509 </span>            :         double cross_dir = 0.;</a>
@@ -580,113 +580,113 @@
 <a name="518"><span class="lineNum">     518 </span>            :         static const double RATIOJ[18] = {1., 0.5, 1., 0.5, 0.5, 1.5, 1., 1.5, 2., 1., 0.5, 1., 0.5, 0.5, 1.5, 1., 1.5, 2.};</a>
 <a name="519"><span class="lineNum">     519 </span>            :         static const double AM2[2] = {0.882792, 0.880351};</a>
 <a name="520"><span class="lineNum">     520 </span>            : </a>
-<a name="521"><span class="lineNum">     521 </span><span class="lineCov">     146432 :         const int idx = onProton? 0 : 9;</span></a>
+<a name="521"><span class="lineNum">     521 </span><span class="lineCov">     155472 :         const int idx = onProton? 0 : 9;</span></a>
 <a name="522"><span class="lineNum">     522 </span>            :         double SIG0[9];</a>
-<a name="523"><span class="lineNum">     523 </span><span class="lineCov">    1464320 :         for (int i = 0; i &lt; 9; ++i) {</span></a>
-<a name="524"><span class="lineNum">     524 </span><span class="lineCov">    1317888 :                 SIG0[i] = 4.893089117 / AM2[int(onProton)] * RATIOJ[i + idx] * BGAMMA[i + idx];</span></a>
+<a name="523"><span class="lineNum">     523 </span><span class="lineCov">    1554720 :         for (int i = 0; i &lt; 9; ++i) {</span></a>
+<a name="524"><span class="lineNum">     524 </span><span class="lineCov">    1399248 :                 SIG0[i] = 4.893089117 / AM2[int(onProton)] * RATIOJ[i + idx] * BGAMMA[i + idx];</span></a>
 <a name="525"><span class="lineNum">     525 </span>            :         }</a>
-<a name="526"><span class="lineNum">     526 </span><span class="lineCov">     146432 :         if (eps &lt;= 10.) {</span></a>
-<a name="527"><span class="lineNum">     527 </span><span class="lineCov">     138700 :                 cross_res = breitwigner(SIG0[0], WIDTH[0 + idx], AMRES[0 + idx], eps, onProton) * Ef(eps, 0.152, 0.17);</span></a>
+<a name="526"><span class="lineNum">     526 </span><span class="lineCov">     155472 :         if (eps &lt;= 10.) {</span></a>
+<a name="527"><span class="lineNum">     527 </span><span class="lineCov">     146315 :                 cross_res = breitwigner(SIG0[0], WIDTH[0 + idx], AMRES[0 + idx], eps, onProton) * Ef(eps, 0.152, 0.17);</span></a>
 <a name="528"><span class="lineNum">     528 </span>            :                 sig_res[0] = cross_res;</a>
-<a name="529"><span class="lineNum">     529 </span><span class="lineCov">    1248300 :                 for (int i = 1; i &lt; 9; ++i) {</span></a>
-<a name="530"><span class="lineNum">     530 </span><span class="lineCov">    1109600 :                         sig_res[i] = breitwigner(SIG0[i], WIDTH[i + idx], AMRES[i + idx], eps, onProton) * Ef(eps, 0.15, 0.38);</span></a>
-<a name="531"><span class="lineNum">     531 </span><span class="lineCov">    1109600 :                         cross_res += sig_res[i];</span></a>
+<a name="529"><span class="lineNum">     529 </span><span class="lineCov">    1316835 :                 for (int i = 1; i &lt; 9; ++i) {</span></a>
+<a name="530"><span class="lineNum">     530 </span><span class="lineCov">    1170520 :                         sig_res[i] = breitwigner(SIG0[i], WIDTH[i + idx], AMRES[i + idx], eps, onProton) * Ef(eps, 0.15, 0.38);</span></a>
+<a name="531"><span class="lineNum">     531 </span><span class="lineCov">    1170520 :                         cross_res += sig_res[i];</span></a>
 <a name="532"><span class="lineNum">     532 </span>            :                 }</a>
 <a name="533"><span class="lineNum">     533 </span>            :                 // direct channel</a>
-<a name="534"><span class="lineNum">     534 </span><span class="lineCov">     138700 :                 if ((eps &gt; 0.1) &amp;&amp; (eps &lt; 0.6)) {</span></a>
-<a name="535"><span class="lineNum">     535 </span><span class="lineCov">      57273 :                         cross_dir1 = 92.7 * Pl(eps, 0.152, 0.25, 2.0)  // single pion production</span></a>
-<a name="536"><span class="lineNum">     536 </span><span class="lineCov">      57273 :                                            + 40. * std::exp(-(eps - 0.29) * (eps - 0.29) / 0.002)</span></a>
-<a name="537"><span class="lineNum">     537 </span><span class="lineCov">      57273 :                                            - 15. * std::exp(-(eps - 0.37) * (eps - 0.37) / 0.002);</span></a>
+<a name="534"><span class="lineNum">     534 </span><span class="lineCov">     146315 :                 if ((eps &gt; 0.1) &amp;&amp; (eps &lt; 0.6)) {</span></a>
+<a name="535"><span class="lineNum">     535 </span><span class="lineCov">      62320 :                         cross_dir1 = 92.7 * Pl(eps, 0.152, 0.25, 2.0)  // single pion production</span></a>
+<a name="536"><span class="lineNum">     536 </span><span class="lineCov">      62320 :                                            + 40. * std::exp(-(eps - 0.29) * (eps - 0.29) / 0.002)</span></a>
+<a name="537"><span class="lineNum">     537 </span><span class="lineCov">      62320 :                                            - 15. * std::exp(-(eps - 0.37) * (eps - 0.37) / 0.002);</span></a>
 <a name="538"><span class="lineNum">     538 </span>            :                 } else {</a>
-<a name="539"><span class="lineNum">     539 </span><span class="lineCov">      81427 :                         cross_dir1 = 92.7 * Pl(eps, 0.152, 0.25, 2.0);  // single pion production</span></a>
+<a name="539"><span class="lineNum">     539 </span><span class="lineCov">      83995 :                         cross_dir1 = 92.7 * Pl(eps, 0.152, 0.25, 2.0);  // single pion production</span></a>
 <a name="540"><span class="lineNum">     540 </span>            :                 }</a>
-<a name="541"><span class="lineNum">     541 </span><span class="lineCov">     138700 :                 cross_dir2 = 37.7 * Pl(eps, 0.4, 0.6, 2.0);  // double pion production</span></a>
-<a name="542"><span class="lineNum">     542 </span><span class="lineCov">     138700 :                 cross_dir = cross_dir1 + cross_dir2;</span></a>
+<a name="541"><span class="lineNum">     541 </span><span class="lineCov">     146315 :                 cross_dir2 = 37.7 * Pl(eps, 0.4, 0.6, 2.0);  // double pion production</span></a>
+<a name="542"><span class="lineNum">     542 </span><span class="lineCov">     146315 :                 cross_dir = cross_dir1 + cross_dir2;</span></a>
 <a name="543"><span class="lineNum">     543 </span>            :         }</a>
 <a name="544"><span class="lineNum">     544 </span>            :         // fragmentation 2:</a>
-<a name="545"><span class="lineNum">     545 </span><span class="lineCov">     146432 :         double cross_frag2 = onProton? 80.3 : 60.2;</span></a>
-<a name="546"><span class="lineNum">     546 </span><span class="lineCov">     146432 :         cross_frag2 *= Ef(eps, 0.5, 0.1) * std::pow(s, -0.34);</span></a>
+<a name="545"><span class="lineNum">     545 </span><span class="lineCov">     155472 :         double cross_frag2 = onProton? 80.3 : 60.2;</span></a>
+<a name="546"><span class="lineNum">     546 </span><span class="lineCov">     155472 :         cross_frag2 *= Ef(eps, 0.5, 0.1) * std::pow(s, -0.34);</span></a>
 <a name="547"><span class="lineNum">     547 </span>            :         // multipion production/fragmentation 1 cross section</a>
 <a name="548"><span class="lineNum">     548 </span>            :         double cs_multidiff = 0.;</a>
 <a name="549"><span class="lineNum">     549 </span>            :         double cs_multi = 0.;</a>
 <a name="550"><span class="lineNum">     550 </span>            :         double cross_diffr1 = 0.;</a>
 <a name="551"><span class="lineNum">     551 </span>            :         double cross_diffr2 = 0.;</a>
 <a name="552"><span class="lineNum">     552 </span>            :         double cross_diffr = 0.;</a>
-<a name="553"><span class="lineNum">     553 </span><span class="lineCov">     146432 :         if (eps &gt; 0.85) {</span></a>
-<a name="554"><span class="lineNum">     554 </span><span class="lineCov">      79263 :                 double ss1 = (eps - 0.85) / 0.69;</span></a>
-<a name="555"><span class="lineNum">     555 </span><span class="lineCov">      79263 :                 double ss2 = onProton? 29.3 : 26.4;</span></a>
-<a name="556"><span class="lineNum">     556 </span><span class="lineCov">      79263 :                 ss2 *= std::pow(s, -0.34) + 59.3 * std::pow(s, 0.095);</span></a>
-<a name="557"><span class="lineNum">     557 </span><span class="lineCov">      79263 :                 cs_multidiff = (1. - std::exp(-ss1)) * ss2;</span></a>
-<a name="558"><span class="lineNum">     558 </span><span class="lineCov">      79263 :                 cs_multi = 0.89 * cs_multidiff;</span></a>
+<a name="553"><span class="lineNum">     553 </span><span class="lineCov">     155472 :         if (eps &gt; 0.85) {</span></a>
+<a name="554"><span class="lineNum">     554 </span><span class="lineCov">      82495 :                 double ss1 = (eps - 0.85) / 0.69;</span></a>
+<a name="555"><span class="lineNum">     555 </span><span class="lineCov">      82495 :                 double ss2 = onProton? 29.3 : 26.4;</span></a>
+<a name="556"><span class="lineNum">     556 </span><span class="lineCov">      82495 :                 ss2 *= std::pow(s, -0.34) + 59.3 * std::pow(s, 0.095);</span></a>
+<a name="557"><span class="lineNum">     557 </span><span class="lineCov">      82495 :                 cs_multidiff = (1. - std::exp(-ss1)) * ss2;</span></a>
+<a name="558"><span class="lineNum">     558 </span><span class="lineCov">      82495 :                 cs_multi = 0.89 * cs_multidiff;</span></a>
 <a name="559"><span class="lineNum">     559 </span>            :                 // diffractive scattering:</a>
 <a name="560"><span class="lineNum">     560 </span>            :                 cross_diffr1 = 0.099 * cs_multidiff;</a>
 <a name="561"><span class="lineNum">     561 </span>            :                 cross_diffr2 = 0.011 * cs_multidiff;</a>
-<a name="562"><span class="lineNum">     562 </span><span class="lineCov">      79263 :                 cross_diffr = 0.11 * cs_multidiff;</span></a>
+<a name="562"><span class="lineNum">     562 </span><span class="lineCov">      82495 :                 cross_diffr = 0.11 * cs_multidiff;</span></a>
 <a name="563"><span class="lineNum">     563 </span>            :                 // **************************************</a>
-<a name="564"><span class="lineNum">     564 </span><span class="lineCov">      79263 :                 ss1 = std::pow(eps - 0.85, 0.75) / 0.64;</span></a>
-<a name="565"><span class="lineNum">     565 </span><span class="lineCov">      79263 :                 ss2 = 74.1 * std::pow(eps, -0.44) + 62. * std::pow(s, 0.08);</span></a>
-<a name="566"><span class="lineNum">     566 </span><span class="lineCov">      79263 :                 double cs_tmp = 0.96 * (1. - std::exp(-ss1)) * ss2;</span></a>
-<a name="567"><span class="lineNum">     567 </span><span class="lineCov">      79263 :                 cross_diffr1 = 0.14 * cs_tmp;</span></a>
-<a name="568"><span class="lineNum">     568 </span><span class="lineCov">      79263 :                 cross_diffr2 = 0.013 * cs_tmp;</span></a>
-<a name="569"><span class="lineNum">     569 </span><span class="lineCov">      79263 :                 double cs_delta = cross_frag2 - (cross_diffr1 + cross_diffr2 - cross_diffr);</span></a>
-<a name="570"><span class="lineNum">     570 </span><span class="lineCov">      79263 :                 if (cs_delta &lt; 0.) {</span></a>
+<a name="564"><span class="lineNum">     564 </span><span class="lineCov">      82495 :                 ss1 = std::pow(eps - 0.85, 0.75) / 0.64;</span></a>
+<a name="565"><span class="lineNum">     565 </span><span class="lineCov">      82495 :                 ss2 = 74.1 * std::pow(eps, -0.44) + 62. * std::pow(s, 0.08);</span></a>
+<a name="566"><span class="lineNum">     566 </span><span class="lineCov">      82495 :                 double cs_tmp = 0.96 * (1. - std::exp(-ss1)) * ss2;</span></a>
+<a name="567"><span class="lineNum">     567 </span><span class="lineCov">      82495 :                 cross_diffr1 = 0.14 * cs_tmp;</span></a>
+<a name="568"><span class="lineNum">     568 </span><span class="lineCov">      82495 :                 cross_diffr2 = 0.013 * cs_tmp;</span></a>
+<a name="569"><span class="lineNum">     569 </span><span class="lineCov">      82495 :                 double cs_delta = cross_frag2 - (cross_diffr1 + cross_diffr2 - cross_diffr);</span></a>
+<a name="570"><span class="lineNum">     570 </span><span class="lineCov">      82495 :                 if (cs_delta &lt; 0.) {</span></a>
 <a name="571"><span class="lineNum">     571 </span>            :                         cross_frag2 = 0.;</a>
 <a name="572"><span class="lineNum">     572 </span><span class="lineNoCov">          0 :                         cs_multi += cs_delta;</span></a>
 <a name="573"><span class="lineNum">     573 </span>            :                 } else {</a>
 <a name="574"><span class="lineNum">     574 </span>            :                         cross_frag2 = cs_delta;</a>
 <a name="575"><span class="lineNum">     575 </span>            :                 }</a>
 <a name="576"><span class="lineNum">     576 </span>            :                 cross_diffr = cross_diffr1 + cross_diffr2;</a>
-<a name="577"><span class="lineNum">     577 </span><span class="lineCov">      79263 :                 cs_multidiff = cs_multi + cross_diffr;</span></a>
+<a name="577"><span class="lineNum">     577 </span><span class="lineCov">      82495 :                 cs_multidiff = cs_multi + cross_diffr;</span></a>
 <a name="578"><span class="lineNum">     578 </span>            :         // in the original SOPHIA code, here is a switch for the return argument.</a>
 <a name="579"><span class="lineNum">     579 </span>            :         // Here, only one case (compare in SOPHIA: NDIR=3) is needed.</a>
 <a name="580"><span class="lineNum">     580 </span>            :         }</a>
-<a name="581"><span class="lineNum">     581 </span><span class="lineCov">     146432 :         return cross_res + cross_dir + cs_multidiff + cross_frag2;</span></a>
+<a name="581"><span class="lineNum">     581 </span><span class="lineCov">     155472 :         return cross_res + cross_dir + cs_multidiff + cross_frag2;</span></a>
 <a name="582"><span class="lineNum">     582 </span>            : }</a>
 <a name="583"><span class="lineNum">     583 </span>            : </a>
-<a name="584"><span class="lineNum">     584 </span><span class="lineCov">     277400 : double PhotoPionProduction::Pl(double eps, double epsTh, double epsMax, double alpha) const {</span></a>
-<a name="585"><span class="lineNum">     585 </span><span class="lineCov">     277400 :         if (epsTh &gt; eps)</span></a>
+<a name="584"><span class="lineNum">     584 </span><span class="lineCov">     292630 : double PhotoPionProduction::Pl(double eps, double epsTh, double epsMax, double alpha) const {</span></a>
+<a name="585"><span class="lineNum">     585 </span><span class="lineCov">     292630 :         if (epsTh &gt; eps)</span></a>
 <a name="586"><span class="lineNum">     586 </span>            :                 return 0.;</a>
-<a name="587"><span class="lineNum">     587 </span><span class="lineCov">     230936 :         const double a = alpha * epsMax / epsTh;</span></a>
-<a name="588"><span class="lineNum">     588 </span><span class="lineCov">     230936 :         const double prod1 = std::pow((eps - epsTh) / (epsMax - epsTh), a - alpha);</span></a>
-<a name="589"><span class="lineNum">     589 </span><span class="lineCov">     230936 :         const double prod2 = std::pow(eps / epsMax, -a);</span></a>
-<a name="590"><span class="lineNum">     590 </span><span class="lineCov">     230936 :         return prod1 * prod2;</span></a>
+<a name="587"><span class="lineNum">     587 </span><span class="lineCov">     241760 :         const double a = alpha * epsMax / epsTh;</span></a>
+<a name="588"><span class="lineNum">     588 </span><span class="lineCov">     241760 :         const double prod1 = std::pow((eps - epsTh) / (epsMax - epsTh), a - alpha);</span></a>
+<a name="589"><span class="lineNum">     589 </span><span class="lineCov">     241760 :         const double prod2 = std::pow(eps / epsMax, -a);</span></a>
+<a name="590"><span class="lineNum">     590 </span><span class="lineCov">     241760 :         return prod1 * prod2;</span></a>
 <a name="591"><span class="lineNum">     591 </span>            : }</a>
 <a name="592"><span class="lineNum">     592 </span>            : </a>
-<a name="593"><span class="lineNum">     593 </span><span class="lineCov">    1394732 : double PhotoPionProduction::Ef(double eps, double epsTh, double w) const {</span></a>
-<a name="594"><span class="lineNum">     594 </span><span class="lineCov">    1394732 :         const double wTh = w + epsTh;</span></a>
-<a name="595"><span class="lineNum">     595 </span><span class="lineCov">    1394732 :         if (eps &lt;= epsTh) {</span></a>
+<a name="593"><span class="lineNum">     593 </span><span class="lineCov">    1472307 : double PhotoPionProduction::Ef(double eps, double epsTh, double w) const {</span></a>
+<a name="594"><span class="lineNum">     594 </span><span class="lineCov">    1472307 :         const double wTh = w + epsTh;</span></a>
+<a name="595"><span class="lineNum">     595 </span><span class="lineCov">    1472307 :         if (eps &lt;= epsTh) {</span></a>
 <a name="596"><span class="lineNum">     596 </span>            :                 return 0.;</a>
-<a name="597"><span class="lineNum">     597 </span><span class="lineCov">    1341518 :         } else if ((eps &gt; epsTh) &amp;&amp; (eps &lt; wTh)) {</span></a>
-<a name="598"><span class="lineNum">     598 </span><span class="lineCov">     472133 :                 return (eps - epsTh) / w;</span></a>
-<a name="599"><span class="lineNum">     599 </span><span class="lineCov">     869385 :         } else if (eps &gt;= wTh) {</span></a>
+<a name="597"><span class="lineNum">     597 </span><span class="lineCov">    1414223 :         } else if ((eps &gt; epsTh) &amp;&amp; (eps &lt; wTh)) {</span></a>
+<a name="598"><span class="lineNum">     598 </span><span class="lineCov">     514402 :                 return (eps - epsTh) / w;</span></a>
+<a name="599"><span class="lineNum">     599 </span><span class="lineCov">     899821 :         } else if (eps &gt;= wTh) {</span></a>
 <a name="600"><span class="lineNum">     600 </span>            :                 return 1.;</a>
 <a name="601"><span class="lineNum">     601 </span>            :         } else {</a>
 <a name="602"><span class="lineNum">     602 </span><span class="lineNoCov">          0 :                 throw std::runtime_error(&quot;error in function Ef&quot;);</span></a>
 <a name="603"><span class="lineNum">     603 </span>            :         }</a>
 <a name="604"><span class="lineNum">     604 </span>            : }</a>
 <a name="605"><span class="lineNum">     605 </span>            : </a>
-<a name="606"><span class="lineNum">     606 </span><span class="lineCov">    1248300 : double PhotoPionProduction::breitwigner(double sigma0, double gamma, double DMM, double epsPrime, bool onProton) const {</span></a>
-<a name="607"><span class="lineNum">     607 </span><span class="lineCov">    1248300 :         const double m = mass(onProton);</span></a>
-<a name="608"><span class="lineNum">     608 </span><span class="lineCov">    1248300 :         const double s = m * m + 2. * m * epsPrime;</span></a>
-<a name="609"><span class="lineNum">     609 </span><span class="lineCov">    1248300 :         const double gam2s = gamma * gamma * s;</span></a>
-<a name="610"><span class="lineNum">     610 </span><span class="lineCov">    1248300 :         return sigma0 * (s / epsPrime / epsPrime) * gam2s / ((s - DMM * DMM) * (s - DMM * DMM) + gam2s);</span></a>
+<a name="606"><span class="lineNum">     606 </span><span class="lineCov">    1316835 : double PhotoPionProduction::breitwigner(double sigma0, double gamma, double DMM, double epsPrime, bool onProton) const {</span></a>
+<a name="607"><span class="lineNum">     607 </span><span class="lineCov">    1316835 :         const double m = mass(onProton);</span></a>
+<a name="608"><span class="lineNum">     608 </span><span class="lineCov">    1316835 :         const double s = m * m + 2. * m * epsPrime;</span></a>
+<a name="609"><span class="lineNum">     609 </span><span class="lineCov">    1316835 :         const double gam2s = gamma * gamma * s;</span></a>
+<a name="610"><span class="lineNum">     610 </span><span class="lineCov">    1316835 :         return sigma0 * (s / epsPrime / epsPrime) * gam2s / ((s - DMM * DMM) * (s - DMM * DMM) + gam2s);</span></a>
 <a name="611"><span class="lineNum">     611 </span>            : }</a>
 <a name="612"><span class="lineNum">     612 </span>            : </a>
-<a name="613"><span class="lineNum">     613 </span><span class="lineCov">     146432 : double PhotoPionProduction::functs(double s, bool onProton) const {</span></a>
-<a name="614"><span class="lineNum">     614 </span><span class="lineCov">     146432 :         const double m = mass(onProton);</span></a>
-<a name="615"><span class="lineNum">     615 </span><span class="lineCov">     146432 :         const double factor = s - m * m;</span></a>
-<a name="616"><span class="lineNum">     616 </span><span class="lineCov">     146432 :         const double epsPrime = factor / 2. / m;</span></a>
-<a name="617"><span class="lineNum">     617 </span><span class="lineCov">     146432 :         const double sigmaPg = crossection(epsPrime, onProton);</span></a>
-<a name="618"><span class="lineNum">     618 </span><span class="lineCov">     146432 :         return factor * sigmaPg;</span></a>
+<a name="613"><span class="lineNum">     613 </span><span class="lineCov">     155472 : double PhotoPionProduction::functs(double s, bool onProton) const {</span></a>
+<a name="614"><span class="lineNum">     614 </span><span class="lineCov">     155472 :         const double m = mass(onProton);</span></a>
+<a name="615"><span class="lineNum">     615 </span><span class="lineCov">     155472 :         const double factor = s - m * m;</span></a>
+<a name="616"><span class="lineNum">     616 </span><span class="lineCov">     155472 :         const double epsPrime = factor / 2. / m;</span></a>
+<a name="617"><span class="lineNum">     617 </span><span class="lineCov">     155472 :         const double sigmaPg = crossection(epsPrime, onProton);</span></a>
+<a name="618"><span class="lineNum">     618 </span><span class="lineCov">     155472 :         return factor * sigmaPg;</span></a>
 <a name="619"><span class="lineNum">     619 </span>            : }</a>
 <a name="620"><span class="lineNum">     620 </span>            : </a>
-<a name="621"><span class="lineNum">     621 </span><span class="lineCov">    1568748 : double PhotoPionProduction::mass(bool onProton) const {</span></a>
-<a name="622"><span class="lineNum">     622 </span><span class="lineCov">    1568748 :         const double m =  onProton ? mass_proton : mass_neutron;</span></a>
-<a name="623"><span class="lineNum">     623 </span><span class="lineCov">    1568748 :         return m / GeV * c_squared;</span></a>
+<a name="621"><span class="lineNum">     621 </span><span class="lineCov">    1657073 : double PhotoPionProduction::mass(bool onProton) const {</span></a>
+<a name="622"><span class="lineNum">     622 </span><span class="lineCov">    1657073 :         const double m =  onProton ? mass_proton : mass_neutron;</span></a>
+<a name="623"><span class="lineNum">     623 </span><span class="lineCov">    1657073 :         return m / GeV * c_squared;</span></a>
 <a name="624"><span class="lineNum">     624 </span>            : }</a>
 <a name="625"><span class="lineNum">     625 </span>            : </a>
-<a name="626"><span class="lineNum">     626 </span><span class="lineCov">     164762 : double PhotoPionProduction::sMin() const {</span></a>
-<a name="627"><span class="lineNum">     627 </span><span class="lineCov">     164762 :         return 1.1646; // [GeV^2] head-on collision</span></a>
+<a name="626"><span class="lineNum">     626 </span><span class="lineCov">     174935 : double PhotoPionProduction::sMin() const {</span></a>
+<a name="627"><span class="lineNum">     627 </span><span class="lineCov">     174935 :         return 1.1646; // [GeV^2] head-on collision</span></a>
 <a name="628"><span class="lineNum">     628 </span>            : }</a>
 <a name="629"><span class="lineNum">     629 </span>            : </a>
 <a name="630"><span class="lineNum">     630 </span><span class="lineNoCov">          0 : void PhotoPionProduction::setSampleLog(bool b) {</span></a>

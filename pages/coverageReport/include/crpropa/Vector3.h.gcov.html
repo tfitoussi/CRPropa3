@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2024-08-02 13:50:39</td>
+            <td class="headerValue">2024-08-26 12:58:50</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">16</td>
@@ -104,7 +104,7 @@
 <a name="42"><span class="lineNum">      42 </span>            :         }</a>
 <a name="43"><span class="lineNum">      43 </span>            : </a>
 <a name="44"><span class="lineNum">      44 </span>            :         // avoid creation of default non-conversion constructor</a>
-<a name="45"><span class="lineNum">      45 </span><span class="lineCov">   20376040 :         Vector3(const Vector3 &amp;v) : data{v.data[0], v.data[1], v.data[2]} {</span></a>
+<a name="45"><span class="lineNum">      45 </span><span class="lineCov">   20373245 :         Vector3(const Vector3 &amp;v) : data{v.data[0], v.data[1], v.data[2]} {</span></a>
 <a name="46"><span class="lineNum">      46 </span><span class="lineNoCov">          0 :         }</span></a>
 <a name="47"><span class="lineNum">      47 </span>            : </a>
 <a name="48"><span class="lineNum">      48 </span>            :         // Provides implicit conversion</a>
@@ -117,7 +117,7 @@
 <a name="55"><span class="lineNum">      55 </span>            : </a>
 <a name="56"><span class="lineNum">      56 </span>            :         ~Vector3()</a>
 <a name="57"><span class="lineNum">      57 </span>            :         {</a>
-<a name="58"><span class="lineNum">      58 </span><span class="lineCov">   26201822 :         }</span></a>
+<a name="58"><span class="lineNum">      58 </span><span class="lineCov">   26190417 :         }</span></a>
 <a name="59"><span class="lineNum">      59 </span>            : </a>
 <a name="60"><span class="lineNum">      60 </span><span class="lineNoCov">          0 :         explicit Vector3(const double *v) {</span></a>
 <a name="61"><span class="lineNum">      61 </span><span class="lineNoCov">          0 :                 data[0] = v[0];</span></a>
@@ -131,10 +131,10 @@
 <a name="69"><span class="lineNum">      69 </span><span class="lineNoCov">          0 :                 data[2] = v[2];</span></a>
 <a name="70"><span class="lineNum">      70 </span>            :         }</a>
 <a name="71"><span class="lineNum">      71 </span>            : </a>
-<a name="72"><span class="lineNum">      72 </span><span class="lineCov">   12606548 :         explicit Vector3(const T &amp;X, const T &amp;Y, const T &amp;Z) : data{X, Y, Z} {</span></a>
+<a name="72"><span class="lineNum">      72 </span><span class="lineCov">   12603753 :         explicit Vector3(const T &amp;X, const T &amp;Y, const T &amp;Z) : data{X, Y, Z} {</span></a>
 <a name="73"><span class="lineNum">      73 </span>            :         }</a>
 <a name="74"><span class="lineNum">      74 </span>            : </a>
-<a name="75"><span class="lineNum">      75 </span><span class="lineCov">   18494070 :         explicit Vector3(T t) : data{t, t, t} {</span></a>
+<a name="75"><span class="lineNum">      75 </span><span class="lineCov">   18486050 :         explicit Vector3(T t) : data{t, t, t} {</span></a>
 <a name="76"><span class="lineNum">      76 </span><span class="lineCov">          1 :         }</span></a>
 <a name="77"><span class="lineNum">      77 </span>            : </a>
 <a name="78"><span class="lineNum">      78 </span>            :         void setX(const T X) {</a>
@@ -179,7 +179,7 @@
 <a name="117"><span class="lineNum">     117 </span>            : </a>
 <a name="118"><span class="lineNum">     118 </span>            :         // magnitude (2-norm) of the vector</a>
 <a name="119"><span class="lineNum">     119 </span>            :         T getR() const {</a>
-<a name="120"><span class="lineNum">     120 </span><span class="lineCov">   25086946 :                 return std::sqrt(x * x + y * y + z * z);</span></a>
+<a name="120"><span class="lineNum">     120 </span><span class="lineCov">   25077322 :                 return std::sqrt(x * x + y * y + z * z);</span></a>
 <a name="121"><span class="lineNum">     121 </span>            :         }</a>
 <a name="122"><span class="lineNum">     122 </span>            : </a>
 <a name="123"><span class="lineNum">     123 </span>            :         // square of magnitude of the vector</a>
@@ -337,7 +337,7 @@
 <a name="275"><span class="lineNum">     275 </span>            :         }</a>
 <a name="276"><span class="lineNum">     276 </span>            : </a>
 <a name="277"><span class="lineNum">     277 </span>            :         Vector3&lt;T&gt; operator +(const Vector3&lt;T&gt; &amp;v) const {</a>
-<a name="278"><span class="lineNum">     278 </span><span class="lineCov">    4331344 :                 return Vector3(x + v.x, y + v.y, z + v.z);</span></a>
+<a name="278"><span class="lineNum">     278 </span><span class="lineCov">    4327401 :                 return Vector3(x + v.x, y + v.y, z + v.z);</span></a>
 <a name="279"><span class="lineNum">     279 </span>            :         }</a>
 <a name="280"><span class="lineNum">     280 </span>            : </a>
 <a name="281"><span class="lineNum">     281 </span>            :         Vector3&lt;T&gt; operator +(const T &amp;f) const {</a>
@@ -345,7 +345,7 @@
 <a name="283"><span class="lineNum">     283 </span>            :         }</a>
 <a name="284"><span class="lineNum">     284 </span>            : </a>
 <a name="285"><span class="lineNum">     285 </span>            :         Vector3&lt;T&gt; operator -(const Vector3&lt;T&gt; &amp;v) const {</a>
-<a name="286"><span class="lineNum">     286 </span><span class="lineCov">    7531180 :                 return Vector3(x - v.x, y - v.y, z - v.z);</span></a>
+<a name="286"><span class="lineNum">     286 </span><span class="lineCov">    7525220 :                 return Vector3(x - v.x, y - v.y, z - v.z);</span></a>
 <a name="287"><span class="lineNum">     287 </span>            :         }</a>
 <a name="288"><span class="lineNum">     288 </span>            : </a>
 <a name="289"><span class="lineNum">     289 </span>            :         Vector3&lt;T&gt; operator -(const T &amp;f) const {</a>
@@ -358,7 +358,7 @@
 <a name="296"><span class="lineNum">     296 </span>            :         }</a>
 <a name="297"><span class="lineNum">     297 </span>            : </a>
 <a name="298"><span class="lineNum">     298 </span>            :         Vector3&lt;T&gt; operator *(T v) const {</a>
-<a name="299"><span class="lineNum">     299 </span><span class="lineCov">    1184080 :                 return Vector3(data[0] * v, data[1] * v, data[2] * v);</span></a>
+<a name="299"><span class="lineNum">     299 </span><span class="lineCov">    1184493 :                 return Vector3(data[0] * v, data[1] * v, data[2] * v);</span></a>
 <a name="300"><span class="lineNum">     300 </span>            :         }</a>
 <a name="301"><span class="lineNum">     301 </span>            : </a>
 <a name="302"><span class="lineNum">     302 </span>            :         // element-wise division</a>
@@ -453,9 +453,9 @@
 <a name="391"><span class="lineNum">     391 </span>            :         }</a>
 <a name="392"><span class="lineNum">     392 </span>            : </a>
 <a name="393"><span class="lineNum">     393 </span>            :         Vector3&lt;T&gt; &amp;operator =(const Vector3&lt;T&gt; &amp;v) {</a>
-<a name="394"><span class="lineNum">     394 </span><span class="lineCov">   64081787 :                 data[0] = v.x;</span></a>
-<a name="395"><span class="lineNum">     395 </span><span class="lineCov">   64081801 :                 data[1] = v.y;</span></a>
-<a name="396"><span class="lineNum">     396 </span><span class="lineCov">   63596174 :                 data[2] = v.z;</span></a>
+<a name="394"><span class="lineNum">     394 </span><span class="lineCov">   64060135 :                 data[0] = v.x;</span></a>
+<a name="395"><span class="lineNum">     395 </span><span class="lineCov">   64060149 :                 data[1] = v.y;</span></a>
+<a name="396"><span class="lineNum">     396 </span><span class="lineCov">   63574522 :                 data[2] = v.z;</span></a>
 <a name="397"><span class="lineNum">     397 </span><span class="lineNoCov">          0 :                 return *this;</span></a>
 <a name="398"><span class="lineNum">     398 </span>            :         }</a>
 <a name="399"><span class="lineNum">     399 </span>            : </a>
@@ -490,7 +490,7 @@
 <a name="428"><span class="lineNum">     428 </span>            : </a>
 <a name="429"><span class="lineNum">     429 </span>            : template&lt;typename T&gt;</a>
 <a name="430"><span class="lineNum">     430 </span>            : inline Vector3&lt;T&gt; operator *(T f, const Vector3&lt;T&gt; &amp;v) {</a>
-<a name="431"><span class="lineNum">     431 </span><span class="lineCov">    3628346 :         return Vector3&lt;T&gt;(v.x * f, v.y * f, v.z * f);</span></a>
+<a name="431"><span class="lineNum">     431 </span><span class="lineCov">    3623990 :         return Vector3&lt;T&gt;(v.x * f, v.y * f, v.z * f);</span></a>
 <a name="432"><span class="lineNum">     432 </span>            : }</a>
 <a name="433"><span class="lineNum">     433 </span>            : </a>
 <a name="434"><span class="lineNum">     434 </span>            : typedef Vector3&lt;double&gt; Vector3d;</a>

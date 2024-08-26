@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2024-08-02 13:50:39</td>
+            <td class="headerValue">2024-08-26 12:58:50</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">81</td>
@@ -445,19 +445,19 @@
 <a name="383"><span class="lineNum">     383 </span><span class="lineCov">     100001 :         Random &amp;random = Random::instance();</span></a>
 <a name="384"><span class="lineNum">     384 </span>            :         double RPos;</a>
 <a name="385"><span class="lineNum">     385 </span>            :         while (true) {</a>
-<a name="386"><span class="lineNum">     386 </span><span class="lineCov">     192651 :                 RPos = random.rand() * rMax;</span></a>
-<a name="387"><span class="lineNum">     387 </span><span class="lineCov">     192651 :                 double fTest = random.rand() * frMax;</span></a>
-<a name="388"><span class="lineNum">     388 </span><span class="lineCov">     192651 :                 double fR = fr(RPos);</span></a>
-<a name="389"><span class="lineNum">     389 </span><span class="lineCov">     192651 :                 if (fTest &lt;= fR) {</span></a>
+<a name="386"><span class="lineNum">     386 </span><span class="lineCov">     192717 :                 RPos = random.rand() * rMax;</span></a>
+<a name="387"><span class="lineNum">     387 </span><span class="lineCov">     192717 :                 double fTest = random.rand() * frMax;</span></a>
+<a name="388"><span class="lineNum">     388 </span><span class="lineCov">     192717 :                 double fR = fr(RPos);</span></a>
+<a name="389"><span class="lineNum">     389 </span><span class="lineCov">     192717 :                 if (fTest &lt;= fR) {</span></a>
 <a name="390"><span class="lineNum">     390 </span>            :                         break;</a>
 <a name="391"><span class="lineNum">     391 </span>            :                 }</a>
 <a name="392"><span class="lineNum">     392 </span>            :         }</a>
 <a name="393"><span class="lineNum">     393 </span>            :         double ZPos;</a>
 <a name="394"><span class="lineNum">     394 </span>            :         while (true) {</a>
-<a name="395"><span class="lineNum">     395 </span><span class="lineCov">    1669382 :                 ZPos = (random.rand() - 0.5) * 2 * zMax;</span></a>
-<a name="396"><span class="lineNum">     396 </span><span class="lineCov">    1669382 :                 double fTest = random.rand() * fzMax;</span></a>
-<a name="397"><span class="lineNum">     397 </span><span class="lineCov">    1669382 :                 double fZ=fz(ZPos);</span></a>
-<a name="398"><span class="lineNum">     398 </span><span class="lineCov">    1669382 :                 if (fTest&lt;=fZ) {</span></a>
+<a name="395"><span class="lineNum">     395 </span><span class="lineCov">    1670064 :                 ZPos = (random.rand() - 0.5) * 2 * zMax;</span></a>
+<a name="396"><span class="lineNum">     396 </span><span class="lineCov">    1670064 :                 double fTest = random.rand() * fzMax;</span></a>
+<a name="397"><span class="lineNum">     397 </span><span class="lineCov">    1670064 :                 double fZ=fz(ZPos);</span></a>
+<a name="398"><span class="lineNum">     398 </span><span class="lineCov">    1670064 :                 if (fTest&lt;=fZ) {</span></a>
 <a name="399"><span class="lineNum">     399 </span>            :                         break;</a>
 <a name="400"><span class="lineNum">     400 </span>            :                 }</a>
 <a name="401"><span class="lineNum">     401 </span>            :         }</a>
@@ -466,15 +466,15 @@
 <a name="404"><span class="lineNum">     404 </span><span class="lineCov">     100001 :         particle.setPosition(pos);</span></a>
 <a name="405"><span class="lineNum">     405 </span><span class="lineCov">     100001 : }</span></a>
 <a name="406"><span class="lineNum">     406 </span>            : </a>
-<a name="407"><span class="lineNum">     407 </span><span class="lineCov">     192651 : double SourceSNRDistribution::fr(double r) const {</span></a>
-<a name="408"><span class="lineNum">     408 </span><span class="lineCov">     192651 :         return pow(r / rEarth, alpha) * exp(- beta * (r - rEarth) / rEarth);</span></a>
+<a name="407"><span class="lineNum">     407 </span><span class="lineCov">     192717 : double SourceSNRDistribution::fr(double r) const {</span></a>
+<a name="408"><span class="lineNum">     408 </span><span class="lineCov">     192717 :         return pow(r / rEarth, alpha) * exp(- beta * (r - rEarth) / rEarth);</span></a>
 <a name="409"><span class="lineNum">     409 </span>            : }</a>
 <a name="410"><span class="lineNum">     410 </span>            : </a>
-<a name="411"><span class="lineNum">     411 </span><span class="lineCov">    1669382 : double SourceSNRDistribution::fz(double z) const{</span></a>
+<a name="411"><span class="lineNum">     411 </span><span class="lineCov">    1670064 : double SourceSNRDistribution::fz(double z) const{</span></a>
 <a name="412"><span class="lineNum">     412 </span>            :         double Az = 1.;</a>
-<a name="413"><span class="lineNum">     413 </span><span class="lineCov">    1669382 :         double f = 1. / zg * exp(- fabs(z) / zg);</span></a>
+<a name="413"><span class="lineNum">     413 </span><span class="lineCov">    1670064 :         double f = 1. / zg * exp(- fabs(z) / zg);</span></a>
 <a name="414"><span class="lineNum">     414 </span>            :         double fz = Az * f;</a>
-<a name="415"><span class="lineNum">     415 </span><span class="lineCov">    1669382 :         return fz;</span></a>
+<a name="415"><span class="lineNum">     415 </span><span class="lineCov">    1670064 :         return fz;</span></a>
 <a name="416"><span class="lineNum">     416 </span>            : }</a>
 <a name="417"><span class="lineNum">     417 </span>            : </a>
 <a name="418"><span class="lineNum">     418 </span><span class="lineNoCov">          0 : double SourceSNRDistribution::getAlpha() const {</span></a>

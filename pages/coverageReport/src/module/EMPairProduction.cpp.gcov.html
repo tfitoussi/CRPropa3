@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2024-08-02 13:50:39</td>
+            <td class="headerValue">2024-08-26 12:58:50</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">13</td>
@@ -210,81 +210,81 @@
 <a name="148"><span class="lineNum">     148 </span><span class="lineCov">          1 :                 }</span></a>
 <a name="149"><span class="lineNum">     149 </span>            : </a>
 <a name="150"><span class="lineNum">     150 </span>            :                 // sample positron energy from cdf(E, s_kin)</a>
-<a name="151"><span class="lineNum">     151 </span><span class="lineCov">        560 :                 double sample(double E0, double s) {</span></a>
+<a name="151"><span class="lineNum">     151 </span><span class="lineCov">        561 :                 double sample(double E0, double s) {</span></a>
 <a name="152"><span class="lineNum">     152 </span>            :                         // get distribution for given s</a>
-<a name="153"><span class="lineNum">     153 </span><span class="lineCov">        560 :                         size_t idx = std::lower_bound(tab_s.begin(), tab_s.end(), s) - tab_s.begin();</span></a>
-<a name="154"><span class="lineNum">     154 </span><span class="lineCov">        560 :                         if (idx &gt; data.size())</span></a>
+<a name="153"><span class="lineNum">     153 </span><span class="lineCov">        561 :                         size_t idx = std::lower_bound(tab_s.begin(), tab_s.end(), s) - tab_s.begin();</span></a>
+<a name="154"><span class="lineNum">     154 </span><span class="lineCov">        561 :                         if (idx &gt; data.size())</span></a>
 <a name="155"><span class="lineNum">     155 </span>            :                                 return NAN;</a>
 <a name="156"><span class="lineNum">     156 </span>            :                                 </a>
-<a name="157"><span class="lineNum">     157 </span><span class="lineCov">        560 :                         std::vector&lt;double&gt; s0 = data[idx];</span></a>
+<a name="157"><span class="lineNum">     157 </span><span class="lineCov">        561 :                         std::vector&lt;double&gt; s0 = data[idx];</span></a>
 <a name="158"><span class="lineNum">     158 </span>            : </a>
 <a name="159"><span class="lineNum">     159 </span>            :                         // draw random bin</a>
-<a name="160"><span class="lineNum">     160 </span><span class="lineCov">        560 :                         Random &amp;random = Random::instance();</span></a>
-<a name="161"><span class="lineNum">     161 </span><span class="lineCov">        560 :                         size_t j = random.randBin(s0) + 1;</span></a>
+<a name="160"><span class="lineNum">     160 </span><span class="lineCov">        561 :                         Random &amp;random = Random::instance();</span></a>
+<a name="161"><span class="lineNum">     161 </span><span class="lineCov">        561 :                         size_t j = random.randBin(s0) + 1;</span></a>
 <a name="162"><span class="lineNum">     162 </span>            : </a>
 <a name="163"><span class="lineNum">     163 </span>            :                         double s_min = 4. * mec2 * mec2;</a>
-<a name="164"><span class="lineNum">     164 </span><span class="lineCov">        560 :                         double beta = sqrtl(1. - s_min / s);</span></a>
-<a name="165"><span class="lineNum">     165 </span><span class="lineCov">        560 :                         double x0 = (1. - beta) / 2.;</span></a>
-<a name="166"><span class="lineNum">     166 </span><span class="lineCov">        560 :                         double dx = log((1 + beta) / (1 - beta)) / N;</span></a>
-<a name="167"><span class="lineNum">     167 </span><span class="lineCov">        560 :                         double binWidth = x0 * (exp(j*dx) - exp((j-1)*dx));</span></a>
-<a name="168"><span class="lineNum">     168 </span><span class="lineCov">        560 :                         if (random.rand() &lt; 0.5)</span></a>
-<a name="169"><span class="lineNum">     169 </span><span class="lineCov">        287 :                                 return E0 * (x0 * exp((j-1) * dx) + binWidth);</span></a>
+<a name="164"><span class="lineNum">     164 </span><span class="lineCov">        561 :                         double beta = sqrtl(1. - s_min / s);</span></a>
+<a name="165"><span class="lineNum">     165 </span><span class="lineCov">        561 :                         double x0 = (1. - beta) / 2.;</span></a>
+<a name="166"><span class="lineNum">     166 </span><span class="lineCov">        561 :                         double dx = log((1 + beta) / (1 - beta)) / N;</span></a>
+<a name="167"><span class="lineNum">     167 </span><span class="lineCov">        561 :                         double binWidth = x0 * (exp(j*dx) - exp((j-1)*dx));</span></a>
+<a name="168"><span class="lineNum">     168 </span><span class="lineCov">        561 :                         if (random.rand() &lt; 0.5)</span></a>
+<a name="169"><span class="lineNum">     169 </span><span class="lineCov">        324 :                                 return E0 * (x0 * exp((j-1) * dx) + binWidth);</span></a>
 <a name="170"><span class="lineNum">     170 </span>            :                         else</a>
-<a name="171"><span class="lineNum">     171 </span><span class="lineCov">        273 :                                 return E0 * (1 - (x0 * exp((j-1) * dx) + binWidth));</span></a>
+<a name="171"><span class="lineNum">     171 </span><span class="lineCov">        237 :                                 return E0 * (1 - (x0 * exp((j-1) * dx) + binWidth));</span></a>
 <a name="172"><span class="lineNum">     172 </span>            :                 }</a>
 <a name="173"><span class="lineNum">     173 </span>            : };</a>
 <a name="174"><span class="lineNum">     174 </span>            : </a>
-<a name="175"><span class="lineNum">     175 </span><span class="lineCov">        560 : void EMPairProduction::performInteraction(Candidate *candidate) const {</span></a>
+<a name="175"><span class="lineNum">     175 </span><span class="lineCov">        561 : void EMPairProduction::performInteraction(Candidate *candidate) const {</span></a>
 <a name="176"><span class="lineNum">     176 </span>            :         </a>
 <a name="177"><span class="lineNum">     177 </span>            :         // photon is lost after interacting</a>
-<a name="178"><span class="lineNum">     178 </span><span class="lineCov">        560 :         candidate-&gt;setActive(false);</span></a>
+<a name="178"><span class="lineNum">     178 </span><span class="lineCov">        561 :         candidate-&gt;setActive(false);</span></a>
 <a name="179"><span class="lineNum">     179 </span>            : </a>
 <a name="180"><span class="lineNum">     180 </span>            :         // check if secondary electron pair needs to be produced</a>
-<a name="181"><span class="lineNum">     181 </span><span class="lineCov">        560 :         if (not haveElectrons)</span></a>
+<a name="181"><span class="lineNum">     181 </span><span class="lineCov">        561 :         if (not haveElectrons)</span></a>
 <a name="182"><span class="lineNum">     182 </span><span class="lineNoCov">          0 :                 return;</span></a>
 <a name="183"><span class="lineNum">     183 </span>            :                 </a>
 <a name="184"><span class="lineNum">     184 </span>            :         // scale particle energy instead of background photon energy</a>
-<a name="185"><span class="lineNum">     185 </span><span class="lineCov">        560 :         double z = candidate-&gt;getRedshift();</span></a>
-<a name="186"><span class="lineNum">     186 </span><span class="lineCov">        560 :         double E = candidate-&gt;current.getEnergy() * (1 + z);</span></a>
+<a name="185"><span class="lineNum">     185 </span><span class="lineCov">        561 :         double z = candidate-&gt;getRedshift();</span></a>
+<a name="186"><span class="lineNum">     186 </span><span class="lineCov">        561 :         double E = candidate-&gt;current.getEnergy() * (1 + z);</span></a>
 <a name="187"><span class="lineNum">     187 </span>            : </a>
 <a name="188"><span class="lineNum">     188 </span>            :         // check if in tabulated energy range</a>
-<a name="189"><span class="lineNum">     189 </span><span class="lineCov">        560 :         if (E &lt; tabE.front() or (E &gt; tabE.back()))</span></a>
+<a name="189"><span class="lineNum">     189 </span><span class="lineCov">        561 :         if (E &lt; tabE.front() or (E &gt; tabE.back()))</span></a>
 <a name="190"><span class="lineNum">     190 </span>            :                 return;</a>
 <a name="191"><span class="lineNum">     191 </span>            : </a>
 <a name="192"><span class="lineNum">     192 </span>            :         // sample the value of s</a>
-<a name="193"><span class="lineNum">     193 </span><span class="lineCov">        560 :         Random &amp;random = Random::instance();</span></a>
-<a name="194"><span class="lineNum">     194 </span><span class="lineCov">        560 :         size_t i = closestIndex(E, tabE);  // find closest tabulation point</span></a>
-<a name="195"><span class="lineNum">     195 </span><span class="lineCov">        560 :         size_t j = random.randBin(tabCDF[i]);</span></a>
-<a name="196"><span class="lineNum">     196 </span><span class="lineCov">       1081 :         double lo = std::max(4 * mec2 * mec2, tabs[j-1]);  // first s-tabulation point below min(s_kin) = (2 me c^2)^2; ensure physical value</span></a>
-<a name="197"><span class="lineNum">     197 </span><span class="lineCov">        560 :         double hi = tabs[j];</span></a>
-<a name="198"><span class="lineNum">     198 </span><span class="lineCov">        560 :         double s = lo + random.rand() * (hi - lo);</span></a>
+<a name="193"><span class="lineNum">     193 </span><span class="lineCov">        561 :         Random &amp;random = Random::instance();</span></a>
+<a name="194"><span class="lineNum">     194 </span><span class="lineCov">        561 :         size_t i = closestIndex(E, tabE);  // find closest tabulation point</span></a>
+<a name="195"><span class="lineNum">     195 </span><span class="lineCov">        561 :         size_t j = random.randBin(tabCDF[i]);</span></a>
+<a name="196"><span class="lineNum">     196 </span><span class="lineCov">       1091 :         double lo = std::max(4 * mec2 * mec2, tabs[j-1]);  // first s-tabulation point below min(s_kin) = (2 me c^2)^2; ensure physical value</span></a>
+<a name="197"><span class="lineNum">     197 </span><span class="lineCov">        561 :         double hi = tabs[j];</span></a>
+<a name="198"><span class="lineNum">     198 </span><span class="lineCov">        561 :         double s = lo + random.rand() * (hi - lo);</span></a>
 <a name="199"><span class="lineNum">     199 </span>            : </a>
 <a name="200"><span class="lineNum">     200 </span>            :         // sample electron / positron energy</a>
-<a name="201"><span class="lineNum">     201 </span><span class="lineCov">        560 :         static PPSecondariesEnergyDistribution interpolation;</span></a>
-<a name="202"><span class="lineNum">     202 </span><span class="lineCov">        560 :         double Ee = interpolation.sample(E, s);</span></a>
-<a name="203"><span class="lineNum">     203 </span><span class="lineCov">        560 :         double Ep = E - Ee;</span></a>
-<a name="204"><span class="lineNum">     204 </span><span class="lineCov">        560 :         double f = Ep / E;</span></a>
+<a name="201"><span class="lineNum">     201 </span><span class="lineCov">        561 :         static PPSecondariesEnergyDistribution interpolation;</span></a>
+<a name="202"><span class="lineNum">     202 </span><span class="lineCov">        561 :         double Ee = interpolation.sample(E, s);</span></a>
+<a name="203"><span class="lineNum">     203 </span><span class="lineCov">        561 :         double Ep = E - Ee;</span></a>
+<a name="204"><span class="lineNum">     204 </span><span class="lineCov">        561 :         double f = Ep / E;</span></a>
 <a name="205"><span class="lineNum">     205 </span>            : </a>
 <a name="206"><span class="lineNum">     206 </span>            :         // for some backgrounds Ee=nan due to precision limitations.</a>
-<a name="207"><span class="lineNum">     207 </span><span class="lineCov">        560 :         if (not std::isfinite(Ee) || not std::isfinite(Ep))</span></a>
+<a name="207"><span class="lineNum">     207 </span><span class="lineCov">        561 :         if (not std::isfinite(Ee) || not std::isfinite(Ep))</span></a>
 <a name="208"><span class="lineNum">     208 </span>            :                 return;</a>
 <a name="209"><span class="lineNum">     209 </span>            : </a>
 <a name="210"><span class="lineNum">     210 </span>            :         // sample random position along current step</a>
-<a name="211"><span class="lineNum">     211 </span><span class="lineCov">        560 :         Vector3d pos = random.randomInterpolatedPosition(candidate-&gt;previous.getPosition(), candidate-&gt;current.getPosition());</span></a>
+<a name="211"><span class="lineNum">     211 </span><span class="lineCov">        561 :         Vector3d pos = random.randomInterpolatedPosition(candidate-&gt;previous.getPosition(), candidate-&gt;current.getPosition());</span></a>
 <a name="212"><span class="lineNum">     212 </span>            :         // apply sampling</a>
-<a name="213"><span class="lineNum">     213 </span><span class="lineCov">        560 :         if (random.rand() &lt; pow(f, thinning)) {</span></a>
-<a name="214"><span class="lineNum">     214 </span><span class="lineCov">        560 :                 double w = 1. / pow(f, thinning);</span></a>
-<a name="215"><span class="lineNum">     215 </span><span class="lineCov">        560 :                 candidate-&gt;addSecondary(11, Ep / (1 + z), pos, w, interactionTag);</span></a>
+<a name="213"><span class="lineNum">     213 </span><span class="lineCov">        561 :         if (random.rand() &lt; pow(f, thinning)) {</span></a>
+<a name="214"><span class="lineNum">     214 </span><span class="lineCov">        561 :                 double w = 1. / pow(f, thinning);</span></a>
+<a name="215"><span class="lineNum">     215 </span><span class="lineCov">        561 :                 candidate-&gt;addSecondary(11, Ep / (1 + z), pos, w, interactionTag);</span></a>
 <a name="216"><span class="lineNum">     216 </span>            :         }</a>
-<a name="217"><span class="lineNum">     217 </span><span class="lineCov">        560 :         if (random.rand() &lt; pow(1 - f, thinning)){</span></a>
-<a name="218"><span class="lineNum">     218 </span><span class="lineCov">        560 :                 double w = 1. / pow(1 - f, thinning);</span></a>
-<a name="219"><span class="lineNum">     219 </span><span class="lineCov">        560 :                 candidate-&gt;addSecondary(-11, Ee / (1 + z), pos, w, interactionTag);  </span></a>
+<a name="217"><span class="lineNum">     217 </span><span class="lineCov">        561 :         if (random.rand() &lt; pow(1 - f, thinning)){</span></a>
+<a name="218"><span class="lineNum">     218 </span><span class="lineCov">        561 :                 double w = 1. / pow(1 - f, thinning);</span></a>
+<a name="219"><span class="lineNum">     219 </span><span class="lineCov">        561 :                 candidate-&gt;addSecondary(-11, Ee / (1 + z), pos, w, interactionTag);  </span></a>
 <a name="220"><span class="lineNum">     220 </span>            :         }</a>
 <a name="221"><span class="lineNum">     221 </span>            : }</a>
 <a name="222"><span class="lineNum">     222 </span>            : </a>
-<a name="223"><span class="lineNum">     223 </span><span class="lineCov">       2271 : void EMPairProduction::process(Candidate *candidate) const {</span></a>
+<a name="223"><span class="lineNum">     223 </span><span class="lineCov">       3097 : void EMPairProduction::process(Candidate *candidate) const {</span></a>
 <a name="224"><span class="lineNum">     224 </span>            :         // check if photon</a>
-<a name="225"><span class="lineNum">     225 </span><span class="lineCov">       2271 :         if (candidate-&gt;current.getId() != 22)</span></a>
+<a name="225"><span class="lineNum">     225 </span><span class="lineCov">       3097 :         if (candidate-&gt;current.getId() != 22)</span></a>
 <a name="226"><span class="lineNum">     226 </span>            :                 return;</a>
 <a name="227"><span class="lineNum">     227 </span>            : </a>
 <a name="228"><span class="lineNum">     228 </span>            :         // scale particle energy instead of background photon energy</a>
@@ -306,13 +306,13 @@
 <a name="244"><span class="lineNum">     244 </span><span class="lineCov">        651 :                 double randDistance = -log(random.rand()) / rate;</span></a>
 <a name="245"><span class="lineNum">     245 </span>            :                 // check for interaction; if it doesn't ocurr, limit next step</a>
 <a name="246"><span class="lineNum">     246 </span><span class="lineCov">        651 :                 if (step &lt; randDistance) { </span></a>
-<a name="247"><span class="lineNum">     247 </span><span class="lineCov">         92 :                         candidate-&gt;limitNextStep(limit / rate);</span></a>
+<a name="247"><span class="lineNum">     247 </span><span class="lineCov">         91 :                         candidate-&gt;limitNextStep(limit / rate);</span></a>
 <a name="248"><span class="lineNum">     248 </span>            :                 } else {</a>
-<a name="249"><span class="lineNum">     249 </span><span class="lineCov">        559 :                         performInteraction(candidate);</span></a>
-<a name="250"><span class="lineNum">     250 </span><span class="lineCov">        559 :                         return;</span></a>
+<a name="249"><span class="lineNum">     249 </span><span class="lineCov">        560 :                         performInteraction(candidate);</span></a>
+<a name="250"><span class="lineNum">     250 </span><span class="lineCov">        560 :                         return;</span></a>
 <a name="251"><span class="lineNum">     251 </span>            :                 }</a>
-<a name="252"><span class="lineNum">     252 </span><span class="lineCov">         92 :                 step -= randDistance; </span></a>
-<a name="253"><span class="lineNum">     253 </span><span class="lineCov">         92 :         } while (step &gt; 0.);</span></a>
+<a name="252"><span class="lineNum">     252 </span><span class="lineCov">         91 :                 step -= randDistance; </span></a>
+<a name="253"><span class="lineNum">     253 </span><span class="lineCov">         91 :         } while (step &gt; 0.);</span></a>
 <a name="254"><span class="lineNum">     254 </span>            : </a>
 <a name="255"><span class="lineNum">     255 </span>            : }</a>
 <a name="256"><span class="lineNum">     256 </span>            : </a>

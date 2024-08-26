@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2024-08-02 13:50:39</td>
+            <td class="headerValue">2024-08-26 12:58:50</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">2</td>
@@ -73,16 +73,16 @@
 <a name="11"><span class="lineNum">      11 </span><span class="lineNoCov">          0 :                 throw std::runtime_error(&quot;SimplePropagation: minStep &gt; maxStep&quot;);</span></a>
 <a name="12"><span class="lineNum">      12 </span><span class="lineCov">         12 : }</span></a>
 <a name="13"><span class="lineNum">      13 </span>            : </a>
-<a name="14"><span class="lineNum">      14 </span><span class="lineCov">      11947 : void SimplePropagation::process(Candidate *c) const {</span></a>
+<a name="14"><span class="lineNum">      14 </span><span class="lineCov">      12360 : void SimplePropagation::process(Candidate *c) const {</span></a>
 <a name="15"><span class="lineNum">      15 </span>            :         c-&gt;previous = c-&gt;current;</a>
 <a name="16"><span class="lineNum">      16 </span>            : </a>
-<a name="17"><span class="lineNum">      17 </span><span class="lineCov">      11947 :         double step = clip(c-&gt;getNextStep(), minStep, maxStep);</span></a>
-<a name="18"><span class="lineNum">      18 </span><span class="lineCov">      11947 :         c-&gt;setCurrentStep(step);</span></a>
-<a name="19"><span class="lineNum">      19 </span><span class="lineCov">      11947 :         Vector3d pos = c-&gt;current.getPosition();</span></a>
-<a name="20"><span class="lineNum">      20 </span><span class="lineCov">      11947 :         Vector3d dir = c-&gt;current.getDirection();</span></a>
-<a name="21"><span class="lineNum">      21 </span><span class="lineCov">      11947 :         c-&gt;current.setPosition(pos + dir * step);</span></a>
-<a name="22"><span class="lineNum">      22 </span><span class="lineCov">      11947 :         c-&gt;setNextStep(maxStep);</span></a>
-<a name="23"><span class="lineNum">      23 </span><span class="lineCov">      11947 : }</span></a>
+<a name="17"><span class="lineNum">      17 </span><span class="lineCov">      12360 :         double step = clip(c-&gt;getNextStep(), minStep, maxStep);</span></a>
+<a name="18"><span class="lineNum">      18 </span><span class="lineCov">      12360 :         c-&gt;setCurrentStep(step);</span></a>
+<a name="19"><span class="lineNum">      19 </span><span class="lineCov">      12360 :         Vector3d pos = c-&gt;current.getPosition();</span></a>
+<a name="20"><span class="lineNum">      20 </span><span class="lineCov">      12360 :         Vector3d dir = c-&gt;current.getDirection();</span></a>
+<a name="21"><span class="lineNum">      21 </span><span class="lineCov">      12360 :         c-&gt;current.setPosition(pos + dir * step);</span></a>
+<a name="22"><span class="lineNum">      22 </span><span class="lineCov">      12360 :         c-&gt;setNextStep(maxStep);</span></a>
+<a name="23"><span class="lineNum">      23 </span><span class="lineCov">      12360 : }</span></a>
 <a name="24"><span class="lineNum">      24 </span>            : </a>
 <a name="25"><span class="lineNum">      25 </span><span class="lineNoCov">          0 : void SimplePropagation::setMinimumStep(double step) {</span></a>
 <a name="26"><span class="lineNum">      26 </span><span class="lineNoCov">          0 :         if (step &gt; maxStep)</span></a>

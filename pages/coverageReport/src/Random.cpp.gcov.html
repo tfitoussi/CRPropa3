@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2024-08-02 13:50:39</td>
+            <td class="headerValue">2024-08-26 12:58:50</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">26</td>
@@ -139,8 +139,8 @@
 <a name="77"><span class="lineNum">      77 </span><span class="lineCov">       4881 :         seed();</span></a>
 <a name="78"><span class="lineNum">      78 </span><span class="lineCov">       4881 : }</span></a>
 <a name="79"><span class="lineNum">      79 </span>            : </a>
-<a name="80"><span class="lineNum">      80 </span><span class="lineCov">   22404004 : double Random::rand() {</span></a>
-<a name="81"><span class="lineNum">      81 </span><span class="lineCov">   22404004 :         return double(randInt()) * (1.0 / 4294967295.0);</span></a>
+<a name="80"><span class="lineNum">      80 </span><span class="lineCov">   22387977 : double Random::rand() {</span></a>
+<a name="81"><span class="lineNum">      81 </span><span class="lineCov">   22387977 :         return double(randInt()) * (1.0 / 4294967295.0);</span></a>
 <a name="82"><span class="lineNum">      82 </span>            : }</a>
 <a name="83"><span class="lineNum">      83 </span>            : </a>
 <a name="84"><span class="lineNum">      84 </span><span class="lineNoCov">          0 : double Random::rand(const double&amp; n) {</span></a>
@@ -194,10 +194,10 @@
 <a name="132"><span class="lineNum">     132 </span><span class="lineCov">      10102 :         return it - cdf.begin();</span></a>
 <a name="133"><span class="lineNum">     133 </span>            : }</a>
 <a name="134"><span class="lineNum">     134 </span>            : </a>
-<a name="135"><span class="lineNum">     135 </span><span class="lineCov">    3738672 : size_t Random::randBin(const std::vector&lt;double&gt; &amp;cdf) {</span></a>
+<a name="135"><span class="lineNum">     135 </span><span class="lineCov">    3734337 : size_t Random::randBin(const std::vector&lt;double&gt; &amp;cdf) {</span></a>
 <a name="136"><span class="lineNum">     136 </span>            :         std::vector&lt;double&gt;::const_iterator it = std::lower_bound(cdf.begin(),</a>
-<a name="137"><span class="lineNum">     137 </span><span class="lineCov">    3738672 :                         cdf.end(), rand() * cdf.back());</span></a>
-<a name="138"><span class="lineNum">     138 </span><span class="lineCov">    3738672 :         return it - cdf.begin();</span></a>
+<a name="137"><span class="lineNum">     137 </span><span class="lineCov">    3734337 :                         cdf.end(), rand() * cdf.back());</span></a>
+<a name="138"><span class="lineNum">     138 </span><span class="lineCov">    3734337 :         return it - cdf.begin();</span></a>
 <a name="139"><span class="lineNum">     139 </span>            : }</a>
 <a name="140"><span class="lineNum">     140 </span>            : </a>
 <a name="141"><span class="lineNum">     141 </span><span class="lineCov">     962203 : Vector3d Random::randVector() {</span></a>
@@ -244,8 +244,8 @@
 <a name="182"><span class="lineNum">     182 </span><span class="lineNoCov">          0 :         return vLambertz.getRotated(axis / axis.getR(), -angle);</span></a>
 <a name="183"><span class="lineNum">     183 </span>            : }</a>
 <a name="184"><span class="lineNum">     184 </span>            : </a>
-<a name="185"><span class="lineNum">     185 </span><span class="lineCov">    3628091 : Vector3d Random::randomInterpolatedPosition(const Vector3d &amp;a, const Vector3d &amp;b) {</span></a>
-<a name="186"><span class="lineNum">     186 </span><span class="lineCov">    3628091 :         return a + rand() * (b - a);</span></a>
+<a name="185"><span class="lineNum">     185 </span><span class="lineCov">    3623735 : Vector3d Random::randomInterpolatedPosition(const Vector3d &amp;a, const Vector3d &amp;b) {</span></a>
+<a name="186"><span class="lineNum">     186 </span><span class="lineCov">    3623735 :         return a + rand() * (b - a);</span></a>
 <a name="187"><span class="lineNum">     187 </span>            : }</a>
 <a name="188"><span class="lineNum">     188 </span>            : </a>
 <a name="189"><span class="lineNum">     189 </span><span class="lineCov">       1104 : double Random::randPowerLaw(double index, double min, double max) {</span></a>
@@ -308,17 +308,17 @@
 <a name="246"><span class="lineNum">     246 </span><span class="lineNoCov">          0 :         return -1.0 * log(dum);</span></a>
 <a name="247"><span class="lineNum">     247 </span>            : }</a>
 <a name="248"><span class="lineNum">     248 </span>            : </a>
-<a name="249"><span class="lineNum">     249 </span><span class="lineCov">   25842480 : uint32_t Random::randInt() {</span></a>
-<a name="250"><span class="lineNum">     250 </span><span class="lineCov">   25842480 :         if (left == 0)</span></a>
-<a name="251"><span class="lineNum">     251 </span><span class="lineCov">      41406 :                 reload();</span></a>
-<a name="252"><span class="lineNum">     252 </span><span class="lineCov">   25842480 :         --left;</span></a>
+<a name="249"><span class="lineNum">     249 </span><span class="lineCov">   25826421 : uint32_t Random::randInt() {</span></a>
+<a name="250"><span class="lineNum">     250 </span><span class="lineCov">   25826421 :         if (left == 0)</span></a>
+<a name="251"><span class="lineNum">     251 </span><span class="lineCov">      41381 :                 reload();</span></a>
+<a name="252"><span class="lineNum">     252 </span><span class="lineCov">   25826421 :         --left;</span></a>
 <a name="253"><span class="lineNum">     253 </span>            : </a>
 <a name="254"><span class="lineNum">     254 </span>            :         uint32_t s1;</a>
-<a name="255"><span class="lineNum">     255 </span><span class="lineCov">   25842480 :         s1 = *pNext++;</span></a>
-<a name="256"><span class="lineNum">     256 </span><span class="lineCov">   25842480 :         s1 ^= (s1 &gt;&gt; 11);</span></a>
-<a name="257"><span class="lineNum">     257 </span><span class="lineCov">   25842480 :         s1 ^= (s1 &lt;&lt; 7) &amp; 0x9d2c5680UL;</span></a>
-<a name="258"><span class="lineNum">     258 </span><span class="lineCov">   25842480 :         s1 ^= (s1 &lt;&lt; 15) &amp; 0xefc60000UL;</span></a>
-<a name="259"><span class="lineNum">     259 </span><span class="lineCov">   25842480 :         return (s1 ^ (s1 &gt;&gt; 18));</span></a>
+<a name="255"><span class="lineNum">     255 </span><span class="lineCov">   25826421 :         s1 = *pNext++;</span></a>
+<a name="256"><span class="lineNum">     256 </span><span class="lineCov">   25826421 :         s1 ^= (s1 &gt;&gt; 11);</span></a>
+<a name="257"><span class="lineNum">     257 </span><span class="lineCov">   25826421 :         s1 ^= (s1 &lt;&lt; 7) &amp; 0x9d2c5680UL;</span></a>
+<a name="258"><span class="lineNum">     258 </span><span class="lineCov">   25826421 :         s1 ^= (s1 &lt;&lt; 15) &amp; 0xefc60000UL;</span></a>
+<a name="259"><span class="lineNum">     259 </span><span class="lineCov">   25826421 :         return (s1 ^ (s1 &gt;&gt; 18));</span></a>
 <a name="260"><span class="lineNum">     260 </span>            : }</a>
 <a name="261"><span class="lineNum">     261 </span>            : </a>
 <a name="262"><span class="lineNum">     262 </span><span class="lineNoCov">          0 : uint32_t Random::randInt(const uint32_t&amp; n) {</span></a>
@@ -340,11 +340,11 @@
 <a name="278"><span class="lineNum">     278 </span>            : }</a>
 <a name="279"><span class="lineNum">     279 </span>            : </a>
 <a name="280"><span class="lineNum">     280 </span>            : </a>
-<a name="281"><span class="lineNum">     281 </span><span class="lineCov">        809 : uint64_t Random::randInt64()</span></a>
+<a name="281"><span class="lineNum">     281 </span><span class="lineCov">        793 : uint64_t Random::randInt64()</span></a>
 <a name="282"><span class="lineNum">     282 </span>            : {</a>
-<a name="283"><span class="lineNum">     283 </span><span class="lineCov">        809 :         int64_t a = randInt();</span></a>
-<a name="284"><span class="lineNum">     284 </span><span class="lineCov">        809 :         int64_t b = randInt();</span></a>
-<a name="285"><span class="lineNum">     285 </span><span class="lineCov">        809 :         return (b + a &lt;&lt; 32);</span></a>
+<a name="283"><span class="lineNum">     283 </span><span class="lineCov">        793 :         int64_t a = randInt();</span></a>
+<a name="284"><span class="lineNum">     284 </span><span class="lineCov">        793 :         int64_t b = randInt();</span></a>
+<a name="285"><span class="lineNum">     285 </span><span class="lineCov">        793 :         return (b + a &lt;&lt; 32);</span></a>
 <a name="286"><span class="lineNum">     286 </span>            : }</a>
 <a name="287"><span class="lineNum">     287 </span>            : </a>
 <a name="288"><span class="lineNum">     288 </span>            : </a>
@@ -361,8 +361,8 @@
 <a name="299"><span class="lineNum">     299 </span>            :         // Draw numbers until one is found in [0,n]</a>
 <a name="300"><span class="lineNum">     300 </span>            :         uint64_t i;</a>
 <a name="301"><span class="lineNum">     301 </span>            :         do</a>
-<a name="302"><span class="lineNum">     302 </span><span class="lineCov">        809 :                 i = randInt64() &amp; used; // toss unused bits to shorten search</span></a>
-<a name="303"><span class="lineNum">     303 </span><span class="lineCov">        809 :         while (i &gt; n);</span></a>
+<a name="302"><span class="lineNum">     302 </span><span class="lineCov">        793 :                 i = randInt64() &amp; used; // toss unused bits to shorten search</span></a>
+<a name="303"><span class="lineNum">     303 </span><span class="lineCov">        793 :         while (i &gt; n);</span></a>
 <a name="304"><span class="lineNum">     304 </span><span class="lineCov">        421 :         return i;</span></a>
 <a name="305"><span class="lineNum">     305 </span>            : }</a>
 <a name="306"><span class="lineNum">     306 </span>            : </a>
@@ -449,17 +449,17 @@
 <a name="387"><span class="lineNum">     387 </span>            :         }</a>
 <a name="388"><span class="lineNum">     388 </span><span class="lineCov">       4897 : }</span></a>
 <a name="389"><span class="lineNum">     389 </span>            : </a>
-<a name="390"><span class="lineNum">     390 </span><span class="lineCov">      46303 : void Random::reload() {</span></a>
-<a name="391"><span class="lineNum">     391 </span><span class="lineCov">      46303 :         uint32_t *p = state;</span></a>
+<a name="390"><span class="lineNum">     390 </span><span class="lineCov">      46278 : void Random::reload() {</span></a>
+<a name="391"><span class="lineNum">     391 </span><span class="lineCov">      46278 :         uint32_t *p = state;</span></a>
 <a name="392"><span class="lineNum">     392 </span>            :         int i;</a>
-<a name="393"><span class="lineNum">     393 </span><span class="lineCov">   10557084 :         for (i = N - M; i--; ++p)</span></a>
-<a name="394"><span class="lineNum">     394 </span><span class="lineCov">   10510781 :                 *p = twist(p[M], p[0], p[1]);</span></a>
-<a name="395"><span class="lineNum">     395 </span><span class="lineCov">   18382291 :         for (i = M; --i; ++p)</span></a>
-<a name="396"><span class="lineNum">     396 </span><span class="lineCov">   18335988 :                 *p = twist(p[M - N], p[0], p[1]);</span></a>
-<a name="397"><span class="lineNum">     397 </span><span class="lineCov">      46303 :         *p = twist(p[M - N], p[0], state[0]);</span></a>
+<a name="393"><span class="lineNum">     393 </span><span class="lineCov">   10551384 :         for (i = N - M; i--; ++p)</span></a>
+<a name="394"><span class="lineNum">     394 </span><span class="lineCov">   10505106 :                 *p = twist(p[M], p[0], p[1]);</span></a>
+<a name="395"><span class="lineNum">     395 </span><span class="lineCov">   18372366 :         for (i = M; --i; ++p)</span></a>
+<a name="396"><span class="lineNum">     396 </span><span class="lineCov">   18326088 :                 *p = twist(p[M - N], p[0], p[1]);</span></a>
+<a name="397"><span class="lineNum">     397 </span><span class="lineCov">      46278 :         *p = twist(p[M - N], p[0], state[0]);</span></a>
 <a name="398"><span class="lineNum">     398 </span>            : </a>
-<a name="399"><span class="lineNum">     399 </span><span class="lineCov">      46303 :         left = N, pNext = state;</span></a>
-<a name="400"><span class="lineNum">     400 </span><span class="lineCov">      46303 : }</span></a>
+<a name="399"><span class="lineNum">     399 </span><span class="lineCov">      46278 :         left = N, pNext = state;</span></a>
+<a name="400"><span class="lineNum">     400 </span><span class="lineCov">      46278 : }</span></a>
 <a name="401"><span class="lineNum">     401 </span>            : </a>
 <a name="402"><span class="lineNum">     402 </span><span class="lineNoCov">          0 : uint32_t Random::hash(time_t t, clock_t c) {</span></a>
 <a name="403"><span class="lineNum">     403 </span>            :         static uint32_t differ = 0; // guarantee time-based seeds will change</a>
@@ -539,11 +539,11 @@
 <a name="477"><span class="lineNum">     477 </span>            : __attribute__ ((aligned(64))) static RANDOM_TLS_ITEM _tls[MAX_THREAD];</a>
 <a name="478"><span class="lineNum">     478 </span>            : #endif</a>
 <a name="479"><span class="lineNum">     479 </span>            : </a>
-<a name="480"><span class="lineNum">     480 </span><span class="lineCov">    2642595 : Random &amp;Random::instance() {</span></a>
-<a name="481"><span class="lineNum">     481 </span><span class="lineCov">    2642595 :         int i = omp_get_thread_num();</span></a>
-<a name="482"><span class="lineNum">     482 </span><span class="lineCov">    2642595 :         if (i &gt;= MAX_THREAD)</span></a>
+<a name="480"><span class="lineNum">     480 </span><span class="lineCov">    2643386 : Random &amp;Random::instance() {</span></a>
+<a name="481"><span class="lineNum">     481 </span><span class="lineCov">    2643386 :         int i = omp_get_thread_num();</span></a>
+<a name="482"><span class="lineNum">     482 </span><span class="lineCov">    2643386 :         if (i &gt;= MAX_THREAD)</span></a>
 <a name="483"><span class="lineNum">     483 </span><span class="lineNoCov">          0 :         throw std::runtime_error(&quot;crpropa::Random: more than MAX_THREAD threads!&quot;);</span></a>
-<a name="484"><span class="lineNum">     484 </span><span class="lineCov">    2642595 :         return _tls[i].r;</span></a>
+<a name="484"><span class="lineNum">     484 </span><span class="lineCov">    2643386 :         return _tls[i].r;</span></a>
 <a name="485"><span class="lineNum">     485 </span>            : }</a>
 <a name="486"><span class="lineNum">     486 </span>            : </a>
 <a name="487"><span class="lineNum">     487 </span><span class="lineNoCov">          0 : void Random::seedThreads(const uint32_t oneSeed) {</span></a>

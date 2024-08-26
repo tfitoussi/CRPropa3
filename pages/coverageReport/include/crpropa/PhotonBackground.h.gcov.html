@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2024-08-02 13:50:39</td>
+            <td class="headerValue">2024-08-26 12:58:50</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">17</td>
@@ -95,8 +95,8 @@
 <a name="33"><span class="lineNum">      33 </span>            :         virtual double getPhotonDensity(double ePhoton, double z = 0.) const = 0;</a>
 <a name="34"><span class="lineNum">      34 </span>            :         virtual double getMinimumPhotonEnergy(double z) const = 0;</a>
 <a name="35"><span class="lineNum">      35 </span>            :         virtual double getMaximumPhotonEnergy(double z) const = 0;</a>
-<a name="36"><span class="lineNum">      36 </span><span class="lineCov">        172 :         virtual std::string getFieldName() const {</span></a>
-<a name="37"><span class="lineNum">      37 </span><span class="lineCov">        172 :                 return this-&gt;fieldName;</span></a>
+<a name="36"><span class="lineNum">      36 </span><span class="lineCov">        175 :         virtual std::string getFieldName() const {</span></a>
+<a name="37"><span class="lineNum">      37 </span><span class="lineCov">        175 :                 return this-&gt;fieldName;</span></a>
 <a name="38"><span class="lineNum">      38 </span>            :         }</a>
 <a name="39"><span class="lineNum">      39 </span>            : </a>
 <a name="40"><span class="lineNum">      40 </span>            :         /**</a>
@@ -104,8 +104,8 @@
 <a name="42"><span class="lineNum">      42 </span>            :          (cf. CRPropa3-data/calc_scaling.py)</a>
 <a name="43"><span class="lineNum">      43 </span>            :          @param z               redshift</a>
 <a name="44"><span class="lineNum">      44 </span>            :          */</a>
-<a name="45"><span class="lineNum">      45 </span><span class="lineCov">       1163 :         virtual double getRedshiftScaling(double z) const {</span></a>
-<a name="46"><span class="lineNum">      46 </span><span class="lineCov">       1163 :                 return 1.;</span></a>
+<a name="45"><span class="lineNum">      45 </span><span class="lineCov">       1999 :         virtual double getRedshiftScaling(double z) const {</span></a>
+<a name="46"><span class="lineNum">      46 </span><span class="lineCov">       1999 :                 return 1.;</span></a>
 <a name="47"><span class="lineNum">      47 </span>            :         };</a>
 <a name="48"><span class="lineNum">      48 </span>            : </a>
 <a name="49"><span class="lineNum">      49 </span>            :         bool hasRedshiftDependence() const {</a>

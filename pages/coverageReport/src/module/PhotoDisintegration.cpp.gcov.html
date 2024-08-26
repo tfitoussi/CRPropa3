@@ -31,13 +31,13 @@
             <td class="headerValue">coverage.info.cleaned</td>
             <td></td>
             <td class="headerItem">Lines:</td>
-            <td class="headerCovTableEntry">142</td>
+            <td class="headerCovTableEntry">141</td>
             <td class="headerCovTableEntry">175</td>
-            <td class="headerCovTableEntryMed">81.1 %</td>
+            <td class="headerCovTableEntryMed">80.6 %</td>
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2024-08-02 13:50:39</td>
+            <td class="headerValue">2024-08-26 12:58:50</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">10</td>
@@ -207,62 +207,62 @@
 <a name="145"><span class="lineNum">     145 </span><span class="lineCov">         22 :         infile.close();</span></a>
 <a name="146"><span class="lineNum">     146 </span><span class="lineCov">         22 : }</span></a>
 <a name="147"><span class="lineNum">     147 </span>            : </a>
-<a name="148"><span class="lineNum">     148 </span><span class="lineCov">       2155 : void PhotoDisintegration::process(Candidate *candidate) const {</span></a>
+<a name="148"><span class="lineNum">     148 </span><span class="lineCov">       2981 : void PhotoDisintegration::process(Candidate *candidate) const {</span></a>
 <a name="149"><span class="lineNum">     149 </span>            :         // execute the loop at least once for limiting the next step</a>
-<a name="150"><span class="lineNum">     150 </span><span class="lineCov">       2155 :         double step = candidate-&gt;getCurrentStep();</span></a>
+<a name="150"><span class="lineNum">     150 </span><span class="lineCov">       2981 :         double step = candidate-&gt;getCurrentStep();</span></a>
 <a name="151"><span class="lineNum">     151 </span>            :         do {</a>
 <a name="152"><span class="lineNum">     152 </span>            :                 // check if nucleus</a>
-<a name="153"><span class="lineNum">     153 </span><span class="lineCov">       2389 :                 int id = candidate-&gt;current.getId();</span></a>
-<a name="154"><span class="lineNum">     154 </span><span class="lineCov">       2389 :                 if (not isNucleus(id))</span></a>
+<a name="153"><span class="lineNum">     153 </span><span class="lineCov">       3193 :                 int id = candidate-&gt;current.getId();</span></a>
+<a name="154"><span class="lineNum">     154 </span><span class="lineCov">       3193 :                 if (not isNucleus(id))</span></a>
 <a name="155"><span class="lineNum">     155 </span>            :                         return;</a>
 <a name="156"><span class="lineNum">     156 </span>            : </a>
-<a name="157"><span class="lineNum">     157 </span><span class="lineCov">       2388 :                 int A = massNumber(id);</span></a>
-<a name="158"><span class="lineNum">     158 </span><span class="lineCov">       2388 :                 int Z = chargeNumber(id);</span></a>
-<a name="159"><span class="lineNum">     159 </span><span class="lineCov">       2388 :                 int N = A - Z;</span></a>
-<a name="160"><span class="lineNum">     160 </span><span class="lineCov">       2388 :                 size_t idx = Z * 31 + N;</span></a>
+<a name="157"><span class="lineNum">     157 </span><span class="lineCov">       3192 :                 int A = massNumber(id);</span></a>
+<a name="158"><span class="lineNum">     158 </span><span class="lineCov">       3192 :                 int Z = chargeNumber(id);</span></a>
+<a name="159"><span class="lineNum">     159 </span><span class="lineCov">       3192 :                 int N = A - Z;</span></a>
+<a name="160"><span class="lineNum">     160 </span><span class="lineCov">       3192 :                 size_t idx = Z * 31 + N;</span></a>
 <a name="161"><span class="lineNum">     161 </span>            : </a>
 <a name="162"><span class="lineNum">     162 </span>            :                 // check if disintegration data available</a>
-<a name="163"><span class="lineNum">     163 </span><span class="lineCov">       2388 :                 if ((Z &gt; 26) or (N &gt; 30))</span></a>
+<a name="163"><span class="lineNum">     163 </span><span class="lineCov">       3192 :                 if ((Z &gt; 26) or (N &gt; 30))</span></a>
 <a name="164"><span class="lineNum">     164 </span>            :                         return;</a>
-<a name="165"><span class="lineNum">     165 </span><span class="lineCov">       2388 :                 if (pdRate[idx].size() == 0)</span></a>
+<a name="165"><span class="lineNum">     165 </span><span class="lineCov">       3192 :                 if (pdRate[idx].size() == 0)</span></a>
 <a name="166"><span class="lineNum">     166 </span>            :                         return;</a>
 <a name="167"><span class="lineNum">     167 </span>            : </a>
 <a name="168"><span class="lineNum">     168 </span>            :                 // check if in tabulated energy range</a>
-<a name="169"><span class="lineNum">     169 </span><span class="lineCov">        587 :                 double z = candidate-&gt;getRedshift();</span></a>
-<a name="170"><span class="lineNum">     170 </span><span class="lineCov">        587 :                 double lg = log10(candidate-&gt;current.getLorentzFactor() * (1 + z));</span></a>
-<a name="171"><span class="lineNum">     171 </span><span class="lineCov">        587 :                 if ((lg &lt;= lgmin) or (lg &gt;= lgmax))</span></a>
+<a name="169"><span class="lineNum">     169 </span><span class="lineCov">        562 :                 double z = candidate-&gt;getRedshift();</span></a>
+<a name="170"><span class="lineNum">     170 </span><span class="lineCov">        562 :                 double lg = log10(candidate-&gt;current.getLorentzFactor() * (1 + z));</span></a>
+<a name="171"><span class="lineNum">     171 </span><span class="lineCov">        562 :                 if ((lg &lt;= lgmin) or (lg &gt;= lgmax))</span></a>
 <a name="172"><span class="lineNum">     172 </span>            :                         return;</a>
 <a name="173"><span class="lineNum">     173 </span>            : </a>
-<a name="174"><span class="lineNum">     174 </span><span class="lineCov">        587 :                 double rate = interpolateEquidistant(lg, lgmin, lgmax, pdRate[idx]);</span></a>
-<a name="175"><span class="lineNum">     175 </span><span class="lineCov">        587 :                 rate *= pow_integer&lt;2&gt;(1 + z) * photonField-&gt;getRedshiftScaling(z); // cosmological scaling, rate per comoving distance</span></a>
+<a name="174"><span class="lineNum">     174 </span><span class="lineCov">        562 :                 double rate = interpolateEquidistant(lg, lgmin, lgmax, pdRate[idx]);</span></a>
+<a name="175"><span class="lineNum">     175 </span><span class="lineCov">        562 :                 rate *= pow_integer&lt;2&gt;(1 + z) * photonField-&gt;getRedshiftScaling(z); // cosmological scaling, rate per comoving distance</span></a>
 <a name="176"><span class="lineNum">     176 </span>            : </a>
 <a name="177"><span class="lineNum">     177 </span>            :                 // check if interaction occurs in this step</a>
 <a name="178"><span class="lineNum">     178 </span>            :                 // otherwise limit next step to a fraction of the mean free path</a>
-<a name="179"><span class="lineNum">     179 </span><span class="lineCov">        587 :                 Random &amp;random = Random::instance();</span></a>
-<a name="180"><span class="lineNum">     180 </span><span class="lineCov">        587 :                 double randDist = -log(random.rand()) / rate;</span></a>
-<a name="181"><span class="lineNum">     181 </span><span class="lineCov">        587 :                 if (step &lt; randDist) {</span></a>
-<a name="182"><span class="lineNum">     182 </span><span class="lineCov">        353 :                         candidate-&gt;limitNextStep(limit / rate);</span></a>
-<a name="183"><span class="lineNum">     183 </span><span class="lineCov">        353 :                         return;</span></a>
+<a name="179"><span class="lineNum">     179 </span><span class="lineCov">        562 :                 Random &amp;random = Random::instance();</span></a>
+<a name="180"><span class="lineNum">     180 </span><span class="lineCov">        562 :                 double randDist = -log(random.rand()) / rate;</span></a>
+<a name="181"><span class="lineNum">     181 </span><span class="lineCov">        562 :                 if (step &lt; randDist) {</span></a>
+<a name="182"><span class="lineNum">     182 </span><span class="lineCov">        350 :                         candidate-&gt;limitNextStep(limit / rate);</span></a>
+<a name="183"><span class="lineNum">     183 </span><span class="lineCov">        350 :                         return;</span></a>
 <a name="184"><span class="lineNum">     184 </span>            :                 }</a>
 <a name="185"><span class="lineNum">     185 </span>            : </a>
 <a name="186"><span class="lineNum">     186 </span>            :                 // select channel and interact</a>
 <a name="187"><span class="lineNum">     187 </span>            :                 const std::vector&lt;Branch&gt; &amp;branches = pdBranch[idx];</a>
-<a name="188"><span class="lineNum">     188 </span><span class="lineCov">        234 :                 double cmp = random.rand();</span></a>
-<a name="189"><span class="lineNum">     189 </span><span class="lineCov">        234 :                 int l = round((lg - lgmin) / (lgmax - lgmin) * (nlg - 1)); // index of closest tabulation point</span></a>
+<a name="188"><span class="lineNum">     188 </span><span class="lineCov">        212 :                 double cmp = random.rand();</span></a>
+<a name="189"><span class="lineNum">     189 </span><span class="lineCov">        212 :                 int l = round((lg - lgmin) / (lgmax - lgmin) * (nlg - 1)); // index of closest tabulation point</span></a>
 <a name="190"><span class="lineNum">     190 </span>            :                 size_t i = 0;</a>
-<a name="191"><span class="lineNum">     191 </span><span class="lineCov">       1870 :                 while ((i &lt; branches.size()) and (cmp &gt; 0)) {</span></a>
-<a name="192"><span class="lineNum">     192 </span><span class="lineCov">       1636 :                         cmp -= branches[i].branchingRatio[l];</span></a>
-<a name="193"><span class="lineNum">     193 </span><span class="lineCov">       1636 :                         i++;</span></a>
+<a name="191"><span class="lineNum">     191 </span><span class="lineCov">       1708 :                 while ((i &lt; branches.size()) and (cmp &gt; 0)) {</span></a>
+<a name="192"><span class="lineNum">     192 </span><span class="lineCov">       1496 :                         cmp -= branches[i].branchingRatio[l];</span></a>
+<a name="193"><span class="lineNum">     193 </span><span class="lineCov">       1496 :                         i++;</span></a>
 <a name="194"><span class="lineNum">     194 </span>            :                 }</a>
-<a name="195"><span class="lineNum">     195 </span><span class="lineCov">        234 :                 performInteraction(candidate, branches[i-1].channel);</span></a>
+<a name="195"><span class="lineNum">     195 </span><span class="lineCov">        212 :                 performInteraction(candidate, branches[i-1].channel);</span></a>
 <a name="196"><span class="lineNum">     196 </span>            : </a>
 <a name="197"><span class="lineNum">     197 </span>            :                 // repeat with remaining step</a>
-<a name="198"><span class="lineNum">     198 </span><span class="lineCov">        234 :                 step -= randDist;</span></a>
-<a name="199"><span class="lineNum">     199 </span><span class="lineCov">        234 :         } while (step &gt; 0);</span></a>
+<a name="198"><span class="lineNum">     198 </span><span class="lineCov">        212 :                 step -= randDist;</span></a>
+<a name="199"><span class="lineNum">     199 </span><span class="lineCov">        212 :         } while (step &gt; 0);</span></a>
 <a name="200"><span class="lineNum">     200 </span>            : }</a>
 <a name="201"><span class="lineNum">     201 </span>            : </a>
-<a name="202"><span class="lineNum">     202 </span><span class="lineCov">        236 : void PhotoDisintegration::performInteraction(Candidate *candidate, int channel) const {</span></a>
-<a name="203"><span class="lineNum">     203 </span><span class="lineCov">        236 :         KISS_LOG_DEBUG &lt;&lt; &quot;Photodisintegration::performInteraction. Channel &quot; &lt;&lt;  channel &lt;&lt; &quot; on candidate &quot; &lt;&lt; candidate-&gt;getDescription(); </span></a>
+<a name="202"><span class="lineNum">     202 </span><span class="lineCov">        214 : void PhotoDisintegration::performInteraction(Candidate *candidate, int channel) const {</span></a>
+<a name="203"><span class="lineNum">     203 </span><span class="lineCov">        214 :         KISS_LOG_DEBUG &lt;&lt; &quot;Photodisintegration::performInteraction. Channel &quot; &lt;&lt;  channel &lt;&lt; &quot; on candidate &quot; &lt;&lt; candidate-&gt;getDescription(); </span></a>
 <a name="204"><span class="lineNum">     204 </span>            :         // parse disintegration channel</a>
 <a name="205"><span class="lineNum">     205 </span>            :         int nNeutron = digit(channel, 100000);</a>
 <a name="206"><span class="lineNum">     206 </span>            :         int nProton = digit(channel, 10000);</a>
@@ -271,37 +271,37 @@
 <a name="209"><span class="lineNum">     209 </span>            :         int nHe3 = digit(channel, 10);</a>
 <a name="210"><span class="lineNum">     210 </span>            :         int nHe4 = digit(channel, 1);</a>
 <a name="211"><span class="lineNum">     211 </span>            : </a>
-<a name="212"><span class="lineNum">     212 </span><span class="lineCov">        236 :         int dA = -nNeutron - nProton - 2 * nH2 - 3 * nH3 - 3 * nHe3 - 4 * nHe4;</span></a>
-<a name="213"><span class="lineNum">     213 </span><span class="lineCov">        236 :         int dZ = -nProton - nH2 - nH3 - 2 * nHe3 - 2 * nHe4;</span></a>
+<a name="212"><span class="lineNum">     212 </span><span class="lineCov">        214 :         int dA = -nNeutron - nProton - 2 * nH2 - 3 * nH3 - 3 * nHe3 - 4 * nHe4;</span></a>
+<a name="213"><span class="lineNum">     213 </span><span class="lineCov">        214 :         int dZ = -nProton - nH2 - nH3 - 2 * nHe3 - 2 * nHe4;</span></a>
 <a name="214"><span class="lineNum">     214 </span>            : </a>
-<a name="215"><span class="lineNum">     215 </span><span class="lineCov">        236 :         int id = candidate-&gt;current.getId();</span></a>
-<a name="216"><span class="lineNum">     216 </span><span class="lineCov">        236 :         int A = massNumber(id);</span></a>
-<a name="217"><span class="lineNum">     217 </span><span class="lineCov">        236 :         int Z = chargeNumber(id);</span></a>
-<a name="218"><span class="lineNum">     218 </span><span class="lineCov">        236 :         double EpA = candidate-&gt;current.getEnergy() / A;</span></a>
+<a name="215"><span class="lineNum">     215 </span><span class="lineCov">        214 :         int id = candidate-&gt;current.getId();</span></a>
+<a name="216"><span class="lineNum">     216 </span><span class="lineCov">        214 :         int A = massNumber(id);</span></a>
+<a name="217"><span class="lineNum">     217 </span><span class="lineCov">        214 :         int Z = chargeNumber(id);</span></a>
+<a name="218"><span class="lineNum">     218 </span><span class="lineCov">        214 :         double EpA = candidate-&gt;current.getEnergy() / A;</span></a>
 <a name="219"><span class="lineNum">     219 </span>            : </a>
 <a name="220"><span class="lineNum">     220 </span>            :         // create secondaries</a>
-<a name="221"><span class="lineNum">     221 </span><span class="lineCov">        236 :         Random &amp;random = Random::instance();</span></a>
-<a name="222"><span class="lineNum">     222 </span><span class="lineCov">        236 :         Vector3d pos = random.randomInterpolatedPosition(candidate-&gt;previous.getPosition(), candidate-&gt;current.getPosition());</span></a>
+<a name="221"><span class="lineNum">     221 </span><span class="lineCov">        214 :         Random &amp;random = Random::instance();</span></a>
+<a name="222"><span class="lineNum">     222 </span><span class="lineCov">        214 :         Vector3d pos = random.randomInterpolatedPosition(candidate-&gt;previous.getPosition(), candidate-&gt;current.getPosition());</span></a>
 <a name="223"><span class="lineNum">     223 </span>            :         try</a>
 <a name="224"><span class="lineNum">     224 </span>            :         {</a>
-<a name="225"><span class="lineNum">     225 </span><span class="lineCov">        432 :                 for (size_t i = 0; i &lt; nNeutron; i++)</span></a>
-<a name="226"><span class="lineNum">     226 </span><span class="lineCov">        196 :                         candidate-&gt;addSecondary(nucleusId(1, 0), EpA, pos, 1., interactionTag);</span></a>
-<a name="227"><span class="lineNum">     227 </span><span class="lineCov">        337 :                 for (size_t i = 0; i &lt; nProton; i++)</span></a>
-<a name="228"><span class="lineNum">     228 </span><span class="lineCov">        101 :                         candidate-&gt;addSecondary(nucleusId(1, 1), EpA, pos, 1., interactionTag);</span></a>
-<a name="229"><span class="lineNum">     229 </span><span class="lineCov">        237 :                 for (size_t i = 0; i &lt; nH2; i++)</span></a>
+<a name="225"><span class="lineNum">     225 </span><span class="lineCov">        392 :                 for (size_t i = 0; i &lt; nNeutron; i++)</span></a>
+<a name="226"><span class="lineNum">     226 </span><span class="lineCov">        178 :                         candidate-&gt;addSecondary(nucleusId(1, 0), EpA, pos, 1., interactionTag);</span></a>
+<a name="227"><span class="lineNum">     227 </span><span class="lineCov">        292 :                 for (size_t i = 0; i &lt; nProton; i++)</span></a>
+<a name="228"><span class="lineNum">     228 </span><span class="lineCov">         78 :                         candidate-&gt;addSecondary(nucleusId(1, 1), EpA, pos, 1., interactionTag);</span></a>
+<a name="229"><span class="lineNum">     229 </span><span class="lineCov">        215 :                 for (size_t i = 0; i &lt; nH2; i++)</span></a>
 <a name="230"><span class="lineNum">     230 </span><span class="lineCov">          1 :                         candidate-&gt;addSecondary(nucleusId(2, 1), EpA * 2, pos, 1., interactionTag);</span></a>
-<a name="231"><span class="lineNum">     231 </span><span class="lineCov">        237 :                 for (size_t i = 0; i &lt; nH3; i++)</span></a>
-<a name="232"><span class="lineNum">     232 </span><span class="lineCov">          1 :                         candidate-&gt;addSecondary(nucleusId(3, 1), EpA * 3, pos, 1., interactionTag);</span></a>
-<a name="233"><span class="lineNum">     233 </span><span class="lineCov">        237 :                 for (size_t i = 0; i &lt; nHe3; i++)</span></a>
-<a name="234"><span class="lineNum">     234 </span><span class="lineCov">          1 :                         candidate-&gt;addSecondary(nucleusId(3, 2), EpA * 3, pos, 1., interactionTag);</span></a>
-<a name="235"><span class="lineNum">     235 </span><span class="lineCov">        272 :                 for (size_t i = 0; i &lt; nHe4; i++)</span></a>
-<a name="236"><span class="lineNum">     236 </span><span class="lineCov">         36 :                         candidate-&gt;addSecondary(nucleusId(4, 2), EpA * 4, pos, 1., interactionTag);</span></a>
+<a name="231"><span class="lineNum">     231 </span><span class="lineCov">        216 :                 for (size_t i = 0; i &lt; nH3; i++)</span></a>
+<a name="232"><span class="lineNum">     232 </span><span class="lineCov">          2 :                         candidate-&gt;addSecondary(nucleusId(3, 1), EpA * 3, pos, 1., interactionTag);</span></a>
+<a name="233"><span class="lineNum">     233 </span><span class="lineCov">        214 :                 for (size_t i = 0; i &lt; nHe3; i++)</span></a>
+<a name="234"><span class="lineNum">     234 </span><span class="lineNoCov">          0 :                         candidate-&gt;addSecondary(nucleusId(3, 2), EpA * 3, pos, 1., interactionTag);</span></a>
+<a name="235"><span class="lineNum">     235 </span><span class="lineCov">        252 :                 for (size_t i = 0; i &lt; nHe4; i++)</span></a>
+<a name="236"><span class="lineNum">     236 </span><span class="lineCov">         38 :                         candidate-&gt;addSecondary(nucleusId(4, 2), EpA * 4, pos, 1., interactionTag);</span></a>
 <a name="237"><span class="lineNum">     237 </span>            : </a>
 <a name="238"><span class="lineNum">     238 </span>            : </a>
 <a name="239"><span class="lineNum">     239 </span>            :         // update particle</a>
 <a name="240"><span class="lineNum">     240 </span>            :           candidate-&gt;created = candidate-&gt;current;</a>
-<a name="241"><span class="lineNum">     241 </span><span class="lineCov">        236 :                 candidate-&gt;current.setId(nucleusId(A + dA, Z + dZ));</span></a>
-<a name="242"><span class="lineNum">     242 </span><span class="lineCov">        236 :                 candidate-&gt;current.setEnergy(EpA * (A + dA));</span></a>
+<a name="241"><span class="lineNum">     241 </span><span class="lineCov">        214 :                 candidate-&gt;current.setId(nucleusId(A + dA, Z + dZ));</span></a>
+<a name="242"><span class="lineNum">     242 </span><span class="lineCov">        214 :                 candidate-&gt;current.setEnergy(EpA * (A + dA));</span></a>
 <a name="243"><span class="lineNum">     243 </span>            :         }</a>
 <a name="244"><span class="lineNum">     244 </span><span class="lineNoCov">          0 :         catch (std::runtime_error &amp;e)</span></a>
 <a name="245"><span class="lineNum">     245 </span>            :         {</a>
@@ -309,26 +309,26 @@
 <a name="247"><span class="lineNum">     247 </span><span class="lineNoCov">          0 :                 throw;</span></a>
 <a name="248"><span class="lineNum">     248 </span><span class="lineNoCov">          0 :         }</span></a>
 <a name="249"><span class="lineNum">     249 </span>            : </a>
-<a name="250"><span class="lineNum">     250 </span><span class="lineCov">        236 :         if (not havePhotons)</span></a>
+<a name="250"><span class="lineNum">     250 </span><span class="lineCov">        214 :         if (not havePhotons)</span></a>
 <a name="251"><span class="lineNum">     251 </span>            :                 return;</a>
 <a name="252"><span class="lineNum">     252 </span>            : </a>
 <a name="253"><span class="lineNum">     253 </span>            :         // create photons</a>
-<a name="254"><span class="lineNum">     254 </span><span class="lineCov">         26 :         double z = candidate-&gt;getRedshift();</span></a>
-<a name="255"><span class="lineNum">     255 </span><span class="lineCov">         26 :         double lg = log10(candidate-&gt;current.getLorentzFactor() * (1 + z));</span></a>
-<a name="256"><span class="lineNum">     256 </span><span class="lineCov">         26 :         double lf = candidate-&gt;current.getLorentzFactor();</span></a>
+<a name="254"><span class="lineNum">     254 </span><span class="lineCov">          9 :         double z = candidate-&gt;getRedshift();</span></a>
+<a name="255"><span class="lineNum">     255 </span><span class="lineCov">          9 :         double lg = log10(candidate-&gt;current.getLorentzFactor() * (1 + z));</span></a>
+<a name="256"><span class="lineNum">     256 </span><span class="lineCov">          9 :         double lf = candidate-&gt;current.getLorentzFactor();</span></a>
 <a name="257"><span class="lineNum">     257 </span>            : </a>
-<a name="258"><span class="lineNum">     258 </span><span class="lineCov">         26 :         int l = round((lg - lgmin) / (lgmax - lgmin) * (nlg - 1));  // index of closest tabulation point</span></a>
-<a name="259"><span class="lineNum">     259 </span><span class="lineCov">         26 :         int key = Z*1e6 + (A-Z)*1e4 + (Z+dZ)*1e2 + (A+dA) - (Z+dZ);</span></a>
+<a name="258"><span class="lineNum">     258 </span><span class="lineCov">          9 :         int l = round((lg - lgmin) / (lgmax - lgmin) * (nlg - 1));  // index of closest tabulation point</span></a>
+<a name="259"><span class="lineNum">     259 </span><span class="lineCov">          9 :         int key = Z*1e6 + (A-Z)*1e4 + (Z+dZ)*1e2 + (A+dA) - (Z+dZ);</span></a>
 <a name="260"><span class="lineNum">     260 </span>            : </a>
-<a name="261"><span class="lineNum">     261 </span><span class="lineCov">        181 :         for (int i = 0; i &lt; pdPhoton[key].size(); i++) {</span></a>
+<a name="261"><span class="lineNum">     261 </span><span class="lineCov">         70 :         for (int i = 0; i &lt; pdPhoton[key].size(); i++) {</span></a>
 <a name="262"><span class="lineNum">     262 </span>            :                 // check for random emission</a>
-<a name="263"><span class="lineNum">     263 </span><span class="lineCov">        155 :                 if (random.rand() &gt; pdPhoton[key][i].emissionProbability[l])</span></a>
-<a name="264"><span class="lineNum">     264 </span><span class="lineCov">        134 :                         continue;</span></a>
+<a name="263"><span class="lineNum">     263 </span><span class="lineCov">         61 :                 if (random.rand() &gt; pdPhoton[key][i].emissionProbability[l])</span></a>
+<a name="264"><span class="lineNum">     264 </span><span class="lineCov">         48 :                         continue;</span></a>
 <a name="265"><span class="lineNum">     265 </span>            : </a>
 <a name="266"><span class="lineNum">     266 </span>            :                 // boost to lab frame</a>
-<a name="267"><span class="lineNum">     267 </span><span class="lineCov">         21 :                 double cosTheta = 2 * random.rand() - 1;</span></a>
-<a name="268"><span class="lineNum">     268 </span><span class="lineCov">         21 :                 double E = pdPhoton[key][i].energy * lf * (1 - cosTheta);</span></a>
-<a name="269"><span class="lineNum">     269 </span><span class="lineCov">         21 :                 candidate-&gt;addSecondary(22, E, pos, 1., interactionTag);</span></a>
+<a name="267"><span class="lineNum">     267 </span><span class="lineCov">         13 :                 double cosTheta = 2 * random.rand() - 1;</span></a>
+<a name="268"><span class="lineNum">     268 </span><span class="lineCov">         13 :                 double E = pdPhoton[key][i].energy * lf * (1 - cosTheta);</span></a>
+<a name="269"><span class="lineNum">     269 </span><span class="lineCov">         13 :                 candidate-&gt;addSecondary(22, E, pos, 1., interactionTag);</span></a>
 <a name="270"><span class="lineNum">     270 </span>            :         }</a>
 <a name="271"><span class="lineNum">     271 </span>            : }</a>
 <a name="272"><span class="lineNum">     272 </span>            : </a>

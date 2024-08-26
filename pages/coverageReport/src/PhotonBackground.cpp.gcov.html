@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2024-08-02 13:50:39</td>
+            <td class="headerValue">2024-08-26 12:58:50</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">12</td>
@@ -109,17 +109,17 @@
 <a name="47"><span class="lineNum">      47 </span>            : }</a>
 <a name="48"><span class="lineNum">      48 </span>            : </a>
 <a name="49"><span class="lineNum">      49 </span>            : </a>
-<a name="50"><span class="lineNum">      50 </span><span class="lineCov">       1424 : double TabularPhotonField::getRedshiftScaling(double z) const {</span></a>
-<a name="51"><span class="lineNum">      51 </span><span class="lineCov">       1424 :         if (!this-&gt;isRedshiftDependent)</span></a>
+<a name="50"><span class="lineNum">      50 </span><span class="lineCov">       2219 : double TabularPhotonField::getRedshiftScaling(double z) const {</span></a>
+<a name="51"><span class="lineNum">      51 </span><span class="lineCov">       2219 :         if (!this-&gt;isRedshiftDependent)</span></a>
 <a name="52"><span class="lineNum">      52 </span>            :                 return 1.;</a>
 <a name="53"><span class="lineNum">      53 </span>            :  </a>
-<a name="54"><span class="lineNum">      54 </span><span class="lineCov">       1240 :         if (z &lt; this-&gt;redshifts.front())</span></a>
+<a name="54"><span class="lineNum">      54 </span><span class="lineCov">       2035 :         if (z &lt; this-&gt;redshifts.front())</span></a>
 <a name="55"><span class="lineNum">      55 </span>            :                 return 1.;</a>
 <a name="56"><span class="lineNum">      56 </span>            :  </a>
-<a name="57"><span class="lineNum">      57 </span><span class="lineCov">       1240 :         if (z &gt; this-&gt;redshifts.back())</span></a>
+<a name="57"><span class="lineNum">      57 </span><span class="lineCov">       2035 :         if (z &gt; this-&gt;redshifts.back())</span></a>
 <a name="58"><span class="lineNum">      58 </span>            :                 return 0.;</a>
 <a name="59"><span class="lineNum">      59 </span>            :  </a>
-<a name="60"><span class="lineNum">      60 </span><span class="lineCov">       1240 :         return interpolate(z, this-&gt;redshifts, this-&gt;redshiftScalings);</span></a>
+<a name="60"><span class="lineNum">      60 </span><span class="lineCov">       2035 :         return interpolate(z, this-&gt;redshifts, this-&gt;redshiftScalings);</span></a>
 <a name="61"><span class="lineNum">      61 </span>            : }</a>
 <a name="62"><span class="lineNum">      62 </span>            : </a>
 <a name="63"><span class="lineNum">      63 </span><span class="lineNoCov">          0 : double TabularPhotonField::getMinimumPhotonEnergy(double z) const{</span></a>
@@ -238,14 +238,14 @@
 <a name="176"><span class="lineNum">     176 </span><span class="lineCov">         40 :         this-&gt;quantile = 0.0001; // tested to be sufficient, only used for extreme values of primary energy or temperature</span></a>
 <a name="177"><span class="lineNum">     177 </span><span class="lineCov">         40 : }</span></a>
 <a name="178"><span class="lineNum">     178 </span>            : </a>
-<a name="179"><span class="lineNum">     179 </span><span class="lineCov">       9178 : double BlackbodyPhotonField::getPhotonDensity(double Ephoton, double z) const {</span></a>
-<a name="180"><span class="lineNum">     180 </span><span class="lineCov">       9178 :         return 8 * M_PI * pow_integer&lt;3&gt;(Ephoton / (h_planck * c_light)) / std::expm1(Ephoton / (k_boltzmann * this-&gt;blackbodyTemperature));</span></a>
+<a name="179"><span class="lineNum">     179 </span><span class="lineCov">       9746 : double BlackbodyPhotonField::getPhotonDensity(double Ephoton, double z) const {</span></a>
+<a name="180"><span class="lineNum">     180 </span><span class="lineCov">       9746 :         return 8 * M_PI * pow_integer&lt;3&gt;(Ephoton / (h_planck * c_light)) / std::expm1(Ephoton / (k_boltzmann * this-&gt;blackbodyTemperature));</span></a>
 <a name="181"><span class="lineNum">     181 </span>            : }</a>
 <a name="182"><span class="lineNum">     182 </span>            : </a>
-<a name="183"><span class="lineNum">     183 </span><span class="lineCov">         26 : double BlackbodyPhotonField::getMinimumPhotonEnergy(double z) const {</span></a>
+<a name="183"><span class="lineNum">     183 </span><span class="lineCov">         29 : double BlackbodyPhotonField::getMinimumPhotonEnergy(double z) const {</span></a>
 <a name="184"><span class="lineNum">     184 </span>            :         double A;</a>
-<a name="185"><span class="lineNum">     185 </span><span class="lineCov">         26 :         int quantile_int = 10000 * quantile;</span></a>
-<a name="186"><span class="lineNum">     186 </span><span class="lineCov">         26 :         switch (quantile_int)</span></a>
+<a name="185"><span class="lineNum">     185 </span><span class="lineCov">         29 :         int quantile_int = 10000 * quantile;</span></a>
+<a name="186"><span class="lineNum">     186 </span><span class="lineCov">         29 :         switch (quantile_int)</span></a>
 <a name="187"><span class="lineNum">     187 </span>            :         {</a>
 <a name="188"><span class="lineNum">     188 </span>            :         case 1: // 0.01 % percentil</a>
 <a name="189"><span class="lineNum">     189 </span>            :                 A = 1.093586e-5 * eV / kelvin;</a>
@@ -260,12 +260,12 @@
 <a name="198"><span class="lineNum">     198 </span><span class="lineNoCov">          0 :                 throw std::runtime_error(&quot;Quantile not understood. Please use 0.01 (1%), 0.001 (0.1%) or 0.0001 (0.01%) \n&quot;);</span></a>
 <a name="199"><span class="lineNum">     199 </span>            :                 break;</a>
 <a name="200"><span class="lineNum">     200 </span>            :         }</a>
-<a name="201"><span class="lineNum">     201 </span><span class="lineCov">         26 :         return A * this -&gt; blackbodyTemperature;</span></a>
+<a name="201"><span class="lineNum">     201 </span><span class="lineCov">         29 :         return A * this -&gt; blackbodyTemperature;</span></a>
 <a name="202"><span class="lineNum">     202 </span>            : }</a>
 <a name="203"><span class="lineNum">     203 </span>            : </a>
-<a name="204"><span class="lineNum">     204 </span><span class="lineCov">         26 : double BlackbodyPhotonField::getMaximumPhotonEnergy(double z) const {</span></a>
-<a name="205"><span class="lineNum">     205 </span><span class="lineCov">         26 :         double factor = std::max(1., blackbodyTemperature / 2.73);</span></a>
-<a name="206"><span class="lineNum">     206 </span><span class="lineCov">         26 :         return 0.1 * factor * eV; // T dependent scaling, starting at 0.1 eV as suitable for CMB</span></a>
+<a name="204"><span class="lineNum">     204 </span><span class="lineCov">         29 : double BlackbodyPhotonField::getMaximumPhotonEnergy(double z) const {</span></a>
+<a name="205"><span class="lineNum">     205 </span><span class="lineCov">         29 :         double factor = std::max(1., blackbodyTemperature / 2.73);</span></a>
+<a name="206"><span class="lineNum">     206 </span><span class="lineCov">         29 :         return 0.1 * factor * eV; // T dependent scaling, starting at 0.1 eV as suitable for CMB</span></a>
 <a name="207"><span class="lineNum">     207 </span>            : }</a>
 <a name="208"><span class="lineNum">     208 </span>            : </a>
 <a name="209"><span class="lineNum">     209 </span><span class="lineNoCov">          0 : void BlackbodyPhotonField::setQuantile(double q) {</span></a>

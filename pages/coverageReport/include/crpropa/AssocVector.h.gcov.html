@@ -37,7 +37,7 @@
           </tr>
           <tr>
             <td class="headerItem">Date:</td>
-            <td class="headerValue">2024-08-02 13:50:39</td>
+            <td class="headerValue">2024-08-26 12:58:50</td>
             <td></td>
             <td class="headerItem">Functions:</td>
             <td class="headerCovTableEntry">5</td>
@@ -247,21 +247,21 @@
 <a name="185"><span class="lineNum">     185 </span>            :         size_type max_size() { return Base::max_size(); }</a>
 <a name="186"><span class="lineNum">     186 </span>            : </a>
 <a name="187"><span class="lineNum">     187 </span>            :         // 23.3.1.2 element access:</a>
-<a name="188"><span class="lineNum">     188 </span><span class="lineCov">       1144 :         mapped_type&amp; operator[](const key_type&amp; key)</span></a>
-<a name="189"><span class="lineNum">     189 </span><span class="lineCov">       1144 :         { return insert(value_type(key, mapped_type())).first-&gt;second; }</span></a>
+<a name="188"><span class="lineNum">     188 </span><span class="lineCov">       1143 :         mapped_type&amp; operator[](const key_type&amp; key)</span></a>
+<a name="189"><span class="lineNum">     189 </span><span class="lineCov">       1143 :         { return insert(value_type(key, mapped_type())).first-&gt;second; }</span></a>
 <a name="190"><span class="lineNum">     190 </span>            : </a>
 <a name="191"><span class="lineNum">     191 </span>            :         // modifiers:</a>
-<a name="192"><span class="lineNum">     192 </span><span class="lineCov">       1144 :         std::pair&lt;iterator, bool&gt; insert(const value_type&amp; val)</span></a>
+<a name="192"><span class="lineNum">     192 </span><span class="lineCov">       1143 :         std::pair&lt;iterator, bool&gt; insert(const value_type&amp; val)</span></a>
 <a name="193"><span class="lineNum">     193 </span>            :         {</a>
 <a name="194"><span class="lineNum">     194 </span>            :             bool found(true);</a>
-<a name="195"><span class="lineNum">     195 </span><span class="lineCov">       1144 :             iterator i(lower_bound(val.first));</span></a>
+<a name="195"><span class="lineNum">     195 </span><span class="lineCov">       1143 :             iterator i(lower_bound(val.first));</span></a>
 <a name="196"><span class="lineNum">     196 </span>            : </a>
 <a name="197"><span class="lineNum">     197 </span><span class="lineCov">         13 :             if (i == end() || this-&gt;operator()(val.first, i-&gt;first))</span></a>
 <a name="198"><span class="lineNum">     198 </span>            :             {</a>
-<a name="199"><span class="lineNum">     199 </span><span class="lineCov">       1135 :                 i = Base::insert(i, val);</span></a>
+<a name="199"><span class="lineNum">     199 </span><span class="lineCov">       1134 :                 i = Base::insert(i, val);</span></a>
 <a name="200"><span class="lineNum">     200 </span>            :                 found = false;</a>
 <a name="201"><span class="lineNum">     201 </span>            :             }</a>
-<a name="202"><span class="lineNum">     202 </span><span class="lineCov">       1144 :             return std::make_pair(i, !found);</span></a>
+<a name="202"><span class="lineNum">     202 </span><span class="lineCov">       1143 :             return std::make_pair(i, !found);</span></a>
 <a name="203"><span class="lineNum">     203 </span>            :         }</a>
 <a name="204"><span class="lineNum">     204 </span>            :         //Section [23.1.2], Table 69</a>
 <a name="205"><span class="lineNum">     205 </span>            :         //http://developer.apple.com/documentation/DeveloperTools/gcc-3.3/libstdc++/23_containers/howto.html#4</a>
@@ -341,7 +341,7 @@
 <a name="279"><span class="lineNum">     279 </span>            :         iterator lower_bound(const key_type&amp; k)</a>
 <a name="280"><span class="lineNum">     280 </span>            :         {</a>
 <a name="281"><span class="lineNum">     281 </span>            :             MyCompare&amp; me = *this;</a>
-<a name="282"><span class="lineNum">     282 </span><span class="lineCov">       1149 :             return std::lower_bound(begin(), end(), k, me);</span></a>
+<a name="282"><span class="lineNum">     282 </span><span class="lineCov">       1148 :             return std::lower_bound(begin(), end(), k, me);</span></a>
 <a name="283"><span class="lineNum">     283 </span>            :         }</a>
 <a name="284"><span class="lineNum">     284 </span>            : </a>
 <a name="285"><span class="lineNum">     285 </span>            :         const_iterator lower_bound(const key_type&amp; k) const</a>
